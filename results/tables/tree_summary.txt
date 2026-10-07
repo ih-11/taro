@@ -1,0 +1,62 @@
+========================================================================
+PHYTOENE SYNTHASE
+========================================================================
+
+24 sequences in tree
+
+  Colocasia esculenta (taro)         1  Ces24605
+  Manihot esculenta (cassava)        3  XP_021605498.1, XP_021592587.1, XP_021608855.1
+  Arabidopsis thaliana               1  NP_001318580.1
+  Oryza sativa                       3  XP_015642514.1, XP_015618170.1, XP_015611707.1
+  Zea mays                           3  NP_001108124.2, NP_001108117.1, XP_020397011.1
+  Musa acuminata                     3  XP_009386425.1, XP_018682726.1, XP_009416766.2
+  Solanum tuberosum                  4  XP_006339992.2, XP_015164579.1, XP_006343302.1, XP_006354229.1
+  Nelumbo nucifera                   2  XP_010270744.2, XP_010272282.1
+  Amborella trichopoda               3  XP_006853378.1, XP_011627489.1, XP_020521936.1
+  Zostera marina                     1  KMZ72123.1
+
+nearest relatives of taro Ces24605:
+
+    0.396  XP_009386425.1     Musa acuminata
+    0.432  XP_010270744.2     Nelumbo nucifera
+    0.440  XP_021592587.1     Manihot esculenta (cassava)
+    0.443  XP_015164579.1     Solanum tuberosum
+    0.489  NP_001108124.2     Zea mays
+    0.493  XP_021605498.1     Manihot esculenta (cassava)
+
+newick (paste into iTOL or ETE for a picture):
+(nelnuc_XP_010270744.2:0.185496427,((soltub_XP_006343302.1:0.131750622,(soltub_XP_015164579.1:0.007321319,soltub_XP_006339992.2:0.506773504):0.055501972):0.087570048,(aratha_NP_001318580.1:0.222735305,(manesc_XP_021592587.1:0.032906752,manesc_XP_021605498.1:0.085335401):0.058950732):0.056084385):0.046163129,((zosmar_KMZ72123.1:0.307395201,(colesc_Ces24605:0.178588083,(musacu_XP_009386425.1:0.18144 ...
+
+========================================================================
+CAROTENOID CLEAVAGE DIOXYGENASE / NCED FAMILY
+========================================================================
+
+96 sequences in tree
+
+taro genes ranked by distance to each Arabidopsis anchor:
+
+  distance to CCD4 (AT4G19170):
+      0.966  Ces13251
+      1.194  Ces13250
+      1.309  Ces03723
+      2.056  Ces11733
+      2.059  Ces27429
+      2.071  Ces09230
+      2.107  Ces10063
+      2.141  Ces28200
+      2.142  Ces16312
+      2.479  Ces00245
+
+  distance to NCED3 (AT3G14440):
+      0.808  Ces11733
+      0.810  Ces27429
+      0.823  Ces09230
+      0.893  Ces28200
+      0.894  Ces16312
+      1.196  Ces10063
+      2.133  Ces13251
+      2.324  Ces00245
+      2.362  Ces13250
+      2.477  Ces03723
+
+(save this output: /home/ha-ibnu/Code/taro/results/tables/tree_summary.txt)
