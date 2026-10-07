@@ -1,0 +1,41 @@
+==========================================================
+PROBE  which of these does NCBI annotate?
+==========================================================
+
+ACCESSION          TAG      STATUS      PROTEINS  SPECIES
+--------------------------------------------------------------------------------------
+GCF_000003195.3    sorbic   PROTEINS       28236  Sorghum bicolor
+GCF_001876935.1    aspoff   PROTEINS       26460  Asparagus officinalis
+GCF_001540865.1    anacom   PROTEINS       22251  Ananas comosus
+GCF_000263155.2    setita   PROTEINS       27505  Setaria italica
+GCF_000005505.3    bradis   PROTEINS       25535  Brachypodium distachyon
+GCF_009389715.1    phodac   PROTEINS       29239  Phoenix dactylifera
+GCF_000442705.1    elagui   PROTEINS       26381  Elaeis guineensis
+
+  annotated and usable: 7 of 7
+
+==========================================================
+FETCH  one protein per gene, same rule as 06_
+==========================================================
+get   sorbic  (Sorghum bicolor)
+      39248 proteins -> 28236 genes
+get   aspoff  (Asparagus officinalis)
+      36763 proteins -> 26460 genes
+get   anacom  (Ananas comosus)
+      35775 proteins -> 22251 genes
+get   setita  (Setaria italica)
+      35844 proteins -> 27505 genes
+get   bradis  (Brachypodium distachyon)
+      37892 proteins -> 25535 genes
+get   phodac  (Phoenix dactylifera)
+      48801 proteins -> 29239 genes
+get   elagui  (Elaeis guineensis)
+      43551 proteins -> 26381 genes
+
+==========================================================
+REBUILD  combined search database
+==========================================================
+  454114 proteins, 17 species
+  added: sorbic aspoff anacom setita bradis phodac elagui
+
+  next: bash scripts/21_subgroup_resolve.sh

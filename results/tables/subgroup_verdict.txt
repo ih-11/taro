@@ -1,0 +1,45 @@
+========================================================================
+SUBGROUP ANCHORS IN TREE B
+========================================================================
+  orysat   XP_015618170.1     M1   present
+                                   shoot, leaf, blade, central vein, flag leaf
+  orysat   XP_015611707.1     M2   present
+                                   seedling, coleoptile, leaf, ROOT, radicle, panicle, ovary
+  orysat   XP_015642514.1     M2   present
+                                   seedling, coleoptile, leaf, ROOT, radicle, panicle, ovary
+  sorbic   XP_002442578.1     M1   present
+                                   all stages, peak at stem elongation; all 9 anatomical parts
+  sorbic   XP_002462810.1     M2   present
+                                   all stages, peak at flowering; higher in leaf; stress inducible
+
+  5 of 5 anchors are in the tree
+
+========================================================================
+WALKING OUTWARD FROM colesc_Ces24605
+========================================================================
+
+          support  tips  anchors in clade
+  WEAK   75.2/77     22  M1 (orysat, sorbic)
+  WEAK   82.8/74     23  M1 (orysat, sorbic)
+  WEAK   66.2/64     29  M1 (orysat, sorbic)
+
+========================================================================
+VERDICT
+========================================================================
+
+  First clade containing taro and a labelled anchor: 22 tips
+  Support: 75.2/77
+  Subgroup M1 anchors present, from: orysat, sorbic
+
+  Taro falls with subgroup M1, but the node is below
+  SH-aLRT 80 and UFBoot 95.
+  Record the observation; do not state it as a result.
+
+  Note that two independent species anchor this subgroup
+  (orysat, sorbic), which is worth more than
+  the support value alone suggests. It is corroboration,
+  not confirmation.
+
+  Standing limitations: taro's nearest relative in this tree is still
+  Zostera marina, since no member of the Araceae has a protein set at
+  NCBI. Spirodela polyrhiza would be the single most useful addition.

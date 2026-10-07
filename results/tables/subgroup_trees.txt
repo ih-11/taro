@@ -1,0 +1,55 @@
+==========================================================
+COLLECT  PSY and squalene synthase across all species
+==========================================================
+  PSY queries: 1   SQS queries: 2
+  PSY hits: 48
+  SQS hits: 28
+  tree A input: 45 PSY-family + 28 outgroup = 73
+
+==========================================================
+TREE A  identity: which sequences are phytoene synthase?
+==========================================================
+  alignment: 56356 -> 28324 (50% retained)
+  model: Q.PLANT+G4 chosen according to BIC
+  outgroup clade: 28 tips, 0 query sequences inside it
+
+  PSY sequences carried into tree B: 45
+    ambtri    3  XP_006853378.1, XP_011627489.1, XP_020521936.1
+    anacom    3  XP_020079812.1, XP_020093149.1, XP_020112402.1
+    aratha    1  NP_001318580.1
+    aspoff    4  XP_020254297.1, XP_020256240.1, XP_020260146.1, XP_020276390.1
+    bradis    3  XP_003576821.1, XP_003579110.1, XP_010239427.1
+    colesc    1  Ces24605
+    elagui    3  XP_010910833.1, XP_010940259.1, XP_010942490.1
+    manesc    3  XP_021592587.1, XP_021605498.1, XP_021608855.1
+    musacu    3  XP_009386425.1, XP_009416766.2, XP_018682726.1
+    nelnuc    2  XP_010270744.2, XP_010272282.1
+    orysat    3  XP_015611707.1, XP_015618170.1, XP_015642514.1
+    phodac    2  XP_008812773.1, XP_038970419.1
+    setita    3  XP_004957595.1, XP_004963258.1, XP_004966531.1
+    soltub    4  XP_006339992.2, XP_006343302.1, XP_006354229.1, XP_015164579.1
+    sorbic    3  XP_002442578.1, XP_002462810.1, XP_021305195.1
+    zeamay    3  NP_001108117.1, NP_001108124.2, XP_020397011.1
+    zosmar    1  KMZ72123.1
+
+==========================================================
+TREE B  resolution: PSY only, Amborella outgroup
+==========================================================
+  alignment: 31950 -> 17865 (55% retained)
+  compare with tree A above: dropping the outgroup buys back sites
+  outgroup: ambtri_XP_020521936.1
+  model: JTT+R5 chosen according to BIC
+
+==========================================================
+ANCHORS  label rice and sorghum by chromosome
+==========================================================
+  SPECIES  PROTEIN              CHR      SUBGROUP
+  orysat   XP_015618170.1       chr12    M1
+  orysat   XP_015611707.1       chr9     M2
+  orysat   XP_015642514.1       chr6     M2
+  sorbic   XP_002442578.1       chr8     M1
+  sorbic   XP_002462810.1       chr2     M2
+  sorbic   XP_021305195.1       chr10    -
+
+  tree B: /mnt/f/RA/Downstream/Project5_TARO/work/05_orthology/trees/B_iq.treefile
+  next:   python scripts/22_read_subgroup.py
