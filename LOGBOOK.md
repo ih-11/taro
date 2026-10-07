@@ -535,3 +535,102 @@ Copy number is not flux, and nothing here measures expression or activity in
 corm tissue. The asymmetry between one synthesis gene and three degradation
 genes is a hypothesis about carotenoid turnover worth testing, not a finding
 about it.
+
+## 2026-10-07 night  Proper phylogenetics, and what it costs
+
+### Why the trees were rebuilt
+
+The trees from `12_` were a screen: FAMSA alignment fed directly to FastTree
+with SH-like local support and midpoint rooting. Four things fell short of
+what a gene family paper reports — no alignment trimming, no bootstrap, no
+model selection, and rooting by convenience rather than by outgroup.
+
+`17_trees_proper.sh` addresses all four. trimAl `-automated1` for trimming,
+IQ-TREE with ModelFinder, 1000 ultrafast bootstrap replicates plus SH-aLRT,
+and explicit rooting on *Amborella*.
+
+Model selected by BIC for both families: **Q.PLANT+G4** for PSY and
+**Q.PLANT+R5** for CCD. Q.PLANT is a plant-specific empirical substitution
+matrix, which is the appropriate choice and should be named in methods.
+
+Alignment trimming removed 45% of PSY columns and **77% of CCD columns**
+(136,608 residues to 32,352). The latter is a lot, and it indicates the
+CCD/NCED superfamily is divergent enough that much of the alignment is not
+confidently homologous. The deep clade separation survives this; fine
+topology within clades does not.
+
+### Support dropped sharply under proper testing
+
+| Family | FastTree SH-like >= 0.7 | IQ-TREE SH-aLRT >= 80 and UFBoot >= 95 |
+|---|---|---|
+| PSY | 17 of 21 | **9 of 21** |
+| CCD | not measured | 55 of 93 |
+
+This is the difference between an approximation and a test. It is the reason
+the rebuild was worth the hour.
+
+### Every node placing taro's PSY is weakly supported
+
+Walking from Ces24605 to the root:
+
+| SH-aLRT / UFBoot | Clade size | Verdict |
+|---|---|---|
+| 12.3 / 26 | 7 tips | weak |
+| 43.0 / 31 | 9 tips | weak |
+| 82.7 / 49 | 10 tips | weak |
+| 93.6 / 72 | 17 tips | weak |
+
+UFBoot of 26 and 31 on the two nearest nodes means the backbone around taro's
+PSY is effectively unresolved.
+
+**What survives.** Taro has one gene in the PSY clade. This rests on
+reciprocal best hit to AT5G17230 at 78% identity and e = 1.4e-202, and on
+clade membership, neither of which depends on branching order.
+
+**What does not survive, and must be corrected in earlier entries.**
+
+- Taro being specifically sister to *Musa*. Not supported.
+- Any statement about when PSY duplications occurred in other lineages.
+- **The suggestion that single-copy PSY is an Alismatales characteristic.**
+  An earlier entry proposed this because taro and *Zostera* both have one
+  copy. The nodes that would place those two together are among the weakest
+  in the tree. The observation stands as a coincidence of counts; the
+  phylogenetic inference does not. This should not be stated at the meeting.
+
+### The CCD4 tandem pair is the strongest result here
+
+| Node | SH-aLRT / UFBoot |
+|---|---|
+| Ces13250 + Ces13251 together | **99.9 / 100** |
+
+Maximal support, and it confirms the tandem duplication independently of the
+genome coordinates that first suggested it. Two lines of evidence agreeing is
+worth more than either alone.
+
+Ces03723 falls outside that pair, consistent with a dispersed copy. The CCD4
+group sits within a monocot clade alongside banana, rice and maize at
+82.7/86 — below the conventional threshold but not badly so.
+
+The NCED genes (Ces09230, Ces16312, Ces28200, Ces27429, Ces11733) sit inside
+large clades supported at 99.7/100 and 100/100. The deep CCD versus NCED split
+is solid, which is all that was asked of it.
+
+### Ces00245 should be dropped from the CCD4 discussion
+
+It pairs weakly with *Zostera*, sits far from both anchors, and is CCD1 rather
+than CCD4 — a different enzyme cleaving at different positions. Carrying it
+along in CCD4 figures invites confusion.
+
+### What this means for the meeting
+
+Three claims are safe:
+
+1. Taro carries one phytoene synthase; cassava carries two.
+2. Taro carries three independent CCD4 loci, two in tandem at maximal support
+   and one dispersed.
+3. Taro carries both ORANGE chaperones.
+
+One claim must be withdrawn: that single-copy PSY looks like an Alismatales
+trait. The data are consistent with it and cannot support it.
+
+Copy number remains distinct from flux. Nothing here measures expression.

@@ -1,0 +1,38 @@
+iqtree: /home/ha-ibnu/miniconda3/envs/taro/bin/iqtree
+trimal: /home/ha-ibnu/miniconda3/envs/taro/bin/trimal
+
+==================================================
+psy
+==================================================
+  sequences            : 24
+  residues before trim : 15120
+  residues after trim  : 8328  (55% retained)
+  outgroup             : ambtri_XP_011627489.1
+
+  model selected: Q.PLANT+G4 chosen according to BIC
+  tree          : /mnt/f/RA/Downstream/Project5_TARO/work/05_orthology/trees/psy_iq.treefile
+  report        : /mnt/f/RA/Downstream/Project5_TARO/work/05_orthology/trees/psy_iq.iqtree
+
+==================================================
+ccd
+==================================================
+  sequences            : 96
+  residues before trim : 136608
+  residues after trim  : 32352  (23% retained)
+  outgroup             : ambtri_XP_006878603.1
+
+  model selected: Q.PLANT+R5 chosen according to BIC
+  tree          : /mnt/f/RA/Downstream/Project5_TARO/work/05_orthology/trees/ccd_iq.treefile
+  report        : /mnt/f/RA/Downstream/Project5_TARO/work/05_orthology/trees/ccd_iq.iqtree
+
+==================================================
+support summary
+==================================================
+
+psy: 21 internal nodes
+  well supported (SH-aLRT >= 80 and UFBoot >= 95): 9
+  weakly supported                                : 12
+
+ccd: 93 internal nodes
+  well supported (SH-aLRT >= 80 and UFBoot >= 95): 55
+  weakly supported                                : 38
