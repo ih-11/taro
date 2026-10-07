@@ -397,3 +397,72 @@ directly on construct design.
    CCD/NCED tree with clades coloured.
 3. Check whether Ces13250 and Ces13251 are a tandem duplication or a split
    model, using the same coordinate approach that resolved the PSY fragments.
+
+## 2026-10-07 night  External critique and corrections
+
+An independent read of the repository raised several points. Most were
+correct and are recorded here with the resulting changes.
+
+### Accepted: the CCD4 interpretation overreached
+
+The README stated that taro's degradation step is "amplified" relative to
+synthesis. Copy number is not flux. Three CCD4 paralogs could include genes
+that are silent in corm tissue, expressed in other organs, or catalytically
+dead. Nothing in this analysis measures expression or activity.
+
+Corrected claim: taro's genome encodes three CCD4 paralogs and one intact
+phytoene synthase. Whether that asymmetry affects carotenoid accumulation in
+corm is a hypothesis worth testing, not a result. It remains worth raising
+with the collaborator, because it identifies a variable their design does not
+currently account for.
+
+### Accepted: Ces13250 and Ces13251 were advertised before being checked
+
+The logbook flagged these adjacent gene IDs as possibly a tandem duplication
+or another split model, and the README then reported three independent copies
+anyway. Coordinate check pending, same method that resolved the PSY fragments.
+
+### Accepted: Part 3 does not need only the genome
+
+The README claimed Parts 1 and 3 survive without long-read data, while Part 3
+begins with empirical TSS. A transcription start site cannot be derived from
+genome sequence. This was a plain inconsistency.
+
+Further, ONT cDNA and PacBio Iso-Seq both suffer 5' degradation, so neither
+establishes true TSS in the way CAGE or 5'-RACE does. What they provide is
+observed 5' ends, which bound the start region without pinpointing it.
+
+This is still an improvement on the dissertation's approach, which analysed a
+guessed upstream window, but it must be described accurately. Part 3 is
+comparative cis-regulatory analysis using long-read-supported 5' ends, not
+promoter characterisation.
+
+### Accepted: motif presence is not regulatory compatibility
+
+Finding cassava promoter motifs in taro upstream regions is sequence evidence
+only. It does not show that the promoter would drive expression in taro, and
+certainly not in corm storage parenchyma. The tobacco data in the dissertation
+showed vascular expression, not storage tissue. Part 3 is framed accordingly.
+
+### Partially accepted: ONT and PacBio should be analysed separately
+
+Agreed, but the stated reason understates the problem. The two datasets come
+from different cultivars: Zou et al. used 'Lipu Taro No.1' and Sun et al. used
+'Bun Long'. Differences between them therefore confound sequencing technology
+with genotype, and neither factor can be isolated.
+
+They should be treated as two independent attempts at the same question.
+Agreement between them is the evidence; a pooled analysis would obscure
+exactly what makes them informative.
+
+### Accepted: Part 2 must hold everything else constant
+
+Same reads, same minimap2 preset, same isoform caller, same parameters, with
+only the reference assembly changing. This will be written into the script as
+an explicit constraint rather than left as a convention, because it is the
+single assumption the entire experiment rests on.
+
+### Standing: the missing Araceae relative
+
+Already recorded. The critique confirms it as the largest evolutionary
+limitation, and the *Zostera* observation sharpens rather than resolves it.
