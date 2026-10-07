@@ -1,0 +1,63 @@
+============================================================
+CHECK A — are the three CCD4 genes independent loci?
+============================================================
+
+GENE       SCAFFOLD                START          END STR  SIZE_KB      AA
+Ces13251   Superscaffold7       99735303     99737395   +      2.1     630
+Ces13250   Superscaffold7       99656322     99660230   +      3.9     456
+Ces03723   Superscaffold2      192445091    192451381   -      6.3     892
+
+everything annotated between Ces13250 and Ces13251:
+      99656322     99660230 +  gene-Ces13250
+      99735303     99737395 +  gene-Ces13251
+
+  gap between them: 75073 bp
+
+  interpretation:
+    same scaffold, same strand, small gap, nothing between,
+    protein lengths summing to roughly one -> split model
+    both near full length, or opposite strands -> tandem duplication
+
+
+============================================================
+CHECK B — PSY copy number from tree topology
+============================================================
+
+anchor: aratha_NP_001318580.1  (AT5G17230, Arabidopsis PSY)
+
+walking outward from the anchor:
+
+depth  leaves  aratha  composition
+    6       1       1  aratha:1
+    5       3       1  aratha:1 manesc:2
+    4       6       1  aratha:1 manesc:2 soltub:3
+    3       7       1  aratha:1 manesc:2 nelnuc:1 soltub:3
+    2      12       1  aratha:1 colesc:1 manesc:2 musacu:1 nelnuc:1 orysat:1 soltub:3 zeamay:1 zosmar:1
+    1      14       1  ambtri:2 aratha:1 colesc:1 manesc:2 musacu:1 nelnuc:1 orysat:1 soltub:3 zeamay:1 zosmar:1
+    0      19       1  ambtri:2 aratha:1 colesc:1 manesc:2 musacu:3 nelnuc:2 orysat:2 soltub:3 zeamay:2 zosmar:1
+ root      24       1  ambtri:3 aratha:1 colesc:1 manesc:3 musacu:3 nelnuc:2 orysat:3 soltub:4 zeamay:3 zosmar:1
+
+============================================================
+PSY clade — largest clade containing exactly one Arabidopsis gene
+============================================================
+
+19 sequences
+
+species                             n  members
+Colocasia esculenta (taro)          1  Ces24605
+Manihot esculenta (cassava)         2  XP_021605498.1, XP_021592587.1
+Arabidopsis thaliana                1  NP_001318580.1
+Oryza sativa                        2  XP_015642514.1, XP_015618170.1
+Zea mays                            2  NP_001108124.2, NP_001108117.1
+Musa acuminata                      3  XP_009386425.1, XP_018682726.1, XP_009416766.2
+Solanum tuberosum                   3  XP_006339992.2, XP_015164579.1, XP_006343302.1
+Nelumbo nucifera                    2  XP_010270744.2, XP_010272282.1
+Amborella trichopoda                2  XP_006853378.1, XP_011627489.1
+Zostera marina                      1  KMZ72123.1
+
+sequences OUTSIDE this clade (wider superfamily, not counted as PSY):
+  Amborella trichopoda                1  XP_020521936.1
+  Manihot esculenta (cassava)         1  XP_021608855.1
+  Oryza sativa                        1  XP_015611707.1
+  Solanum tuberosum                   1  XP_006354229.1
+  Zea mays                            1  XP_020397011.1

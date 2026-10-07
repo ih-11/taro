@@ -466,3 +466,72 @@ single assumption the entire experiment rests on.
 
 Already recorded. The critique confirms it as the largest evolutionary
 limitation, and the *Zostera* observation sharpens rather than resolves it.
+
+## 2026-10-07 night  Verification
+
+### Check A: the three CCD4 loci are independent
+
+| Gene | Scaffold | Strand | Protein |
+|---|---|---|---|
+| Ces13251 | Superscaffold7 | + | 630 aa |
+| Ces13250 | Superscaffold7 | + | 456 aa |
+| Ces03723 | Superscaffold2 | − | 892 aa |
+
+Ces13250 and Ces13251 lie 75,073 bp apart, not the 259 bp seen between the PSY
+fragments, and both encode substantial proteins rather than complementary
+pieces of one. Ces03723 is on a different scaffold.
+
+This is a tandem duplication plus a dispersed copy, not an annotation artifact.
+**Three independent CCD4 loci confirmed.** The caveat raised earlier is closed.
+
+### Check B: PSY copy number from tree topology
+
+Counting from homology search hits was unsafe, because the search recovers the
+wider squalene and phytoene synthase superfamily alongside true PSY. Counting
+from topology instead: Arabidopsis has exactly one PSY, so the PSY clade is the
+largest clade still containing a single Arabidopsis sequence.
+
+Walking outward from the anchor, that clade holds 19 sequences. Five further
+sequences sit outside it as a distinct outgroup branch, one each from
+*Amborella*, cassava, rice, potato and maize, and are not phytoene synthases.
+
+| Species | PSY (verified) | Hit count (wrong) |
+|---|---|---|
+| *Colocasia esculenta* | **1** | 1 |
+| *Zostera marina* | 1 | 1 |
+| *Arabidopsis thaliana* | 1 | 1 |
+| *Manihot esculenta* | **2** | 3 |
+| *Oryza sativa* | 2 | 3 |
+| *Zea mays* | 2 | 3 |
+| *Nelumbo nucifera* | 2 | 2 |
+| *Amborella trichopoda* | 2 | 3 |
+| *Musa acuminata* | 3 | 3 |
+| *Solanum tuberosum* | 3 | 4 |
+
+**Cassava has two PSY genes, not three.** This matches the published MePSY1 and
+MePSY2 pair, so the literature was right and the earlier count was an artifact
+of the search method. This was the claim most likely to be repeated, which is
+why it was checked first.
+
+### The pattern worth noting
+
+Taro and *Zostera marina* are the only species in the set with a single PSY,
+and they are the only two Alismatales. Every other angiosperm sampled carries
+two or three.
+
+Two independent Alismatid lineages at single copy suggests a lineage-level
+characteristic rather than something particular to taro. This cannot be
+confirmed without a third Alismatid, which is the specific inference
+*Spirodela polyrhiza* would provide. The limitation is now concrete rather
+than generic.
+
+### Verified statement for the collaboration
+
+Taro carries one phytoene synthase. Cassava, the source of the proposed
+transgene, carries two. Taro also carries three independent CCD4 carotenoid
+cleavage dioxygenase loci and both ORANGE chaperones.
+
+Copy number is not flux, and nothing here measures expression or activity in
+corm tissue. The asymmetry between one synthesis gene and three degradation
+genes is a hypothesis about carotenoid turnover worth testing, not a finding
+about it.
