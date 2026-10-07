@@ -1,0 +1,1 @@
+bash: /home/ha-ibnu/Code/taro/scripts/18_psy_subgroups.sh: No such file or directory
