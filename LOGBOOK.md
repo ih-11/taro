@@ -183,3 +183,69 @@ already occurred twice.
 
 OrthoFinder across all nine proteomes, then extraction of the carotenoid and
 MEP pathway orthogroups, then the pathway table.
+
+## 2026-10-07 evening  Part 1 results
+
+### OrthoFinder completed
+
+28 minutes on 24 threads. 223,125 genes (93.4%) assigned to 18,726
+orthogroups; 8,597 orthogroups contain all nine species, 1,412 of those
+entirely single copy. STRIDE rooted the species tree on *Amborella* with 2,155
+duplications supporting against 8 contradicting, which is the expected
+topology and a good sign the species set behaves sensibly.
+
+### OrthoFinder reported zero taro phytoene synthase genes
+
+This cannot be true. Taro accumulates carotenoids, so it has a PSY.
+
+Direct homology search (`10_`) found three PSY-like taro proteins, and all
+three appear in `Orthogroups_UnassignedGenes.tsv`. MCL failed to cluster them
+at all rather than placing them wrongly. *Zostera marina* was also absent from
+that orthogroup, which fits the same explanation.
+
+6.6% of all genes went unassigned in this run. Any pathway gene could have met
+the same fate, so **orthogroup membership systematically undercounts**. This
+is a methodological finding worth stating: for targeted gene family questions,
+clustering output should be checked against direct homology search rather than
+trusted on its own.
+
+### Pathway inventory by reciprocal best hit
+
+Reciprocal best hit was used instead. Note that this does detect duplications,
+contrary to a concern raised earlier: multiple taro paralogs can share the same
+best Arabidopsis match, and DXS, HDR, CCD4 and NCED3 all returned more than one.
+
+**Phytoene synthase: one full-length ortholog.** Ces24605, 78.0% identity,
+83% query coverage, e = 1.4e-202, reciprocal best hit to AT5G17230 with no
+other Arabidopsis hit above threshold.
+
+Ces12497 and Ces12496 cover only 34% and 26% of the query. Adjacent gene IDs,
+and their coverage sums to roughly one protein. Most likely a single gene
+split across two models by the annotation. To be resolved by gene tree before
+the copy number is stated publicly.
+
+**Carotenoid cleavage dioxygenase 4: three copies.** Ces13251, Ces13250,
+Ces03723, all reciprocal best hits at 86 to 90% coverage.
+
+This matters more than the PSY result for the collaboration. CCD4 degrades
+carotenoids, and in potato and peach CCD4 variation is a principal determinant
+of flesh colour. Taro carrying one phytoene synthase against three CCD4
+enzymes suggests that increasing flux through PSY alone may not produce the
+expected accumulation, because the degradation step is amplified.
+
+**Caveat.** Ces11733 and Ces27429 appear under both CCD4 and NCED3. CCD and
+NCED belong to the same superfamily and cross-hit readily. The three-copy CCD4
+claim requires a gene tree before it is stated to anyone.
+
+**ORANGE: present as a clean pair.** Ces06664 (OR) and Ces26954 (OR-like),
+each the reciprocal best hit of its own Arabidopsis counterpart. Taro has the
+chaperone machinery that controls PSY protein stability.
+
+**Also expanded:** DXS four copies, HDR two. DXS is the entry point to the MEP
+pathway and its expansion is common in plants.
+
+### Next
+
+Gene trees, not more best hits. Two questions need topology to answer:
+whether Ces12496/12497 fall inside the PSY clade or outside it, and whether
+the three CCD4 candidates are genuinely CCD4 rather than NCED.

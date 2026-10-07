@@ -143,9 +143,9 @@ Run in order. Each one writes to its own directory under `work/` and logs to
 - [x] environment and repository layout
 - [x] taro proteome, 28,253 genes, verified against the published count
 - [x] outgroup proteomes, 8 species, all gene counts verified
-- [ ] OrthoFinder run
-- [ ] carotenoid pathway gene set
-- [ ] PSY copy number, the deliverable
+- [x] OrthoFinder run
+- [x] carotenoid pathway gene set
+- [ ] PSY copy number — one full-length ortholog, pending gene tree
 - [ ] Parts 2 and 3
 
 ## Data and permissions
