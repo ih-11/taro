@@ -1,0 +1,53 @@
+======================================================================
+BOUNDARY TEST, corrected rooting
+======================================================================
+  42 tips: 18 squalene synthase, 24 query
+
+  smallest clade holding every outgroup sequence: 18 tips
+  query sequences falling inside it: 0
+
+  PSY count per species (query sequences outside the outgroup clade):
+    Colocasia esculenta (taro)          1  Ces24605
+    Zostera marina                      1  KMZ72123.1
+    Musa acuminata                      3  XP_018682726.1, XP_009416766.2, XP_009386425.1
+    Oryza sativa                        3  XP_015618170.1, XP_015642514.1, XP_015611707.1
+    Zea mays                            3  NP_001108117.1, NP_001108124.2, XP_020397011.1
+    Manihot esculenta (cassava)         3  XP_021608855.1, XP_021605498.1, XP_021592587.1
+    Arabidopsis thaliana                1  NP_001318580.1
+    Solanum tuberosum                   4  XP_006354229.1, XP_006343302.1, XP_006339992.2, XP_015164579.1
+    Nelumbo nucifera                    2  XP_010272282.1, XP_010270744.2
+    Amborella trichopoda                3  XP_020521936.1, XP_011627489.1, XP_006853378.1
+
+======================================================================
+SUBGROUP ASSIGNMENT  —  which monocot copy did taro keep?
+======================================================================
+
+  rice anchors (Lisboa et al. 2022 Table 1, mapped by chromosome):
+    XP_015618170.1     M1  LOC_Os12g43130   in tree
+                       shoot, leaf, blade, central vein, flag leaf
+    XP_015611707.1     M2  LOC_Os09g38320   in tree
+                       seedling, coleoptile, leaf, ROOT, radicle, panicle, ovary
+    XP_015642514.1     M2  LOC_Os06g51290   in tree
+                       seedling, leaf, panicle, floret, ovary, shoot
+
+  walking outward from colesc_Ces24605:
+
+         support  tips  composition
+  WEAK  74.8/59      4  colesc musacu orysat zeamay   <- rice M2
+  WEAK  76.3/55     11  aratha colesc manesc musacu nelnuc orysat soltub zeamay   <- rice M2
+  WEAK  16.8/56     13  aratha colesc manesc musacu nelnuc orysat soltub zeamay   <- rice M2
+  WEAK  82.8/83     14  aratha colesc manesc musacu nelnuc orysat soltub zeamay zosmar   <- rice M2
+  WEAK  51.3/64     20  ambtri aratha colesc manesc musacu nelnuc orysat soltub zeamay zosmar   <- rice M1/M2
+  WEAK  35.4/85     21  ambtri aratha colesc manesc musacu nelnuc orysat soltub zeamay zosmar   <- rice M1/M2
+
+  First clade containing taro and a labelled rice sequence:
+    4 tips, subgroup M2, support 74.8/59
+
+  Taro falls with subgroup M2, but the node is below
+  SH-aLRT 80 / UFBoot 95. Note it; do not state it.
+
+  Caveat for either outcome: 37% of alignment columns survived trimming
+  and the PSY backbone was already weakly supported in 17_. A subgroup
+  assignment from this tree is a working hypothesis, and confirming it
+  would need the Lisboa et al. reference sequences themselves rather
+  than rice standing in for them.

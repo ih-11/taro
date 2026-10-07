@@ -1,1 +1,101 @@
-bash: /home/ha-ibnu/Code/taro/scripts/18_psy_subgroups.sh: No such file or directory
+==========================================================
+PART 1  squalene synthase outgroup
+==========================================================
+  squalene synthase queries: 2
+    >aratha_NP_195190.1
+    >aratha_NP_195191.2
+  SQS homologs found: 18
+
+==========================================================
+PART 2  rebuild the PSY tree with the outgroup included
+==========================================================
+  PSY-family sequences : 24
+  SQS outgroup added   : 18
+  total                : 42
+  alignment: 30072 -> 11256 residues (37% retained after trimming)
+  outgroup : SQS_aratha_NP_195190.1
+  model    : Q.PLANT+R3 chosen according to BIC
+
+==========================================================
+PART 3  where does the PSY/SQS boundary actually fall?
+==========================================================
+  tips: 42  (18 outgroup, 24 query)
+  smallest clade containing all outgroup sequences: 42 tips
+  non-outgroup sequences inside it: 24
+    ambtri_XP_006853378.1
+    ambtri_XP_011627489.1
+    ambtri_XP_020521936.1
+    aratha_NP_001318580.1
+    colesc_Ces24605
+    manesc_XP_021592587.1
+    manesc_XP_021605498.1
+    manesc_XP_021608855.1
+    musacu_XP_009386425.1
+    musacu_XP_009416766.2
+    musacu_XP_018682726.1
+    nelnuc_XP_010270744.2
+    nelnuc_XP_010272282.1
+    orysat_XP_015611707.1
+    orysat_XP_015618170.1
+    orysat_XP_015642514.1
+    soltub_XP_006339992.2
+    soltub_XP_006343302.1
+    soltub_XP_006354229.1
+    soltub_XP_015164579.1
+    zeamay_NP_001108117.1
+    zeamay_NP_001108124.2
+    zeamay_XP_020397011.1
+    zosmar_KMZ72123.1
+
+  verdict for each sequence 16_ excluded:
+    XP_020521936.1     ambtri   SQUALENE SYNTHASE side
+    XP_021608855.1     manesc   SQUALENE SYNTHASE side
+    XP_015611707.1     orysat   SQUALENE SYNTHASE side
+    XP_006354229.1     soltub   SQUALENE SYNTHASE side
+    XP_020397011.1     zeamay   SQUALENE SYNTHASE side
+
+  If these are on the squalene synthase side, the counts from 16_
+  stand and the literature disagreement needs another explanation.
+  If they are on the PSY side, they are PSY and the counts were low.
+
+  corrected PSY count per species (everything off the outgroup side):
+  species                             n  members
+  Colocasia esculenta (taro)          0  -
+  Manihot esculenta (cassava)         0  -
+  Arabidopsis thaliana                0  -
+  Oryza sativa                        0  -
+  Zea mays                            0  -
+  Musa acuminata                      0  -
+  Solanum tuberosum                   0  -
+  Nelumbo nucifera                    0  -
+  Amborella trichopoda                0  -
+  Zostera marina                      0  -
+
+  Lisboa et al. 2022 report, for comparison:
+    cassava, rice, maize, sorghum   3 each
+    Arabidopsis, Zostera marina     1 each
+
+==========================================================
+PART 4  M1 or M2 — which subgroup does taro keep?
+==========================================================
+
+  Lisboa et al. Table 1, rice subgroup assignments.
+  The MSU locus identifier encodes the chromosome, so our rice
+  sequences can be labelled from their genomic position alone.
+
+    LOC_Os12g43130  chr12  M1  shoot, leaf, blade, central vein
+    LOC_Os09g38320  chr9   M2  seedling, coleoptile, leaf, ROOT,
+                               radicle, panicle, ovary; stress inducible
+    LOC_Os06g51290  chr6   M2  seedling, leaf, panicle, floret, ovary
+
+  rice PSY sequences in our tree, with chromosome:
+  PROTEIN              SEQUENCE_ID            SUBGROUP
+  XP_015642514.1       chr6                   M2  (LOC_Os06g51290, broad)
+  XP_015618170.1       chr12                  M1  (LOC_Os12g43130, shoot/leaf biased)
+  XP_015611707.1       chr9                   M2  (LOC_Os09g38320, broad incl. root)
+
+  Taro's PSY subgroup is read from which labelled rice sequence it
+  groups with in psy_og_iq.treefile. Support at that node decides
+  whether the assignment can be stated or only noted.
+
+  tree: /mnt/f/RA/Downstream/Project5_TARO/work/05_orthology/trees/psy_og_iq.treefile
