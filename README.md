@@ -142,11 +142,42 @@ Run in order. Each one writes to its own directory under `work/` and logs to
 
 - [x] environment and repository layout
 - [x] taro proteome, 28,253 genes, verified against the published count
-- [x] outgroup proteomes, 8 species, all gene counts verified
+- [x] outgroup proteomes, 9 species including cassava, gene counts verified
 - [x] OrthoFinder run
-- [x] carotenoid pathway gene set
-- [ ] PSY copy number — one full-length ortholog, pending gene tree
+- [x] carotenoid pathway inventory by reciprocal best hit
+- [x] gene trees for PSY and the CCD/NCED family
+- [ ] PSY copy number per species verified from tree topology
+- [ ] figures
 - [ ] Parts 2 and 3
+
+## Preliminary findings
+
+Public data only, Part 1 complete except for one verification step.
+
+**Taro has one full-length phytoene synthase**, Ces24605 on Superscaffold13,
+428 aa, 78% identity to Arabidopsis PSY and a reciprocal best hit. A second
+PSY-like locus on Superscaffold7 is split across two gene models
+(Ces12496 and Ces12497, 259 bp apart on the same strand) and recovers only
+61% of a full-length protein even when combined. Whether it is a real second
+copy or a degenerate locus cannot be decided from the published annotation,
+which is itself the kind of problem this project set out to document.
+
+**Taro has three CCD4 carotenoid cleavage dioxygenases**, Ces13251, Ces13250
+and Ces03723, confirmed by gene tree against Arabidopsis anchors for both CCD4
+and NCED3. CCD4 degrades carotenoids; in potato and peach it is a principal
+determinant of flesh colour.
+
+**Taro has both ORANGE chaperones**, Ces06664 and Ces26954, which control
+phytoene synthase protein stability post-translationally.
+
+Taken together: one synthesis gene, three degradation genes. Raising flux
+through a single PSY may not produce the expected accumulation if the
+degradation step is amplified. This is relevant to construct design and was
+not anticipated when the project began.
+
+**Two taro annotations disagree about gene count by roughly twofold**
+(56,238 versus 28,253), which supports the premise motivating Parts 2 and 3.
+
 
 ## Data and permissions
 

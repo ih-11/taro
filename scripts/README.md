@@ -33,3 +33,12 @@ the errors they contain are part of the record.
 |---|---|
 | `12_psy_tree.sh` | phytoene synthase gene tree across all nine species |
 | `13_ccd_tree.sh` | separate true CCD4 from NCED in the three-copy result |
+
+## Added after the first pass
+
+| Script | Purpose |
+|---|---|
+| `12_gene_trees.sh` | PSY and CCD/NCED family trees, FAMSA + FastTree |
+| `13_psy_fragments.sh` | coordinates of the PSY-like loci; resolved the split model |
+| `14_add_cassava.sh` | add cassava, the transgene source, to the proteome set |
+| `15_read_trees.py` | read copy number and clade membership off the trees |

@@ -249,3 +249,151 @@ pathway and its expansion is common in plants.
 Gene trees, not more best hits. Two questions need topology to answer:
 whether Ces12496/12497 fall inside the PSY clade or outside it, and whether
 the three CCD4 candidates are genuinely CCD4 rather than NCED.
+
+## 2026-10-07 late evening  Gene trees
+
+### Why trees were needed
+
+Reciprocal best hit gave an inventory but left two things unresolved, both of
+which depend on topology rather than pairwise similarity.
+
+First, taro showed one full-length phytoene synthase (Ces24605, 428 aa) plus
+two short matches, Ces12497 and Ces12496, covering only 34% and 26% of the
+Arabidopsis query. Second, three taro genes were called CCD4 orthologs, but
+two of them also matched NCED3. CCD and NCED belong to the same superfamily
+and cross-hit readily, so that result could not be trusted as it stood.
+
+### The PSY fragments are one broken gene model, not a paralog
+
+Genome coordinates settle it without needing a tree:
+
+| Gene | Scaffold | Start | End | Strand | Protein |
+|---|---|---|---|---|---|
+| Ces24605 | Superscaffold13 | 96,419,008 | 96,426,240 | − | 428 aa |
+| Ces12496 | Superscaffold7 | 79,028,474 | 79,030,838 | + | 112 aa |
+| Ces12497 | Superscaffold7 | 79,031,097 | 79,032,356 | + | 155 aa |
+
+Ces12496 and Ces12497 sit on the same scaffold and strand, separated by 259 bp,
+with nothing else annotated between them. Their alignments to Arabidopsis PSY
+cover non-overlapping regions. This is a single locus split across two gene
+models by the annotation.
+
+Their combined length is 267 aa against a 437 aa reference, so they recover
+only 61% of a full phytoene synthase even when summed. Either the model is
+missing a further segment, or the locus is degenerate. Distinguishing those two
+possibilities requires the long-read data, which is Part 2.
+
+Both sequences also fell below the 150 aa threshold used for tree building, so
+they are too fragmentary to place phylogenetically. That is itself the finding.
+
+This makes a clean illustration of the project's premise. The published
+annotation gives one intact copy of the pathway's rate-limiting enzyme and one
+locus that cannot be interpreted without better data.
+
+### Cassava added to the proteome set
+
+Cassava was not in the Yin et al. species set, because that set was assembled
+for taro gene-family clustering rather than carotenoid engineering. But cassava
+is the source of the transgene this collaboration proposes to move, and it
+carries the PSY paralogs that motivate the entire copy-number question.
+Without it the PSY tree had no anchor to the gene being transferred.
+
+Added GCF_001659605.2: 49,290 proteins collapsing to 29,735 genes, matching the
+NCBI count exactly.
+
+The OrthoFinder run remains a nine-species result while the gene trees are
+ten-species. This is deliberate. Orthogroups were a screening step and the
+trees are the evidence; rerunning OrthoFinder for one additional species would
+cost another 28 minutes and change none of the conclusions.
+
+### CCD4 and NCED separate cleanly
+
+Patristic distance from each taro gene to the two Arabidopsis anchors,
+AT4G19170 (CCD4) and AT3G14440 (NCED3):
+
+| Taro gene | to CCD4 | to NCED3 | Assignment |
+|---|---|---|---|
+| Ces13251 | 0.966 | 2.133 | CCD4 |
+| Ces13250 | 1.194 | 2.362 | CCD4 |
+| Ces03723 | 1.309 | 2.477 | CCD4 |
+| Ces11733 | 2.056 | 0.808 | NCED |
+| Ces27429 | 2.059 | 0.810 | NCED |
+| Ces09230 | 2.071 | 0.823 | NCED |
+| Ces28200 | 2.141 | 0.893 | NCED |
+| Ces16312 | 2.142 | 0.894 | NCED |
+
+Every gene is roughly twice as far from the wrong anchor as from the correct
+one. There is no ambiguity.
+
+**The earlier caveat is resolved.** Taro has three CCD4 genes: Ces13251,
+Ces13250 and Ces03723. The cross-hits that prompted the caveat were genuine
+NCED genes, which is expected within a superfamily, and not evidence against
+the CCD4 count.
+
+One point remains open: Ces13250 and Ces13251 have adjacent gene identifiers,
+so they may be a tandem duplication or, as with the PSY fragments, another
+split model. Worth checking coordinates.
+
+### Taro has one PSY where most plants have three
+
+Sequences recovered per species in the PSY family search:
+
+| Species | PSY-family proteins |
+|---|---|
+| *Colocasia esculenta* (taro) | 1 |
+| *Zostera marina* | 1 |
+| *Nelumbo nucifera* | 2 |
+| *Manihot esculenta* (cassava) | 3 |
+| *Arabidopsis thaliana* | 1 |
+| *Oryza sativa* | 3 |
+| *Zea mays* | 3 |
+| *Musa acuminata* | 3 |
+| *Amborella trichopoda* | 3 |
+| *Solanum tuberosum* | 4 |
+
+**These counts are from a homology search with a 150 aa filter, not from tree
+topology, and have not yet been verified against the tree.** Some may belong
+to the broader squalene and phytoene synthase superfamily rather than being
+true phytoene synthases. The count must be confirmed before being quoted.
+
+Taro's nearest neighbours by patristic distance from Ces24605:
+
+| Distance | Protein | Species |
+|---|---|---|
+| 0.396 | XP_009386425.1 | *Musa acuminata* |
+| 0.432 | XP_010270744.2 | *Nelumbo nucifera* |
+| 0.440 | XP_021592587.1 | *Manihot esculenta* |
+| 0.443 | XP_015164579.1 | *Solanum tuberosum* |
+
+The newick shows taro grouping with *Musa* inside a clade that also contains
+*Zostera*, which is the expected monocot topology and a sign the tree is
+behaving sensibly.
+
+Note that *Zostera marina*, the only other member of the Alismatales in this
+set, also has a single copy. The low count may therefore be a characteristic
+of the Alismatales rather than something specific to taro. This is precisely
+the question *Spirodela polyrhiza* would settle, which turns the earlier
+limitation from a generic caveat into a concrete gap.
+
+### What this means for the collaboration
+
+Taro carries a single phytoene synthase, while cassava, the source of the
+proposed transgene, carries more. Taro also carries three CCD4 carotenoid
+cleavage dioxygenases, the enzymes that degrade the compound the project aims
+to accumulate. In potato and peach, CCD4 variation is a principal determinant
+of flesh colour.
+
+Raising flux through a single PSY into a tissue carrying a triplicated
+degradation step may not produce the accumulation the plan assumes. This is a
+concrete, testable concern derived entirely from public data, and it bears
+directly on construct design.
+
+### Next
+
+1. Verify PSY copy number per species from tree topology rather than hit
+   counts. This is the claim most likely to be wrong and most likely to be
+   repeated.
+2. Figure: two panels, the PSY tree with taro and cassava highlighted and the
+   CCD/NCED tree with clades coloured.
+3. Check whether Ces13250 and Ces13251 are a tandem duplication or a split
+   model, using the same coordinate approach that resolved the PSY fragments.
