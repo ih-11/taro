@@ -1,0 +1,44 @@
+# conda env for Project5_TARO
+#   conda env create -f envs/taro.yml
+#   conda activate taro
+name: taro
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.11
+  # alignment / sequence handling
+  - minimap2
+  - samtools
+  - bedtools
+  - seqkit
+  - gffread
+  # isoform reconstruction
+  - isoquant
+  - stringtie
+  # orthology  (Part 1)
+  - diamond
+  - orthofinder
+  - blast
+  - hmmer
+  # annotation comparison  (Part 4) — drop these two first if the solve conflicts
+  - liftoff
+  - agat
+  # data acquisition
+  - sra-tools
+  # python
+  - pysam
+  - pyranges
+  - gffutils
+  - pyfaidx
+  - biopython
+  - numpy
+  - pandas
+  - scipy
+  - matplotlib
+  - seaborn
+  - upsetplot
+  - pybedtools
+  - jupyterlab
+  - ipykernel

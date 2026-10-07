@@ -1,0 +1,27 @@
+# heavy side lives on /mnt/f — never tracked
+store
+refs/
+data/
+work/
+logs/
+
+*.bam
+*.bai
+*.sam
+*.fastq*
+*.fa
+*.fasta
+*.fai
+*.mmi
+*.gff3
+*.gtf
+*.bed
+*.bedgraph
+
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+.DS_Store
+
+# scratch (TMPDIR)
+.tmp/
