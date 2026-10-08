@@ -1,0 +1,25 @@
+REVIEW rows: 19 -> 0
+
+======================================================================
+FINAL SCOPE DISPOSITION
+======================================================================
+   54  exclude
+   11  family-member
+    4  outparalog
+
+written: /home/ha-ibnu/Code/taro/results/tables/kegg_scope_review.tsv
+
+  Read it before committing. Every decision is a judgement I made and you can
+  overturn, and the reason column says what each one rests on.
+
+  The two that were genuine scope questions rather than mechanical gaps:
+
+    GGR   excluded. The main competing sink for GGPP, so interesting for flux,
+          but GGPP also feeds gibberellins and protein geranylgeranylation. A
+          scope that admits one competing sink admits all of them.
+
+    GPS1  excluded. Different product, C10 rather than C20.
+
+  If you disagree with either, change it now. After 03_ has seen taro results a
+  scope change cannot be told apart from a result-driven one.
+

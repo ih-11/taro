@@ -72,10 +72,10 @@ rows = []
 raw = defaultdict(list)     # gene -> all forward hits, for the grid
 
 for a in anchors:
-    gene, locus = a["gene"], a["at_locus"].upper()
+    gene, locus = a["target"], a["anchor_locus"].upper()
     acc = next((x for x in locus2acc.get(locus, []) if x in ara_by_acc), None)
     if acc is None:
-        print(f"{a['step']:<10}{gene:<10}{'-':<13}  anchor not in proteome")
+        print(f"{a['pathway']:<10}{gene:<10}{'-':<13}  anchor not in proteome")
         continue
 
     hdr, seq = ara_by_acc[acc]
@@ -84,8 +84,8 @@ for a in anchors:
     fwd = dmnd("q.faa", "colesc", "fwd.tsv")
 
     if not fwd:
-        print(f"{a['step']:<10}{gene:<10}{'none':<13}  no hit at e<1e-5")
-        rows.append(dict(step=a["step"], gene=gene, at_locus=locus,
+        print(f"{a['pathway']:<10}{gene:<10}{'none':<13}  no hit at e<1e-5")
+        rows.append(dict(step=a["pathway"], gene=gene, at_locus=locus,
                          claim_kind=a["claim_kind"], taro_gene="",
                          identity="", coverage_pct="", aln="", evalue="",
                          call="absent"))
@@ -111,10 +111,10 @@ for a in anchors:
             call = "fragment"
 
         g = sid.split("|")[-1]
-        print(f"{a['step'] if first else '':<10}{gene if first else '':<10}"
+        print(f"{a['pathway'] if first else '':<10}{gene if first else '':<10}"
               f"{g:<13}{pid:>5.1f}{cov*100:>6.0f}{alen:>6}  {ev:<11} {call}")
         first = False
-        rows.append(dict(step=a["step"], gene=gene, at_locus=locus,
+        rows.append(dict(step=a["pathway"], gene=gene, at_locus=locus,
                          claim_kind=a["claim_kind"], taro_gene=g,
                          identity=f"{pid:.1f}", coverage_pct=f"{cov*100:.0f}",
                          aln=alen, evalue=ev, call=call))
@@ -133,7 +133,7 @@ print("-" * 86)
 
 unstable = []
 for a in anchors:
-    gene = a["gene"]
+    gene = a["target"]
     hits = raw.get(gene, [])
     counts = []
     for mina in MIN_ALN:
@@ -180,7 +180,7 @@ with open(grid_out, "w", newline="") as fh:
         counts = [sum(1 for _, _, alen, cov, _, rbh in hits
                       if rbh and alen >= mina and cov >= minc)
                   for mina in MIN_ALN for minc in MIN_COV]
-        w.writerow([a["gene"]] + counts + [len(set(counts)) == 1])
+        w.writerow([a["target"]] + counts + [len(set(counts)) == 1])
 
 print(f"\nwritten: {out}")
 print(f"written: {grid_out}")

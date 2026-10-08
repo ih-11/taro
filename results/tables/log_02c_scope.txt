@@ -1,0 +1,114 @@
+69 loci
+
+============================================================================
+PROPOSED
+============================================================================
+   35  exclude
+   11  family-member
+    4  outparalog
+   19  REVIEW
+
+FAMILY MEMBERS of targets already defined
+----------------------------------------------------------------------------
+  AT1G30100    NCED5; nine-cis-epoxycarotenoid dioxygenase 5
+  AT1G78390    NCED9; nine-cis-epoxycarotenoid dioxygenase 9
+  AT3G24220    NCED6; nine-cis-epoxycarotenoid dioxygenase 6
+  AT4G18350    NCED2; nine-cis-epoxycarotenoid dioxygenase 2
+  AT1G49530    GGPS6; geranylgeranyl pyrophosphate synthase 6
+  AT2G18640    GGPS4; geranylgeranyl pyrophosphate synthase 4
+  AT2G23800    GGPS2; geranylgeranyl pyrophosphate synthase 2
+  AT3G02780    IPP2; isopentenyl pyrophosphate:dimethylallyl pyrophosphate 
+  AT3G14550    GGPS3; geranylgeranyl pyrophosphate synthase 3
+  AT3G21500    DXPS1; 1-deoxy-D-xylulose 5-phosphate synthase 1
+  AT5G11380    DXPS3; 1-deoxy-D-xylulose 5-phosphate synthase 3
+
+EXCLUDED FROM SCOPE, USED AS PHYLOGENETIC REFERENCE
+----------------------------------------------------------------------------
+  AT4G17190    FPS2; farnesyl diphosphate synthase 2
+  AT5G47770    FPS1; farnesyl diphosphate synthase 1
+  AT2G44990    CCD7; carotenoid cleavage dioxygenase 7
+  AT4G32810    CCD8; carotenoid cleavage dioxygenase 8
+
+============================================================================
+NEEDS A PERSON
+============================================================================
+
+The KEGG name does not settle these. Each proposal is REVIEW and the
+question is stated rather than answered.
+
+  AT4G36470  S-adenosyl-L-methionine-dependent methyltransferases superfami
+      no rule matched this KEGG name; decide by hand
+
+  AT2G34630  GPS1; geranyl diphosphate synthase 1
+      Makes GPP (C10), not GGPP (C20), so a different product. Same trans-
+      prenyltransferase superfamily, so the GGPPS family search may recove
+      r its orthologs anyway. Family member, or out of scope?
+
+  AT3G14510  Polyprenyl synthetase family protein
+      Unnamed. Could be a GGPS family member or a distinct polyprenyl synt
+      hase. Tree A for GGPPS will place it.
+
+  AT4G38460  GGR; geranylgeranyl reductase
+      Reduces GGPP to phytyl-PP for chlorophyll and tocopherol, so it is t
+      he main competing sink for the GGPP pool. Relevant to flux in a biof
+      ortification context but not a carotenoid pathway enzyme. Include as
+       a target, or note for Part 2 discussion?
+
+  AT5G40280  ERA1; Prenyltransferase family protein
+      Beta subunit of protein farnesyltransferase, so protein prenylation,
+       but the name alone does not say so.
+
+  AT1G26120  ICME-LIKE1; alpha/beta-Hydrolases superfamily protein
+      no rule matched this KEGG name; decide by hand
+
+  AT1G26640  Amino acid kinase family protein
+      no rule matched this KEGG name; decide by hand
+
+  AT1G31910  GHMP kinase family protein
+      no rule matched this KEGG name; decide by hand
+
+  AT1G52340  ABA2; NAD(P)-binding Rossmann-fold superfamily protein
+      no rule matched this KEGG name; decide by hand
+
+  AT1G74470  Pyridine nucleotide-disulfide oxidoreductase family protein
+      no rule matched this KEGG name; decide by hand
+
+  AT2G18620  Terpenoid synthases superfamily protein
+      Unnamed; see AT3G14510.
+
+  AT3G02410  ICME-LIKE2; alpha/beta-Hydrolases superfamily protein
+      no rule matched this KEGG name; decide by hand
+
+  AT3G14530  Terpenoid synthases superfamily protein
+      Unnamed; see AT3G14510.
+
+  AT3G20160  Terpenoid synthases superfamily protein
+      Unnamed; see AT3G14510.
+
+  AT3G29430  Terpenoid synthases superfamily protein
+      Unnamed; see AT3G14510.
+
+  AT3G32040  Terpenoid synthases superfamily protein
+      Unnamed; see AT3G14510.
+
+  AT3G54250  GHMP kinase family protein
+      no rule matched this KEGG name; decide by hand
+
+  AT4G33360  FLDH; NAD(P)-binding Rossmann-fold superfamily protein
+      no rule matched this KEGG name; decide by hand
+
+  AT5G58560  FOLK; Phosphatidate cytidylyltransferase family protein
+      no rule matched this KEGG name; decide by hand
+
+============================================================================
+
+written: /home/ha-ibnu/Code/taro/results/tables/kegg_scope_review.tsv
+
+  Every row now carries a proposed decision and the reason behind it. Change
+  what you disagree with, resolve the REVIEW rows, then commit the file. That
+  commit is the frozen scope.
+
+  Nothing in the REVIEW set blocks 03_: every one of them is either already
+  covered by an existing family search or excluded. They need resolving before
+  the scope is called final, not before the homology step runs.
+

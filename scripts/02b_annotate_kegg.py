@@ -1,28 +1,25 @@
 #!/usr/bin/env python3
 """
-02b_annotate_kegg.py — name the loci KEGG has that we do not, and check the
-loci we have that KEGG does not.
+02b_annotate_kegg.py — name the KEGG-only loci so scope decisions are made on
+descriptions rather than on recognising identifiers.
 
-The cross-check in 02_ found 70 KEGG loci absent from the hand list. Deciding
-which belong by recognising locus identifiers would be guessing from memory,
-which is the habit that produced the squalene synthase error and the clade-rule
-error. So KEGG names them instead.
+Reads  : results/tables/kegg_only_loci_raw.tsv   (written by 02_, never altered)
+Writes : results/tables/kegg_scope_review.tsv    (for a human to fill in)
 
-Two questions, not one:
+The split matters. An earlier version read and overwrote the same file, which
+destroyed the raw list the moment the annotation ran and left no record of what
+02_ actually produced.
 
-  1. Which of the 70 KEGG-only loci belong in a carotenoid and MEP inventory?
-     Most will not. ath00900 carries the cytosolic mevalonate pathway, which is
-     not the plastidial MEP pathway, and ath00906 continues into abscisic acid
-     catabolism downstream of NCED.
+THE BUCKETS ARE NAVIGATION, NOT EVIDENCE.
 
-  2. Why are five of our anchors absent from KEGG? ORANGE, ORANGE-like and
-     fibrillin are expected, because they act on carotenoid accumulation
-     without catalysing a step. CCD1 and NSX are not: CCD1 is a carotenoid
-     cleavage dioxygenase and NSX is neoxanthin synthase, and both should
-     appear in ath00906. Either KEGG assigns them different loci, or our locus
-     identifiers are wrong. The second would be an error in the hand list.
+Keyword grouping cannot make a biological decision and is not meant to.
+"isopentenyl" catches IDI, which belongs, alongside prenyltransferases that do
+not. The carotenoid-cleavage bucket mixes CCD1, CCD4, NCED, CCD7 and CCD8,
+whose roles in this inventory differ completely: CCD4 and NCED are targets,
+CCD7 and CCD8 are excluded from scope but used as phylogenetic outparalogs.
 
-Nothing is added or removed automatically. This writes a table for a decision.
+So every bucket is a sorting aid for reading 70 descriptions quickly. Nothing is
+added or excluded automatically, and the decision column starts empty.
 """
 import csv
 import os
@@ -34,18 +31,18 @@ from pathlib import Path
 
 CODE = Path(os.environ["TARO_CODE"])
 TAB = CODE / "results" / "tables"
+RAW = TAB / "kegg_only_loci_raw.tsv"
+OUT = TAB / "kegg_scope_review.tsv"
 
+# anchors KEGG did not return; checked to distinguish "KEGG files it elsewhere"
+# from "our locus identifier is wrong"
 OURS_ONLY = {
-    "AT1G67080": "NSX",
-    "AT3G63520": "CCD1",
-    "AT4G04020": "FBN1a",
-    "AT5G06130": "OR-like",
-    "AT5G61670": "OR",
+    "AT1G67080": "NSX", "AT3G63520": "CCD1", "AT4G04020": "FBN1a",
+    "AT5G06130": "OR-like", "AT5G61670": "OR",
 }
 
 
-def kegg_get(entries):
-    """KEGG /list accepts up to 10 entries per call."""
+def kegg_names(entries):
     out = {}
     for i in range(0, len(entries), 10):
         chunk = entries[i:i + 10]
@@ -54,44 +51,56 @@ def kegg_get(entries):
             with urllib.request.urlopen(url, timeout=30) as r:
                 txt = r.read().decode()
         except (urllib.error.URLError, OSError, TimeoutError) as exc:
-            print(f"  lookup failed for {chunk[0]}...: {exc}", file=sys.stderr)
+            print(f"  lookup failed near {chunk[0]}: {exc}", file=sys.stderr)
             continue
         for ln in txt.splitlines():
-            parts = ln.split("\t")
-            if len(parts) >= 2:
-                out[parts[0].replace("ath:", "").upper()] = parts[-1]
-        time.sleep(0.34)          # KEGG asks for no more than 3 requests/second
+            p = ln.split("\t")
+            if len(p) >= 2:
+                out[p[0].replace("ath:", "").upper()] = p[-1]
+        time.sleep(0.34)          # KEGG asks for at most 3 requests per second
     return out
 
 
-# ------------------------------------------------------------- KEGG-only
-src = TAB / "kegg_only_loci.tsv"
-loci = [r["at_locus"] for r in csv.DictReader(open(src), delimiter="\t")
-        if r["at_locus"]]
+if not RAW.exists():
+    sys.exit(f"{RAW} not found; run 02_pathway_set.py first")
+
+loci = [ln.strip() for ln in open(RAW) if ln.strip() and ln.strip() != "at_locus"]
 print(f"naming {len(loci)} KEGG-only loci\n")
-
-names = kegg_get(loci)
+names = kegg_names(loci)
 if not names:
-    sys.exit("KEGG lookup returned nothing; the decision cannot be made on data")
+    sys.exit("KEGG returned nothing; the review cannot be prepared from data")
 
-# Group by what the description says, so the decision is made on KEGG's own
-# words rather than on recognising an identifier.
 BUCKETS = [
     ("mevalonate / cytosolic",
-     ("hydroxymethylglutaryl", "hmg-coa", "mevalonate", "mevalonate kinase",
-      "diphosphomevalonate", "farnesyl")),
+     ("hydroxymethylglutaryl", "hmg-coa", "mevalonate", "farnesyl", "thiolase",
+      "acetoacetyl")),
     ("abscisic acid, downstream of NCED",
-     ("abscisic", "aba ", "8'-hydroxylase", "xanthoxin", "aldehyde oxidase",
-      "beta-glucosidase")),
+     ("abscisic", "707a", "xanthoxin", "aldehyde oxidase", "glucosidase")),
     ("carotenoid cleavage / apocarotenoid",
-     ("carotenoid cleavage", "ccd", "9-cis-epoxycarotenoid", "nced")),
+     ("carotenoid cleavage", "epoxycarotenoid", "carotene isomerase")),
+    ("protein prenylation",
+     ("prenyltransferase a", "farnesyltransferase", "isoprenylcysteine",
+      "prenylcysteine", "peptidase family m48", "methyltransferase")),
     ("prenyl / polyprenyl diphosphate",
-     ("prenyl", "polyprenyl", "solanesyl", "geranyl", "dehydrodolichyl",
-      "isopentenyl", "undecaprenyl")),
+     ("prenyl", "polyprenyl", "solanesyl", "geranyl", "undecaprenyl",
+      "isopentenyl")),
     ("carotenoid biosynthesis proper",
-     ("phytoene", "carotene", "lycopene", "zeaxanthin", "violaxanthin",
-      "neoxanthin", "carotenoid")),
+     ("phytoene", "lycopene", "zeaxanthin", "violaxanthin", "neoxanthin",
+      "carotenoid")),
 ]
+NOTE = {
+    "mevalonate / cytosolic": "likely exclude: cytosolic MVA, not plastidial MEP",
+    "abscisic acid, downstream of NCED": "likely exclude: downstream of scope",
+    "carotenoid cleavage / apocarotenoid":
+        "READ EACH: CCD4 and NCED are targets; CCD7, CCD8 and D27 are the "
+        "strigolactone branch, excluded from scope but used as outparalogs",
+    "protein prenylation": "likely exclude: protein modification",
+    "prenyl / polyprenyl diphosphate":
+        "READ EACH: GGPS members belong, IDI belongs, dolichol and solanesyl "
+        "chains do not",
+    "carotenoid biosynthesis proper": "READ EACH: likely belongs",
+    "unclassified": "READ EACH",
+}
 
 grouped = {b[0]: [] for b in BUCKETS}
 grouped["unclassified"] = []
@@ -105,61 +114,50 @@ for loc in sorted(names):
         grouped["unclassified"].append((loc, names[loc]))
 
 print("=" * 78)
-print("KEGG LOCI ABSENT FROM THE HAND LIST, grouped by KEGG's own description")
+print("KEGG LOCI ABSENT FROM THE SCOPE")
+print("grouped by KEGG's own description; grouping is navigation, not evidence")
 print("=" * 78)
-
-SUGGEST = {
-    "mevalonate / cytosolic": "exclude — cytosolic MVA, not the plastidial MEP pathway",
-    "abscisic acid, downstream of NCED": "exclude — downstream of the inventory's scope",
-    "carotenoid cleavage / apocarotenoid": "REVIEW — same family as CCD4 and NCED",
-    "prenyl / polyprenyl diphosphate": "REVIEW — only those feeding GGPP belong",
-    "carotenoid biosynthesis proper": "REVIEW — likely belongs",
-    "unclassified": "REVIEW — read the description",
-}
 
 rows = []
 for label in [b[0] for b in BUCKETS] + ["unclassified"]:
     items = grouped[label]
     if not items:
         continue
-    print(f"\n{label}  ({len(items)})")
-    print(f"  suggested: {SUGGEST[label]}")
+    print(f"\n{label}  ({len(items)})\n  {NOTE[label]}")
     for loc, desc in items:
-        print(f"    {loc:<12} {desc[:78]}")
+        print(f"    {loc:<12} {desc[:76]}")
         rows.append(dict(at_locus=loc, kegg_name=desc, bucket=label,
-                         suggestion=SUGGEST[label], decision="", reason=""))
+                         decision="", reason=""))
 
-# ------------------------------------------------------------- ours-only
 print()
 print("=" * 78)
-print("OUR ANCHORS THAT KEGG DID NOT RETURN")
+print("ANCHORS KEGG DID NOT RETURN")
 print("=" * 78)
-print("\nIf KEGG knows the locus but places it outside these two pathways, the")
-print("anchor is fine. If KEGG does not know the locus at all, the hand list")
-print("has a wrong identifier, which is an error rather than a difference.\n")
-
-ours = kegg_get(list(OURS_ONLY))
+print("\nKEGG knowing the locus but filing it elsewhere means the anchor is")
+print("fine. KEGG not knowing it at all means our identifier is wrong.\n")
+ours = kegg_names(list(OURS_ONLY))
 for loc, gene in sorted(OURS_ONLY.items(), key=lambda x: x[1]):
     d = ours.get(loc)
     if d:
-        print(f"  {gene:<9} {loc}   KEGG knows it: {d[:60]}")
-        print(f"  {'':<9} {'':<12}  -> outside ath00906/ath00900, anchor stands")
+        print(f"  {gene:<9} {loc}  ok, filed elsewhere: {d[:52]}")
     else:
-        print(f"  {gene:<9} {loc}   KEGG DOES NOT RECOGNISE THIS LOCUS")
-        print(f"  {'':<9} {'':<12}  -> check the identifier in the hand list")
+        print(f"  {gene:<9} {loc}  NOT RECOGNISED — check the identifier")
 
-out = TAB / "kegg_only_loci.tsv"
-with open(out, "w", newline="") as fh:
+with open(OUT, "w", newline="") as fh:
     w = csv.DictWriter(fh, delimiter="\t",
                        fieldnames=["at_locus", "kegg_name", "bucket",
-                                   "suggestion", "decision", "reason"])
+                                   "decision", "reason"])
     w.writeheader()
     w.writerows(rows)
 
 print(f"""
-written: {out}
+written: {OUT}
 
-  Fill in `decision` (add / exclude) and `reason` for anything in a REVIEW
-  bucket. Loci marked exclude need no further work; loci added get a claim kind
-  assigned in 02_ before 03_ re-runs, the same as every other anchor.
+  Fill in decision (add / exclude) and reason for every row, then commit it.
+  That file is the frozen record of what the scope includes and why.
+
+  Anything added gets a target, an anchor, a target_level and a claim_kind in
+  02_ before 03_ runs. Changing scope after 03_ has seen taro results cannot be
+  distinguished from a result-driven decision, which is the reason this is
+  settled first.
 """)

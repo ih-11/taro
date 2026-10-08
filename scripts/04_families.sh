@@ -205,7 +205,7 @@ PY
 }
 
 # only copy-number families
-awk -F'\t' 'NR>1 && $4=="copy-number" {print $2"\t"$3"\t"$5}' "$ANCH" \
+awk -F'\t' 'NR>1 && $6=="copy-number" {print $2"\t"$4"\t"$7}' "$ANCH" \
 | while IFS=$'\t' read -r gene locus outpar; do
     if [ -z "$outpar" ]; then
         echo

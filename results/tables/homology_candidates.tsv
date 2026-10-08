@@ -1,0 +1,94 @@
+step	gene	at_locus	claim_kind	taro_gene	identity	coverage_pct	aln	evalue	call
+MEP	DXS family	AT4G15560	detection	Ces23591	87.8	93	664	0.0	ortholog (RBH)
+MEP	DXS family	AT4G15560	detection	Ces01305	73.5	91	653	0.0	ortholog (RBH)
+MEP	DXS family	AT4G15560	detection	Ces01303	74.0	73	524	3.40e-289	ortholog (RBH)
+MEP	DXS family	AT4G15560	detection	Ces01301	51.4	87	627	2.79e-203	ortholog (RBH)
+MEP	DXS family	AT4G15560	detection	Ces02309	76.2	33	235	1.76e-125	partial (RBH)
+MEP	DXR family	AT5G62790	detection	Ces17928	78.4	98	486	2.44e-269	ortholog (RBH)
+MEP	MCT family	AT2G02500	detection	Ces20920	72.5	78	236	6.82e-110	ortholog (RBH)
+MEP	CMK family	AT2G26930	detection	Ces18096	69.4	96	369	1.44e-187	ortholog (RBH)
+MEP	MDS family	AT1G63970	detection	Ces06836	86.1	72	166	3.75e-104	ortholog (RBH)
+MEP	HDS family	AT5G60600	detection	Ces25286	84.5	94	698	0.0	ortholog (RBH)
+MEP	HDR family	AT4G34350	detection	Ces00461	78.2	95	445	1.41e-263	ortholog (RBH)
+MEP	HDR family	AT4G34350	detection	Ces01140	78.0	95	441	3.70e-262	ortholog (RBH)
+MEP	IDI family	AT5G16440	detection	Ces00791	83.2	80	232	3.04e-144	ortholog (RBH)
+backbone	GGPPS family	AT4G36810	copy-number	Ces14428	71.5	80	298	1.39e-133	ortholog (RBH)
+backbone	GGPPS family	AT4G36810	copy-number	Ces23819	36.0	58	214	1.66e-36	fragment
+backbone	GGPPS family	AT4G36810	copy-number	Ces26216	36.1	71	263	3.45e-35	homolog
+backbone	GGPPS family	AT4G36810	copy-number	Ces13688	29.0	56	207	3.63e-17	fragment
+backbone	GGPPS family	AT4G36810	copy-number	Ces13689	27.9	59	219	2.38e-13	fragment
+core	PSY family	AT5G17230	copy-number	Ces24605	78.0	83	363	1.41e-202	ortholog (RBH)
+core	PDS family	AT4G14210	detection	Ces19826	84.2	93	525	0.0	ortholog (RBH)
+core	Z-ISO family	AT1G10830	detection	Ces00431	77.9	79	289	3.53e-170	ortholog (RBH)
+core	ZDS family	AT3G04870	detection	Ces25986	83.1	94	527	0.0	ortholog (RBH)
+core	ZDS family	AT3G04870	detection	Ces19826	31.2	96	535	2.57e-74	homolog
+core	CRTISO family	AT1G06820	detection	Ces10412	81.5	89	530	0.0	ortholog (RBH)
+core	CRTISO family	AT1G06820	detection	Ces03681	31.8	90	535	4.13e-61	homolog
+cyclase	LCYB family	AT3G10230	detection	Ces15328	74.2	102	511	1.44e-278	ortholog (RBH)
+cyclase	LCYB family	AT3G10230	detection	Ces02774	38.7	89	447	3.11e-84	homolog
+cyclase	LCYE family	AT5G57030	detection	Ces02774	66.7	103	541	2.78e-249	ortholog (RBH)
+xanth	CYP97A family	AT1G31800	detection	Ces10068	76.8	90	534	6.15e-302	ortholog (RBH)
+xanth	CYP97A family	AT1G31800	detection	Ces10516	52.5	75	446	2.47e-157	homolog
+xanth	CYP97A family	AT1G31800	detection	Ces20962	47.2	83	494	7.90e-141	homolog
+xanth	CYP97A family	AT1G31800	detection	Ces15687	25.9	63	374	4.39e-35	fragment
+xanth	CYP97A family	AT1G31800	detection	Ces09535	25.1	72	430	1.12e-34	homolog
+xanth	CYP97A family	AT1G31800	detection	Ces14032	26.4	74	439	1.26e-32	homolog
+xanth	CYP97A family	AT1G31800	detection	Ces15693	35.5	28	169	3.57e-27	fragment
+xanth	CYP97A family	AT1G31800	detection	Ces13872	24.2	72	430	3.60e-27	homolog
+xanth	CYP97A family	AT1G31800	detection	Ces23271	24.8	81	480	9.41e-25	homolog
+xanth	CYP97A family	AT1G31800	detection	Ces10835	34.2	26	155	2.33e-21	fragment
+xanth	CYP97A family	AT1G31800	detection	Ces10831	31.8	26	154	1.03e-19	fragment
+xanth	CYP97C family	AT3G53130	detection	Ces10516	80.0	90	485	6.71e-286	ortholog (RBH)
+xanth	CYP97C family	AT3G53130	detection	Ces10068	51.8	88	473	9.99e-158	homolog
+xanth	CYP97C family	AT3G53130	detection	Ces20962	45.6	90	487	2.29e-130	homolog
+xanth	CYP97C family	AT3G53130	detection	Ces19588	28.6	79	426	8.39e-35	homolog
+xanth	CYP97C family	AT3G53130	detection	Ces12693	25.1	84	455	4.44e-32	homolog
+xanth	CYP97C family	AT3G53130	detection	Ces09535	27.2	79	427	9.17e-32	homolog
+xanth	CYP97C family	AT3G53130	detection	Ces12692	27.8	82	443	2.71e-31	homolog
+xanth	CYP97C family	AT3G53130	detection	Ces10850	25.3	83	446	1.87e-30	homolog
+xanth	CYP97C family	AT3G53130	detection	Ces15695	26.8	80	429	6.19e-30	homolog
+xanth	CYP97C family	AT3G53130	detection	Ces12690	25.7	79	428	1.01e-29	homolog
+xanth	CYP97C family	AT3G53130	detection	Ces15689	26.0	80	430	4.05e-28	homolog
+xanth	CYP97C family	AT3G53130	detection	Ces20869	28.5	74	397	6.70e-28	homolog
+xanth	BCH family	AT4G25700	detection	Ces06731	67.9	89	277	1.72e-133	ortholog (RBH)
+xanth	BCH family 2	AT5G52570	detection	Ces06731	78.9	70	213	6.85e-124	homolog
+xanth	ZEP family	AT5G67030	detection	Ces08057	70.2	88	590	1.26e-301	ortholog (RBH)
+xanth	ZEP family	AT5G67030	detection	Ces23772	31.2	35	234	2.72e-16	fragment
+xanth	ZEP family	AT5G67030	detection	Ces11277	23.9	56	372	3.64e-12	fragment
+xanth	VDE family	AT1G08550	detection	Ces22533	75.8	79	364	4.14e-204	ortholog (RBH)
+xanth	NSX family	AT1G67080	detection	Ces00503	66.3	80	175	2.59e-77	ortholog (RBH)
+degrade	CCD1 family	AT3G63520	detection	Ces00245	77.1	98	528	3.76e-310	ortholog (RBH)
+degrade	CCD1 family	AT3G63520	detection	Ces11733	38.1	100	538	5.71e-111	homolog
+degrade	CCD1 family	AT3G63520	detection	Ces27429	38.1	100	538	1.55e-110	homolog
+degrade	CCD1 family	AT3G63520	detection	Ces28200	38.8	95	513	1.66e-109	homolog
+degrade	CCD1 family	AT3G63520	detection	Ces16312	38.6	95	513	2.34e-109	homolog
+degrade	CCD1 family	AT3G63520	detection	Ces10063	37.8	100	539	6.09e-103	homolog
+degrade	CCD1 family	AT3G63520	detection	Ces13251	37.3	100	539	1.66e-101	homolog
+degrade	CCD1 family	AT3G63520	detection	Ces13250	38.6	79	427	7.04e-89	homolog
+degrade	CCD1 family	AT3G63520	detection	Ces03723	33.7	96	517	9.89e-74	homolog
+degrade	CCD4 family	AT4G19170	copy-number	Ces13251	61.9	90	536	7.00e-233	ortholog (RBH)
+degrade	CCD4 family	AT4G19170	copy-number	Ces13250	61.6	70	417	8.29e-178	ortholog (RBH)
+degrade	CCD4 family	AT4G19170	copy-number	Ces03723	52.8	86	511	7.21e-173	ortholog (RBH)
+degrade	CCD4 family	AT4G19170	copy-number	Ces27429	41.1	88	525	2.45e-120	homolog
+degrade	CCD4 family	AT4G19170	copy-number	Ces11733	41.1	88	525	2.52e-120	homolog
+degrade	CCD4 family	AT4G19170	copy-number	Ces09230	40.2	88	522	2.67e-120	homolog
+degrade	CCD4 family	AT4G19170	copy-number	Ces16312	39.9	88	526	4.48e-117	homolog
+degrade	CCD4 family	AT4G19170	copy-number	Ces28200	39.7	88	526	6.32e-117	homolog
+degrade	CCD4 family	AT4G19170	copy-number	Ces10063	39.0	90	536	1.06e-111	homolog
+degrade	CCD4 family	AT4G19170	copy-number	Ces00245	37.0	90	535	1.53e-100	homolog
+degrade	NCED family	AT3G14440	copy-number	Ces09230	72.0	86	518	2.18e-280	ortholog (RBH)
+degrade	NCED family	AT3G14440	copy-number	Ces11733	70.6	87	521	1.60e-272	ortholog (RBH)
+degrade	NCED family	AT3G14440	copy-number	Ces27429	70.4	87	521	3.60e-271	ortholog (RBH)
+degrade	NCED family	AT3G14440	copy-number	Ces16312	67.4	89	534	4.01e-270	ortholog (RBH)
+degrade	NCED family	AT3G14440	copy-number	Ces28200	67.2	89	534	5.69e-270	ortholog (RBH)
+degrade	NCED family	AT3G14440	copy-number	Ces10063	61.6	87	524	6.17e-227	ortholog (RBH)
+degrade	NCED family	AT3G14440	copy-number	Ces13251	40.6	84	505	2.48e-117	homolog
+degrade	NCED family	AT3G14440	copy-number	Ces00245	38.9	88	530	1.01e-113	homolog
+degrade	NCED family	AT3G14440	copy-number	Ces13250	40.8	71	424	2.30e-101	homolog
+degrade	NCED family	AT3G14440	copy-number	Ces03723	36.7	85	509	2.11e-92	homolog
+sink	ORANGE	AT5G61670	presence	Ces06664	70.3	107	330	4.87e-135	ortholog (RBH)
+sink	ORANGE	AT5G61670	presence	Ces26954	73.5	80	245	5.30e-103	homolog
+sink	ORANGE-like	AT5G06130	presence	Ces26954	73.3	84	266	7.14e-108	ortholog (RBH)
+sink	ORANGE-like	AT5G06130	presence	Ces06664	67.6	82	259	1.86e-97	homolog
+sink	fibrillin	AT4G04020	presence	Ces17304	57.7	106	336	3.05e-119	ortholog (RBH)
+sink	fibrillin	AT4G04020	presence	Ces06475	49.0	82	261	3.15e-79	homolog
