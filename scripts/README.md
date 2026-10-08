@@ -1,44 +1,18 @@
 # scripts
 
-Run in order. Each reads `$TARO_*` paths set by `envs/activate.sh`.
+The Part 1 pipeline. Five steps, run in order. `../docs/METHODS_part1.md`
+states the method they implement and the thresholds they use.
 
-Some scripts are superseded but kept, because `LOGBOOK.md` refers to them and
-the errors they contain are part of the record.
-
-## Current
-
-| Script | Purpose |
+| Script | Does |
 |---|---|
-| `01_fetch_taro.sh` | taro proteome and GFF3 from Figshare |
-| `02_primary_isoform.sh` | 34,340 transcripts to 28,253 genes, longest isoform per gene |
-| `03_probe_outgroups.sh` | test which Araceae proteomes NCBI holds (none, as it turned out) |
-| `04_probe_yin_set.sh` | test the Yin et al. 2021 substitute species set |
-| `06_rebuild_primary.sh` | outgroup proteomes, one protein per gene, via GFF3 gene IDs |
-| `07_orthofinder.sh` | orthogroups across all nine species |
-| `09_pathway_by_geneid.sh` | pathway orthogroups, joined on Arabidopsis locus |
-| `10_psy_direct_search.sh` | PSY by direct homology, after OrthoFinder reported zero |
-| `11_pathway_homology.sh` | full pathway inventory by reciprocal best hit |
+| `01_inputs.sh` | proteomes for 17 species, one protein per gene, counts verified against NCBI |
+| `02_pathway_set.py` | Arabidopsis anchors, cross-checked against KEGG ko00906 and ko00900 |
+| `03_homology.sh` | reciprocal best hits, with the threshold sensitivity grid |
+| `04_families.sh` | two-tree design per family: identity then resolution |
+| `05_report.py` | fixed decision rules applied; everything reported, including what fails them |
 
-## Superseded
+Figures are in `../notebooks/part1_landscape.ipynb` and are displayed rather
+than committed.
 
-| Script | Why kept |
-|---|---|
-| `00_fetch_proteomes.sh` | first fetch attempt, replaced by 01 and 06 |
-| `05_fetch_outgroups.sh` | grouped isoforms by description text, merging unrelated genes |
-| `08_find_pathway_orthogroups.py` | parsed the NCBI gene JSON wrongly, resolved nothing |
-
-## Next
-
-| Script | Purpose |
-|---|---|
-| `12_psy_tree.sh` | phytoene synthase gene tree across all nine species |
-| `13_ccd_tree.sh` | separate true CCD4 from NCED in the three-copy result |
-
-## Added after the first pass
-
-| Script | Purpose |
-|---|---|
-| `12_gene_trees.sh` | PSY and CCD/NCED family trees, FAMSA + FastTree |
-| `13_psy_fragments.sh` | coordinates of the PSY-like loci; resolved the split model |
-| `14_add_cassava.sh` | add cassava, the transgene source, to the proteome set |
-| `15_read_trees.py` | read copy number and clade membership off the trees |
+The exploratory first pass is in `archive/`, with a note on why each script was
+replaced. Two of them contain errors that are part of the record.

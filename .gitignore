@@ -25,3 +25,7 @@ __pycache__/
 
 # scratch (TMPDIR)
 .tmp/
+
+# figures are displayed in the notebook, not committed
+results/figures/*
+!results/figures/.gitkeep
