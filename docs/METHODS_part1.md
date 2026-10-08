@@ -1,288 +1,456 @@
-# Part 1 — stated method
+# Part 1 methods: the carotenoid pathway gene inventory of *Colocasia esculenta*
 
-Part 1 is a pathway inventory: which carotenoid and MEP biosynthesis genes taro
-carries, and in what copy number. It motivates Part 2 and does not stand as a
-study on its own.
-
-**This document is written after the analysis, not before, and says so.** The
-first pass was exploratory: five methods were tried for one question, two were
-wrong, and the thresholds were chosen in the moment. The results survived
-external validation, but the record was a history of attempts rather than a
-method.
-
-What follows is the method as it should have been stated at the outset. The
-pipeline implementing it is re-run end to end, so the reported numbers are
-produced by this method and not by the path that found them. Anything this
-method cannot reproduce is dropped.
-
-The exploratory history is in `LOGBOOK.md` and the superseded scripts are in
-`scripts/archive/`. Neither is deleted, because a methods section eventually has
-to explain why the pipeline looks the way it does.
+This is a complete rewrite. The method changed materially during the analysis,
+and an earlier version of this file described a design that several steps did
+not implement. Where a decision was made after seeing data, it says so.
 
 ---
 
-## The governing rule
+## 1. The question
+
+How many copies of each carotenoid pathway gene does the taro genome carry, and
+which pathway steps are present at all?
+
+The question matters for a biofortification target because the dose of a
+pathway enzyme depends on how many loci encode it, and because a cleavage
+enzyme present in extra copies is a candidate sink for the product a
+biofortification programme is trying to accumulate.
+
+## 2. The governing rule
 
 > **Copy number = family assignment (phylogeny) + independent genomic locus
-> (coordinates). Both limbs, or it is not a copy-number claim.**
->
-> **Presence = reciprocal homology with adequate coverage.**
->
-> **A detection count is not a copy number.** Reciprocal best hit returns a
-> lower bound on family size and is reported as *candidates detected*.
+> (coordinates). Presence = reciprocal homology with adequate coverage.
+> A detection count is not a copy number.**
 
-An earlier draft of this document required only a tree for a copy-number claim.
-That was wrong, and wrong in a way this project had already demonstrated.
+Each clause does separate work.
 
-A tree establishes what a sequence **is**. It cannot establish that two proteins
-correspond to two genomic copies rather than to one gene split across two gene
-models, to two haplotypes of one locus, or to a duplicated assembly region. The
-`Ces12496`/`Ces12497` locus is exactly that case: two proteins, both genuinely
-PSY-like, one gene.
+**Family assignment** is a statement about a clade. Reciprocal best hit says
+only that a gene's closest relative in a reference proteome lies inside a
+declared family, which is a property of a pairwise search. A tree is required
+to say the gene falls inside the clade the family's members define.
 
-Conversely, coordinates alone establish that two loci are independent but say
-nothing about whether either belongs to the family in question.
+**Independent genomic locus** is required because two sequences assigned to one
+family can still be one gene counted twice. Two mechanisms, both present in
+this data: a gene broken across two annotation records, and, in an assembly
+reported at 1.83% heterozygosity, the same gene appearing twice as two
+haplotigs.
 
-Neither limb is sufficient. Both together are.
+**A detection count is not a copy number** because reciprocal best hit is a
+lower bound. A paralog divergent enough that its closest relative in the
+reference lies outside the declared family never appears in the result.
 
-### Criteria for "independent locus"
+## 3. Claim kinds, fixed before any search
 
-Non-overlapping coordinates are not enough. Taro is clonally propagated and
-heterozygous — 1.83% in Bun Long, 0.45% in Longxiangyu — so allelic sequence
-retained as separate contigs is a live possibility rather than a formality.
+Every target was assigned one of three claim kinds before taro was searched,
+and the assignment was frozen in a committed file. The purpose is to stop the
+evidence standard from being set by which findings turn out to be interesting.
 
-A locus counts as independent when:
+| claim kind | targets | what is established | how |
+|---|---|---|---|
+| copy-number | 4 | a number of loci | homology, then phylogeny, then coordinates |
+| detection | 21 | a lower bound on family size | homology only |
+| presence | 3 | the gene exists | reciprocal homology with coverage |
 
-- it sits on a different anchored chromosome from its putative paralog, **or**
-- it sits on the same chromosome with non-overlapping coordinates **and**
-  distinct flanking gene content, **and**
-- it is not on an unanchored scaffold. Sun et al. anchored 96.86% of the
-  assembly to 14 chromosomes, so unanchored sequence is where allelic
-  duplication would concentrate.
+A copy-number target additionally requires a declared group to root its tree
+on. Two targets originally marked copy-number, DXS and HDR, had no such group
+and were moved to detection before the search rather than being left in a state
+where the machine-readable method and the narrative disagreed.
 
-Flanking gene content is read from the GFF3 and reported, not assumed.
+## 4. Scope
 
-### Why "presence" is a different kind of claim
+The target list began as a hand-curated set of 28 anchors and was cross-checked
+against KEGG `ath00906` (carotenoid biosynthesis) and `ath00900` (terpenoid
+backbone biosynthesis). KEGG returned 93 Arabidopsis loci across the two
+pathways; 23 were already in the hand list, 70 were not, and 5 hand-list
+entries were outside both KEGG pathways.
 
-*Taro carries ORANGE and ORANGE-like* asks whether a convincing taro counterpart
-of an Arabidopsis gene exists. A reciprocal best hit at high identity and
-coverage answers it. A tree would add nothing, and a coordinate check would
-answer a question nobody asked.
+Each of the 70 was given a proposed decision and a reason, and the resulting
+file was committed before the taro search ran. The boundary applied:
 
-Separating the two kinds is what keeps the evidence standard uniform rather than
-set by which findings turned out to be interesting.
+> **In**: carotenoid pathway enzymes, the plastidial MEP chain supplying them,
+> and the accumulation regulators (ORANGE, ORANGE-like, fibrillin).
+> **Out**: everything else, including pathways that compete for the same
+> precursor.
 
----
+Dispositions: 54 excluded, 11 recorded as members of a family already
+represented by a target, 4 excluded from scope but retained as phylogenetic
+references.
 
-## Inputs
+Two decisions were judgement rather than mechanism and are recorded as such.
+**GGR** (geranylgeranyl reductase, AT4G38460) reduces GGPP to phytyl-PP and is
+the main competing sink for the pool PSY draws on. It is excluded, because GGPP
+also feeds gibberellins and protein geranylgeranylation, and a scope admitting
+one competing sink admits all of them; it belongs in the Part 2 flux
+discussion. **GPS1** (AT2G34630) is excluded on a simpler ground: it makes C10
+GPP, not the C20 GGPP that PSY condenses.
 
-Seventeen proteomes: taro plus sixteen others. Eight follow Yin et al. 2021, who
-used that set for taro gene-family clustering; cassava was added because it is
-the source of the proposed transgene; seven monocots were added to widen
-sampling within the monocots.
+Two scope changes were made after the taro search and both are additive
+bookkeeping rather than changes to which loci are in scope.
 
-One protein per gene throughout, the longest isoform, with the gene identifier
-taken from the GFF3 CDS attributes rather than the protein header. Every
-species' gene count is checked against the count NCBI reports, and a mismatch is
-an error rather than a note.
+**IDI was added** during the KEGG cross-check, before the search, because
+skipping IPP/DMAPP isomerisation leaves a biochemical gap between HDR output
+and prenyl-diphosphate synthesis.
 
-**Limitation, stated once and carried everywhere:** no member of the Araceae has
-a protein set at NCBI. Taro's closest sequenced relative here is *Zostera
-marina*, which diverged far earlier than *Spirodela polyrhiza* would have.
-Nothing in this analysis dates a duplication or a loss, and no claim is made
-that requires doing so.
+**BCH was de-duplicated after the search.** The hand list carried both BCH1
+(AT4G25700) and BCH2 (AT5G52570), the two Arabidopsis paralogs of one family,
+so the target table held two targets for one family. The consequence was a
+phantom result: Ces06731 is recovered by both, its reverse best hit is BCH1, so
+the second target recorded a stable zero across all nine threshold
+combinations, which would have read as a carotenoid hydroxylase family absent
+from taro. Targets went from 29 to 28. The set of Arabidopsis loci in scope is
+identical before and after.
 
----
+## 5. Reference data
 
-## Step 1 — the pathway gene set
+Seventeen proteomes, one protein per gene. Arabidopsis as the anchor species;
+Amborella as the most distant angiosperm; cassava, potato and lotus as
+eudicots; and twelve monocots spanning Alismatales, Zingiberales, Arecales,
+Asparagales, Poales and Bromeliales.
 
-Arabidopsis anchors, one locus identifier per pathway step, cross-checked
-against KEGG ko00906 (carotenoid biosynthesis) and ko00900 (terpenoid backbone)
-rather than assembled from memory.
+The provenance of these proteomes had to be reconstructed. The file intended to
+record it, `manifest.tsv`, contained four rows for species not in the project
+(*Spirodela polyrhiza*, *Pistia stratiotes*, *Amorphophallus konjac*,
+*Zantedeschia elliottiana*), all marked "manual": a list of genomes that were
+wanted and never fetched. No row existed for any of the seventeen proteomes the
+inventory is built on. Accessions were recovered from the NCBI GFF3 headers
+before those files were deleted, and are now in `docs/proteome_manifest.tsv`
+together with a sequence checksum per proteome so content drift is detectable.
 
-The first pass assembled this list by hand and never verified it. Since a
-published rice phytoene synthase was missed once already, an unverified gene set
-is a plausible place for the same failure.
+Taro itself: `Colocasia_esculenta.Genome.V1`, 28,253 genes across 2,318 Mb.
+Fourteen sequences named `Superscaffold1` to `Superscaffold14` carry 2,261 Mb
+and 26,986 genes; 65 named `unanchor*` carry 57 Mb and 1,267 genes. Taro is
+2n = 28, so fourteen chromosomes, and the naming matches. Mean spacing is
+**82 kb per gene**, which matters in section 8.
 
-Anchors resolve to protein accessions through the Arabidopsis GFF3, not by gene
-symbol, because the NCBI gene query returns a gene identifier and no protein
-accession, and because symbol lookups failed on this dataset.
+A second taro annotation exists (GCA_009445465.1, 56,238 genes) and differs
+about twofold in gene count. Nothing here uses it; the discrepancy is noted
+because any count in this inventory is a count in one annotation.
 
----
+### Why orthogroup clustering is not used
 
-## Step 2 — candidate recovery, and what the sensitivity grid tests
+OrthoFinder was run and abandoned. It placed **zero** taro genes in the
+phytoene synthase orthogroup: all three candidates appeared in
+`Orthogroups_UnassignedGenes.tsv`, with 6.6% of genes unassigned overall. That
+run used nine species, not the final seventeen, so whether clustering would
+also fail on the full set is untested, and the rescued summary tables record the
+species set explicitly. The method therefore uses targeted reciprocal best hit
+with a declared root group, which asks a narrower question and answers it.
 
-```
-Arabidopsis anchor
-  → permissive homology search
-  → candidate family sequences
-  → sensitivity analysis: is the candidate set stably recovered?
-  → phylogenetic classification        (identity)
-  → genomic locus validation           (independence)
-  → copy number
-```
+## 6. Candidate recovery
 
-The grid tests **candidate recovery**, not copy number. An earlier draft said
-"any gene whose copy number changes across the grid is flagged", which confused
-a detection parameter with an inference. Copy number is established two steps
-later, by phylogeny and coordinates.
+DIAMOND `blastp`, e < 1e-5, forward from each Arabidopsis anchor into the taro
+proteome and reverse from every taro hit into the Arabidopsis proteome. Two
+levels of reciprocity are recorded:
 
-| Parameter | Values swept |
-|---|---|
-| minimum alignment length | 100, 150, 200 aa |
-| minimum query coverage | 50%, 70%, 80% |
-| DIAMOND e-value | 1e-5 (inventory), 1e-20 (family search) |
+- `rbh_anchor` — the reverse best hit is the anchor locus
+- `rbh_family` — the reverse best hit is the anchor **or** a declared member of
+  the same family
 
-None of these has a principled justification; they are conventional. The first
-pass set them in the moment and never tested them, and the 150 aa filter is what
-excluded the two PSY fragments. A candidate set that is not stable across the
+The grid counts `rbh_family`, because the target is the family. Without it, a
+taro NCED whose closest Arabidopsis relative is NCED5 rather than the NCED3
+anchor is silently dropped. On this data the stricter test would have given the
+same answer everywhere: all six taro NCEDs and all four near-complete taro DXS
+genes name the anchor itself.
+
+Coverage is DIAMOND's `qcovhsp`, the percentage of query residues inside the
+aligned block. An earlier version used alignment length divided by query
+length, which counts gap columns and therefore exceeded 100% wherever the
+alignment contained insertions: LCYB 102%, LCYE 103%, ORANGE 107%, fibrillin
+106%. The correction moved one call, Ces13250 against CCD4, from 70% to 69% and
+so across the default cutoff. The tree resolved it (section 7).
+
+**Every** forward hit at e < 1e-5 is written out, whether or not it passes any
+threshold, and a reciprocal best hit is never suppressed from the printed
+table. This is not a stylistic choice. The two PSY fragments Ces12496 and
+Ces12497 fail both defaults, so an earlier print filter hid them and the output
+appeared to show PSY recovering one gene while the file contained all three.
+
+### Sensitivity
+
+Alignment length is swept across 100, 150, 200 aa and query coverage across 50,
+70, 80 percent, giving nine combinations. None of these thresholds has a
+principled justification; they are conventional, which is the reason for
+sweeping them rather than defending them. A target whose count moves across the
 grid is reported as unstable.
 
-Orthogroup clustering is **not** used. OrthoFinder was run in the first pass and
-placed zero taro genes in the phytoene synthase orthogroup, because MCL failed
-to cluster them at all — all three candidates appeared in
-`Orthogroups_UnassignedGenes.tsv`, and 6.6% of genes went unassigned in that
-run. Clustering was unsuitable for targeted recovery *on this dataset*; that is
-an observation about this analysis, not a general property of the method.
-Keeping a step that contributed no evidence would make the pipeline look
-thorough while misleading about where the conclusions came from.
+Two properties of the grid itself became visible and are stated rather than
+corrected after the fact:
 
----
+- **The 200 aa alignment floor exceeds the length of some pathway proteins.**
+  MDS and NSX align over 166 and 175 aa against proteins of roughly 230 and
+  220 aa, so a complete alignment cannot meet it. For a target set spanning 220
+  to 700 residues, absolute alignment length is the wrong parameter and
+  coverage is the right one.
+- **The 80 percent coverage tier sits above where genuine ortholog pairs at
+  this divergence land.** Six single-copy targets (MCT, MDS, IDI, Z-ISO, VDE,
+  NSX) have exactly one taro ortholog each, at 78, 72, 80, 79, 79 and 79
+  percent coverage. All six are stable at 50 and 70 percent and vanish at 80.
 
-## Step 3 — gene trees, for family assignment
+Strip those two artifacts and two targets are genuinely threshold-dependent:
+DXS at three or four, and CCD4 at two or three.
 
-Families where a copy-number claim is made get the following. Every such family
-gets the same treatment; none is exempted for being less interesting.
+### Split gene models
 
-**Two trees, because one cannot do both jobs.**
+Query start and end are recorded for every hit, because coverage alone cannot
+distinguish one gene broken across two records from two separate partial genes:
+26% and 34% sum to 60% whether the pieces cover different parts of the anchor
+or the same part twice. Pairs of reciprocal hits whose aligned query ranges
+barely overlap while together covering much more of the anchor than either
+alone are reported as split-model candidates on sequence evidence, to be
+confirmed or refused on coordinates in section 8.
 
-*Tree A, identity.* The family plus a declared outparalog of known identity.
-Establishes where the family boundary falls.
+## 7. Family assignment by phylogeny
 
-*Tree B, resolution.* The sequences tree A placed inside the family, without the
-outparalog, rooted on *Amborella trichopoda*. The outparalog is divergent enough
-that including it cost 50% of alignment columns against 45% without it, and
-those columns are what resolve close relationships.
+### Trees are built per family, not per target
 
-| Family | Anchor | Outparalog for tree A |
+CCD1, CCD4 and the NCEDs are all carotenoid cleavage dioxygenases and recover
+from one pool of twelve taro genes, which reciprocal best hit partitions one /
+three / six. **That partition is a result.** A tree containing only one
+target's candidates has assumed it and cannot distinguish a CCD4 paralog from a
+divergent NCED. The three therefore share one tree. PSY and GGPPS are in no
+group and keep a tree each.
+
+PDS/ZDS/CRTISO, LCYB/LCYE and CYP97A/CYP97C are also same-family sets. All are
+detection targets, so no tree is built, but the grouping is recorded because
+their candidate counts are not independent of one another.
+
+### The root group, and the absence of an outparalog for the CCDs
+
+| job | rooted on | relationship to the family |
 |---|---|---|
-| PSY | AT5G17230 | squalene synthase, AT4G34640 / AT4G34650 |
-| CCD4 | AT4G19170 | **CCD7 (AT2G44990) and CCD8 (AT4G32810)** |
-| NCED | AT3G14440 | **CCD7 and CCD8** |
-| DXS | AT4G15560 | declared at run time, recorded before use |
-| HDR | AT4G34350 | declared at run time, recorded before use |
+| PSY | SQS1, SQS2 | squalene synthase: different substrate, product and pathway |
+| GGPPS | FPS1, FPS2 | farnesyl diphosphate synthase: different product |
+| CCD | CCD7, CCD8 | **inside the family**, the strigolactone branch |
 
-The CCD4 and NCED outgroup changed from an earlier draft, which used each as the
-other's outgroup. That is close to circular: it uses NCED to define the CCD4
-boundary while using CCD4 to define NCED's, and works only if the two are
-reciprocally monophyletic, which is the thing being tested. CCD7 and CCD8 are
-carotenoid cleavage oxygenases outside both subfamilies and serve as a genuine
-outgroup.
+Arabidopsis has nine genes in the carotenoid cleavage dioxygenase family —
+CCD1, CCD4, CCD7, CCD8 and NCED2/3/5/6/9 — and every one is inside the family
+being measured. **There is no Arabidopsis outparalog for this family.** That is
+a fact about the family, not a flaw in the design, and the CCD tree is not
+rooted the way the other two are. It is rooted on the strigolactone-branch
+members, a sister clade of established identity, and the CCD1, CCD4 and NCED
+groups are delimited within that rooted tree by their own Arabidopsis members.
 
-**Pipeline, identical for every family:** FAMSA alignment, trimAl
-`-automated1`, IQ-TREE with ModelFinder, 1000 ultrafast bootstrap replicates and
-1000 SH-aLRT replicates. Model selected per tree by BIC and reported per tree,
-because different sequence sets select different models.
+In one respect the CCD boundary is better constrained than PSY's: the
+CCD4-versus-NCED partition is anchored by six Arabidopsis genes, one CCD4 and
+five NCEDs, where the PSY family boundary rests on a single split. An
+Arabidopsis-anchored boundary can mislead — Arabidopsis lost PSY subgroup E3,
+and a clade rule built on that assumption discarded a published rice PSY in an
+earlier attempt — and six anchors across a partition is a sturdier constraint
+than one.
 
-Alignment retention after trimming is reported for every tree. A tree built on
-fewer than 40% of its columns is reported with that figure attached.
+Whether CCD7 and CCD8 are monophyletic was treated as an open question, since
+CCD8 is often the most divergent lineage in the family and rooting on a
+non-monophyletic pair would repeat an error made earlier in this project. They
+are monophyletic (section 9).
+
+### Two trees per job
+
+**Tree A** is the family plus the root group and asks one question: is the root
+group monophyletic? If yes, the family boundary can be placed. If no, it cannot
+and nothing further is claimed from it.
+
+**Tree B** is the family alone and exists for resolution, because a divergent
+root group costs alignment columns the close relatives need.
+
+Tree B **cannot be rooted**. In a gene family tree the genes of any one species
+do not form a clade — each Amborella CCD groups with its own orthologs, not
+with the other Amborella CCDs — and tree B is by construction the family with
+its outgroup removed. It is therefore read by splits only, which require no
+root.
+
+Every recovered sequence is assigned to whichever query it hits with the highest
+bitscore, so a sequence recovered by a root-group query belongs to the root set
+and a sequence recovered by a family query belongs to the family set. An earlier
+version searched both query sets together and built tree B by removing only the
+*Arabidopsis* root sequences, leaving every other species' squalene synthase in
+place: PSY tree A had 72 tips and tree B had 70, where a family-only tree should
+have lost the whole eighteen-tip SQS clade.
+
+### Which sequences enter a tree
+
+Two floors, for two roles.
+
+- **Reference tips** are scaffolding and must be near-complete in both
+  directions: qcov ≥ 70% **and** scov ≥ 70%. Half a protein supplies half a
+  column set and gaps for the rest. Seven GGPPS-family queries at 50% coverage
+  against 454,114 sequences pulled in cis-prenyltransferases and polyprenyl
+  synthases of very different lengths, producing a 3,441-column alignment for a
+  family of roughly 350-residue proteins.
+- **Taro candidates** are the question, not the scaffolding, and keep the
+  permissive cell of the sensitivity grid: alignment ≥ 100 aa and qcov ≥ 50%.
+
+A taro sequence below that floor is not discarded. It is reported as
+unplaceable by phylogeny and decided on coordinates instead. The two PSY
+fragments are the case in point: a 113-residue piece of a 437-residue protein
+contributes mostly gaps to an alignment, but adjacent coordinates on one strand
+are decisive.
+
+### Alignment and inference
+
+FAMSA, then trimAl `-gt 0.80`, then IQ-TREE with `-m MFP`, 1000 ultrafast
+bootstrap replicates and 1000 SH-aLRT replicates.
+
+Trimming uses a fixed gap threshold rather than `-automated1`. `-automated1`
+selects between gappyout and strict from each alignment's own statistics, so
+two alignments can be trimmed by different methods and their retention
+percentages do not measure the same quantity. The `-automated1` column count is
+still computed and reported beside the fixed one so the change is auditable
+against earlier figures.
+
+**Retention percentage is a poor diagnostic and is not used as one.** It
+measures how gappy the untrimmed alignment was. What matters is the absolute
+number of retained columns against the length of the proteins in the alignment:
+504 columns for a family of ~600-residue proteins, 319 for ~350, 386 for ~430.
+
+### The three tests
+
+1. **Membership.** Is the root group one side of a single edge in tree A, and
+   which side is each taro tip on? Tested as a **split**, not a rooted clade: a
+   set is monophyletic in an unrooted tree if and only if some edge separates
+   it, so a clade whose terminals equal the set or its complement counts. This
+   sidesteps rooting entirely. For a job with one Arabidopsis reference this is
+   the only question a tree can answer, and it answers it well.
+
+2. **Assignment**, in tree A rooted on its root group, which is valid because
+   test 1 establishes the root group is monophyletic. For each taro tip and
+   each target, take the common ancestor of the tip and that target's
+   references and keep it only if it excludes every other target's references.
+   The smallest surviving one is the assignment. **If none survives the tip is
+   recorded as not determinable**, with no fallback to a least-bad option.
+
+3. **Confirmation**, in tree B, by the smallest side of any edge containing a
+   target's references plus its assigned taro tips and excluding every other
+   target's references. That clade is the orthogroup and the other species
+   belong in it; an exact-split test would always fail, because Arabidopsis plus
+   taro is a strict subset of a seventeen-species clade.
+
+IQ-TREE writes an unrooted tree and `common_ancestor` is a rooted operation. An
+earlier version of the reading step applied it to the newick as parsed, with
+whatever root its parenthesisation implied, and the five Arabidopsis NCEDs
+reported a common ancestor spanning the entire tree. That is the same class of
+error as `Bio.Phylo.get_path()` never evaluating the root, which discarded a
+published rice PSY in an earlier attempt, and as rooting on a single tip.
 
 ### Support
 
-A node is well supported at **SH-aLRT ≥ 80 and UFBoot ≥ 95**. A claim resting on
-a node below that is reported as an observation, not stated as a result.
-
-The first pass used FastTree's SH-like local support at ≥0.70, an approximation
-rather than a test. Under proper bootstrap, PSY support fell from 17 of 21 nodes
-to 9 of 21. That gap is why the standard is fixed here.
+**SH-aLRT ≥ 80 AND UFBoot ≥ 95, both required.** A node meeting one and not the
+other is reported as below threshold. FastTree SH-like values used in
+exploratory work are an approximation, not a test, and nothing here uses them.
 
 ### Stopping rule
 
-If two analyses of the same question reach opposite conclusions and neither
-clears the support threshold, the question is recorded as not determinable and
-is not attempted a third time.
+If the two trees disagree about a tip and neither supporting node clears
+support, the assignment is recorded as not determinable and no third analysis is
+run.
 
-Not hypothetical. The PSY subgroup assignment gave M2 on ten species and M1 on
-seventeen, at 74.8/59 and 75.2/77. More data, opposite answer, both weak. A third
-attempt would have been method-shopping.
+## 8. Genomic locus
 
----
+Two family members occupy independent loci if they are on different anchored
+sequences, or on the same anchored sequence with non-overlapping coordinates
+and at least one annotated gene between them. A member on an `unanchor*`
+sequence is reported but contributes no copy, because a haplotig of a gene
+already counted cannot be distinguished from a paralog by coordinates alone.
 
-## Step 4 — the master table
+Anchored is read from the assembly's own naming, not from a length threshold. A
+cumulative-length rule tried first put the cut between Superscaffold13 at
+113 Mb and Superscaffold12 at 105 Mb, treating a 105 Mb sequence carrying 1,963
+genes as unplaceable.
 
-The deliverable is one machine-readable table, not a figure. Part 2 modifies
-exactly these columns, so this is the join between the parts.
+### Split models need sequence evidence and genome evidence
 
-`results/tables/part1_inventory.tsv`
+**Genomic distance is not a criterion.** With 28,253 genes in 2,318 Mb the mean
+spacing is 82 kb, so two genes tens of kilobases apart with nothing annotated
+between them is the most ordinary arrangement in this annotation rather than a
+signal. An earlier version used "no annotated gene between" alone and merged
+Ces13250 and Ces13251, which are 75,073 bp apart, into one locus.
 
-| Column | Meaning |
-|---|---|
-| `family` | pathway step |
-| `at_locus` | Arabidopsis anchor |
-| `taro_gene` | taro gene identifier |
-| `assignment` | family assignment from tree A, or `RBH-only` |
-| `protein_aa` | protein length |
-| `completeness` | intact / fragmented / unresolved |
-| `scaffold`, `start`, `end`, `strand` | genomic coordinates |
-| `independent_locus` | yes / no / unresolved, by the criteria above |
-| `tree_support` | SH-aLRT/UFBoot at the assigning node, or `n/a` |
-| `evidence` | `copy-number verified` / `candidate (RBH)` / `presence` |
-| `status` | copy 1, copy 2, unresolved locus, split model, … |
+A split model requires all four of:
 
-The `evidence` column is what stops a detection count being read as a copy
-number. Any figure drawn from this table encodes it; the pathway landscape shows
-evidence level alongside the count rather than a bare number for every enzyme,
-because a figure that displays 28 numbers identically is making 28
-copy-number claims regardless of what the caption says.
+- aligned query ranges overlapping by at most 25% of the shorter — the pieces
+  must cover **different** parts of the anchor
+- query order matching genomic order given the strand — the pieces must be
+  collinear
+- the same strand
+- no annotated gene between
 
----
+The combined genomic span is reported against the family's own gene spans as
+context rather than as a criterion.
 
-## External validation
+The query-overlap condition does most of the work. Ces13250 and Ces13251 cover
+anchor residues 181-592 and 70-592: the same part of the same protein twice, so
+they cannot be two pieces of one gene whatever their spacing. The collinearity
+condition refused Ces02307 and Ces02308, which are 44 bp apart on one strand
+with nothing between and zero query overlap, but cover 585-686 then 64-206
+going downstream.
 
-Copy numbers are compared against Lisboa et al. 2022, who analysed 351 PSY genes
-across 166 species, for every species where they publish a count.
+### Over-merged models
 
-Agreement is reported. **Disagreement is reported as disagreement and not
-resolved by changing the method**, which is what happened in the first pass: the
-`16_` clade rule was adopted, found to contradict the literature, and the
-contradiction was initially attributed to the literature rather than to the
-rule. The rule was wrong — it discarded rice LOC_Os09g38320, a published and
-functionally characterised phytoene synthase.
+The mirror error is one record spanning more than one gene. A candidate whose
+protein exceeds twice the median length of its family's reference proteins —
+taken from tree B's input, which holds the other sixteen species and no taro —
+is flagged, its genomic span and exon count reported, and its copy number
+withheld rather than reported as verified.
 
----
+A flagged protein is then searched against Arabidopsis keeping all HSPs, and
+the HSPs are **merged into query regions** before judgement. Several
+Arabidopsis genes matching one region is a domain matched by a superfamily.
+Different genes matching different regions is a merge. The quantity that
+matters is how much of the protein matches nothing at all.
 
-## What Part 1 reports
+## 9. What the method establishes, and what it does not
 
-| Claim | Kind | Evidence required |
-|---|---|---|
-| taro carries one intact PSY locus | copy number | tree A boundary + coordinates + external validation |
-| a second PSY-like locus is unresolved | structure | coordinates + protein completeness |
-| taro carries three CCD4 | copy number | tree A boundary + independent-locus criteria |
-| the CCD4 pair is tandem, not a split model | structure | coordinates + flanking genes + node support |
-| taro carries ORANGE and ORANGE-like | presence | reciprocal best hit |
-| pathway inventory | **detection** | RBH + candidate sensitivity grid |
-| taro PSY subgroup | — | **not determinable; recorded as such** |
+Established:
 
----
+- **the root group is monophyletic in all three jobs**, so the family boundary
+  can be placed in each: CCD7/CCD8 at SH-aLRT 97.5 / UFBoot 100, FPS1/FPS2 at
+  100/100, SQS1/SQS2 at 100/100. The concern that CCD7 and CCD8 might not form
+  a clade was tested and is unfounded.
+- **family membership** for every taro candidate, at the support of its job's
+  split.
+- **three CCD4 loci**, recovered as a 21-tip clade in both trees at UFBoot 99,
+  including the gene whose reciprocal hit turned on one percentage point of
+  coverage.
+- **one full-length PSY locus** plus **one further PSY-like locus** carrying a
+  split model, confirmed independently by non-overlapping collinear anchor
+  coverage and by adjacent coordinates on one strand with nothing between.
+- **presence** of both ORANGE chaperones and of fibrillin.
 
-## What Part 1 does not claim
+Not established, and recorded as such:
 
-- the timing of any duplication or loss
-- that single-copy PSY is ancestral to the Alismatales — eleven monocots sampled
-  and only the two Alismatales at one copy is an **observation about counts**,
-  and the tree cannot carry it to an inference
-- that RBH candidate counts are family sizes; they are lower bounds
-- anything about expression or enzyme activity. Copy number is not flux, and the
-  asymmetry between one synthesis gene and three degradation genes is a
-  hypothesis about carotenoid turnover rather than a measurement of it
+- **the NCED family size as a copy number.** Both trees group the same six
+  taro genes with the Arabidopsis NCEDs and neither holds the grouping under
+  resampling: UFBoot 59 in tree A and 43 in tree B against a declared threshold
+  of 95. Reported as a detection result.
+- **the GGPPS copy number.** The single candidate is a 2,232-residue model in a
+  family whose reference median is 360, and 85% of it matches nothing in
+  Arabidopsis. The prenyltransferase domain is a family member at 100/100; the
+  model around it is unresolved.
+- **PSY subgroup assignment** (M1 versus M2), withdrawn in earlier work as not
+  determinable and not revisited here.
+- **any copy number for a detection target.** Twenty-one targets carry lower
+  bounds only.
 
----
+## 10. Reproducing
 
-## Revision note
+```bash
+source envs/activate.sh
+python scripts/02_pathway_set.py          # anchors, KEGG cross-check
+python scripts/02b_annotate_kegg.py       # name the KEGG-only loci
+python scripts/02c_propose_scope.py       # propose a decision for each
+python scripts/02d_finalise_scope.py      # resolve the remainder, freeze
+python scripts/02e_group_families.py      # de-duplicate, record family groups
+bash   scripts/03_preflight.sh            # schema and input check
+bash   scripts/03_homology.sh             # candidates, grid, split candidates
+bash   scripts/04_families.sh             # trees
+python scripts/04b_read_trees.py          # read them
+python scripts/05_report.py               # coordinates, master table
+```
 
-This document was revised after external methodological review. Three changes:
-the governing rule now requires a genomic-locus limb as well as a phylogenetic
-one; the pathway inventory is labelled a detection claim rather than a
-copy-number claim; and the sensitivity grid is stated as testing candidate
-recovery rather than copy number. A fourth change was made on our own reading:
-the CCD4 and NCED outgroup moved from each other to CCD7 and CCD8.
+Outputs are in `results/tables/`. `part1_inventory.tsv` is the master table:
+one row per target-and-gene, carrying the homology evidence, the phylogenetic
+assignment with its support, the genomic locus, and one `evidence` column
+stating what the row establishes.
+
+Every correction made during the analysis is recorded in `LOGBOOK.md`, with the
+superseded scripts in `scripts/archive/` and the superseded tables in
+`results/tables/archive/`.

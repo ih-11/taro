@@ -634,3 +634,258 @@ One claim must be withdrawn: that single-copy PSY looks like an Alismatales
 trait. The data are consistent with it and cannot support it.
 
 Copy number remains distinct from flux. Nothing here measures expression.
+---
+
+## 2026-10-08 — Part 1 rebuilt
+
+Part 1 was restarted after the observation that the earlier work had the shape
+of trial and error rather than a method: many scripts, each adjusting the
+previous one, with results that made sense rather than results that tested the
+hypothesis. What follows is the record of that rebuild. Every item is a
+correction found after a step had already run and produced output that looked
+plausible.
+
+### Store and provenance
+
+**OrthoFinder output removed, 113,955 files of 114,114.** The run was
+`work/05_orthology/run_20261007_2049`, 1.5 GB of per-orthogroup sequences,
+alignments and trees, none of it read by the current method. More than half was
+a second renamed copy of the other half. Summary tables rescued to
+`provenance/orthofinder_20261007/` first.
+
+**That run used nine species, not seventeen.** Its `Orthologues` directory holds
+ambtri aratha colesc musacu nelnuc orysat soltub zeamay zosmar. The eight added
+later (anacom aspoff bradis elagui manesc phodac setita sorbic) are absent. Two
+consequences: the run cannot be regenerated from current inputs, only redone
+differently; and the recorded clustering failure — zero taro PSY genes placed in
+an orthogroup, 6.6% unassigned overall — was observed on nine species, so
+whether clustering would also fail on the final seventeen is **untested**. The
+rescued README states this.
+
+**`manifest.tsv` was not a manifest.** It held four rows, for *Spirodela
+polyrhiza*, *Pistia stratiotes*, *Amorphophallus konjac* and *Zantedeschia
+elliottiana*, all marked "manual" — a wishlist of genomes never fetched. No row
+existed for any of the seventeen proteomes the inventory is built on, so not one
+had a recorded accession, assembly version or annotation release. Accessions
+were recovered from the NCBI GFF3 headers before those files were deleted and
+are now in `docs/proteome_manifest.tsv` with a per-proteome sequence checksum.
+
+**`psy_check/psy_hits.tsv` and `recip.tsv` are zero bytes.** The exploratory
+script that produced the PSY identity and e-value figures quoted in this logbook
+printed to the terminal and never wrote its results, so those numbers had no
+file behind them. From the 03_ rewrite onward every number has one, in
+`homology_hits_all.tsv`.
+
+**`aratha_gff/md5sum.txt` is zero bytes**, so the Arabidopsis release that
+produced `aratha_protein2gene.tsv` is not recorded. That mapping file cannot be
+rebuilt without the GFF3, which is gone. Its own checksum is now recorded:
+`72ef769e3a69038d2826322d62dc2b40`.
+
+**`work/04_families/all.dmnd` was zero bytes** next to a 201 MB `all.faa` built
+from the nine-species set. `04_families.sh` guarded with `[ ! -f all.dmnd ]`, so
+the next run would have found the file present, skipped the rebuild and handed
+DIAMOND an empty index while printing a species count taken from a shell
+variable. Store: 3.9 GB to about 350 MB, 114,104 files to 159 plus provenance.
+
+### Scope
+
+**BCH was seeded twice.** The hand list carried both BCH1 (AT4G25700) and BCH2
+(AT5G52570), the two Arabidopsis paralogs of one family, so `02_` produced
+"BCH family" and "BCH family 2". Ces06731 is recovered by both and its reverse
+best hit is BCH1, so the second target recorded a stable zero across all nine
+threshold combinations, which would have read in the master table as a
+carotenoid hydroxylase family absent from taro. Targets 29 to 28. The set of
+Arabidopsis loci in scope is unchanged. Found only after `03_` ran.
+
+`02c_` had collapsed multi-member families for the KEGG-only loci (NCED2/5/6/9,
+GGPS2/3/4/6, DXPS1/3, IPP2) but never saw BCH2, which was already in the hand
+list.
+
+### Candidate recovery (03_)
+
+**Coverage was not coverage.** Alignment length divided by query length counts
+gap columns, so it exceeded 100% wherever the alignment had insertions: LCYB
+102%, LCYE 103%, ORANGE 107%, fibrillin 106%. Replaced with DIAMOND `qcovhsp`.
+The correction moved Ces13250 against CCD4 from 70% to 69%, across the default
+cutoff, changing CCD4's reciprocal count from 3 to 2. The tree later placed it
+anyway at UFBoot 99, which is the division of labour between detection and
+phylogeny working as intended.
+
+**A reciprocal best hit could be hidden from the printed table.** The filter
+suppressed any hit failing both defaults, and the two PSY fragments Ces12496
+(26% coverage, 115 aa) and Ces12497 (34%, 147 aa) fail both. They were in
+`homology_hits_all.tsv` the whole time and absent from the terminal output, and
+I read that absence as the pipeline having lost them. A reciprocal best hit is
+now never suppressed.
+
+**Reciprocal best hit was tested against the anchor alone.** Too strict for a
+target standing for a family: a taro NCED whose closest Arabidopsis relative is
+NCED5 fails even though NCED5 is in the family. Both `rbh_anchor` and
+`rbh_family` are now recorded. On this data the stricter test gives the same
+answer everywhere.
+
+**Query coordinates were not recorded**, so split models were untestable: 26%
+and 34% sum to 60% whether the pieces cover different parts of the anchor or the
+same part twice. `qstart`/`qend` are now recorded and a split-candidate section
+reports pairs with barely-overlapping ranges.
+
+**A DIAMOND database was reused on existence alone.** Same pattern as the `04_`
+cache. Now rebuilt when missing or older than its source FASTA.
+
+Two properties of the sensitivity grid became visible and are reported rather
+than tuned away. The **200 aa alignment floor exceeds the length of some
+pathway proteins** (MDS and NSX align over 166 and 175 aa against proteins of
+~230 and ~220), so a complete alignment cannot meet it. The **80% coverage tier
+sits above where genuine ortholog pairs at this divergence land** — six
+single-copy targets have their one ortholog at 72 to 80%. Strip both and two
+targets are genuinely threshold-dependent: DXS and CCD4.
+
+### Trees (04_)
+
+**Tree B was not a family-only tree.** Family and root queries were searched
+together and tree B was built by removing only the *Arabidopsis* root
+sequences, leaving every other species' outgroup member in place. The tip
+counts said so: PSY tree A 72, tree B 70, where a family-only tree should have
+lost the whole eighteen-tip SQS clade; GGPPS 147 and 145, a difference of
+exactly FPS1 and FPS2. It also explains the retention running backwards, PSY
+tree A 52% and tree B 34%, since tree B kept the divergent sequences and lost
+the anchors that helped align them. Sequences are now partitioned by which
+query they hit with the highest bitscore.
+
+**The root group was read from the first row of the group.** `ts[0]["outparalog"]`
+for the CCD job is CCD1, a detection target declaring nothing, so tree A was
+skipped and the job fell to midpoint rooting while CCD4 and NCED both declared
+CCD7 and CCD8. Now the union over the group, with disagreement printed.
+
+**One floor was doing two jobs.** Seven GGPPS-family queries at 50% coverage
+against 454,114 sequences pulled in cis-prenyltransferases and polyprenyl
+synthases of very different lengths, producing a 3,441-column alignment for a
+family of ~350-residue proteins, retaining 8%. Reference tips now need qcov and
+scov both ≥ 70%; taro candidates keep the permissive grid cell.
+
+**trimAl `-automated1` retention is not comparable between alignments**, since
+it selects between gappyout and strict from each alignment's own statistics.
+Trimming is now `-gt 0.80`, with the `-automated1` count reported beside it.
+Retention percentage is in any case a poor diagnostic: it measures how gappy
+the input was. Retained columns against protein length is the figure that
+matters — 504 for ~600-residue proteins, 319 for ~350, 386 for ~430.
+
+**There is no Arabidopsis outparalog for the CCD family.** All nine Arabidopsis
+members (CCD1, CCD4, CCD7, CCD8, NCED2/3/5/6/9) are inside the family being
+measured. The CCD tree is rooted on the strigolactone branch, a sister clade of
+established identity, not an outgroup outside the family, and the methods say so.
+
+### Reading the trees (04b_)
+
+**A rooted operation was applied to an unrooted tree.** IQ-TREE writes unrooted;
+Bio.Phylo reads the newick with whatever root its parenthesisation implies;
+`common_ancestor` is rooted. The five Arabidopsis NCEDs reported a common
+ancestor of 180 tips in a 180-tip tree. Six taro NCEDs were then assigned to
+"CCD1 family" with ancestors of 165 and 121 tips. Same class as
+`Bio.Phylo.get_path()` never evaluating the root (which discarded a published
+rice PSY) and as rooting on a single SQS tip (which made every count zero).
+Tree A is now rooted on its root group, which test 1 establishes is
+monophyletic.
+
+**The tie-break answered when it should have declined.** With no exclusive
+ancestor available it picked the smallest, choosing CCD1 at 165 tips over NCED
+at 180. The `exclusive` column read `NO` on every such row. Now recorded as not
+determinable with no fallback.
+
+**Membership was conflated with placement.** The first version walked outward
+from each taro tip to the first ancestor containing any Arabidopsis reference
+and reported that node's support. For PSY, with one reference, that ancestor is
+nearly the whole family clade, and its UFBoot of 57 was reported as the support
+for "Ces24605 is a phytoene synthase". Tree A already answered that at 100/100
+via the SQS split. Membership, target coherence and assignment are now three
+separate tests.
+
+**Tree B cannot be rooted**, and an earlier docstring claiming it was rooted on
+Amborella was wrong in principle as well as never implemented: in a gene family
+tree one species' genes do not form a clade. Tree B is read by splits only.
+
+**Test 3 asked a question that could only fail.** It tested whether a target's
+Arabidopsis references plus its taro tips form a split in tree B. In a
+seventeen-species tree that set is a strict subset of its clade, with fifteen
+other species' orthologs interleaved. Now it finds the smallest side of any edge
+containing the set and excluding the other targets' references.
+
+### Coordinates (05_)
+
+**"No annotated gene between them" is not evidence in this genome.** 28,253
+genes in 2,318 Mb is a mean spacing of **82 kb**, so two genes tens of
+kilobases apart with nothing between is the most ordinary arrangement in the
+annotation. Ces13250 and Ces13251, 75,073 bp apart, were merged into one locus
+on that basis. The sequence evidence had already refused it: they cover anchor
+residues 181-592 and 70-592, the same part of the same protein. A split model
+now requires non-overlapping query ranges, collinearity with the strand, the
+same strand and no gene between; distance is not a criterion.
+
+**Every exon count was zero.** Exons name their parent mRNA (`rna-Ces00001.1`,
+stripping to `Ces00001.1`) while genes are keyed `Ces00001`. The mRNA-to-gene
+map was built and never used.
+
+**A cumulative-length rule excluded Superscaffold12.** The 90% cut fell between
+Superscaffold13 at 113 Mb and Superscaffold12 at 105 Mb, so a 105 Mb sequence
+carrying 1,963 genes was treated as unplaceable. Anchored is now read from the
+assembly's own naming: 14 `Superscaffold*` against 65 `unanchor*`, and taro is
+2n = 28. No candidate sits on Superscaffold12, so this changed no count.
+
+**The over-merge check compared a gene to a median including its own
+fragments.** It flagged Ces24605, the full-length PSY at 7,233 bp, against a
+"target median" of 2,365 bp taken over Ces24605, Ces12496 and Ces12497. The
+median now comes from tree B's input, the other sixteen species with no taro.
+
+**The domain diagnostic counted genes instead of regions.** All fourteen
+Arabidopsis matches to Ces14428 land on residues 1907-2232, one prenyltransferase
+domain matched by fourteen members of one superfamily. Reported as "fourteen
+genes merged". HSPs are now merged into query regions first, and the quantity
+that matters is reported: **1,906 of 2,232 residues, 85% of the protein, match
+nothing in Arabidopsis at e < 1e-5.**
+
+### Results
+
+Root group monophyletic in all three jobs: CCD7/CCD8 at SH-aLRT 97.5 / UFBoot
+100, FPS1/FPS2 at 100/100, SQS1/SQS2 at 100/100. The concern that CCD7 and CCD8
+might not form a clade was tested and is unfounded. All twelve taro candidates
+are family members at their job's split support.
+
+**CCD4: three copies.** Ces13251, Ces13250 and Ces03723 in a 21-tip clade
+recovered by both trees at UFBoot 99 (SH-aLRT 91.7 and 88.5), across 14 species.
+Ces13251 and Ces13250 sit 75 kb apart on Superscaffold7, same strand, and cover
+the same part of the anchor, so they are two loci and not one split model.
+
+**PSY: one full-length locus plus one split-model locus.** Ces24605 on
+Superscaffold13, a phytoene synthase at 100/100. Ces12496 and Ces12497 on
+Superscaffold7, 259 bp apart on one strand with nothing between, covering anchor
+residues 126-238 and 281-427 with zero overlap in the same order as their
+genomic positions, combined span 3,883 bp against 7,233 bp for Ces24605. One
+locus, two records, not a second copy.
+
+**NCED: not a copy number.** Both trees group the same six taro genes with the
+Arabidopsis NCEDs; neither holds it under resampling (UFBoot 59 and 43 against a
+declared 95). Four on anchored sequences, two on `unanchor*`. Reported as a
+detection result. The threshold declared before the data cost a number on
+exactly one target, which is the only circumstance in which declaring it meant
+anything.
+
+**GGPPS: withheld.** One candidate, Ces14428, a family member at 100/100, but a
+2,232-residue model in a family whose reference median is 360, with 85% of the
+protein matching nothing in Arabidopsis. The domain is a GGPS family member; the
+model around it is unresolved.
+
+**DXS sits in a tandem array**, which nobody went looking for. Ces01301,
+Ces01303 and Ces01305 at 87%, 73% and 91% anchor coverage are packed into 170 kb
+on Superscaffold1 between 173.10 and 173.24 Mb with one to three genes between
+each, and Ces23591 at 93% sits elsewhere. Four fragments cluster inside 18 kb on
+Superscaffold2 and resolve into two split-model loci. Ten reciprocal hits, four
+near-complete genes. DXS is a detection target, so no copy number attaches.
+
+**HDR: two near-identical genes on independent loci.** Ces00461 and Ces01140,
+78.2% and 78.0% identity to the anchor over 445 and 441 aa, 138 Mb apart on
+Superscaffold1 with 678 genes between them and on opposite strands. Covering the
+same part of the anchor, so not a split model. A detection target, so recorded
+as an observation and a Part 2 question rather than promoted after the fact.
+
+**Presence: both ORANGE chaperones and fibrillin.** Ces06664, Ces26954,
+Ces17304.
