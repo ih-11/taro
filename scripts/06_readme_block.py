@@ -160,15 +160,25 @@ if split:
         if key in done:
             continue
         done.add(key)
-        o = next((x for x in inv if x["taro_gene"] == partner
-                  and x["target"] == r["target"]), None)
-        if not o:
+        # Look each gene of the pair up by name. The first version sorted the
+        # names for display and then printed the residue ranges in iteration
+        # order, so the two columns could disagree about which gene was which:
+        # Ces12496 + Ces12497 came out alongside "281-427 and 126-238".
+        pair = []
+        for g in key:
+            x = next((y for y in inv if y["taro_gene"] == g
+                      and y["target"] == r["target"]), None)
+            if x is None:
+                break
+            pair.append(x)
+        if len(pair) != 2:
             continue
-        span = (max(int(r["end"]), int(o["end"]))
-                - min(int(r["start"]), int(o["start"])) + 1)
-        w(f"| {r['target']} | `{key[0]}` + `{key[1]}` | {r['seq']} "
-          f"| {o['anchor_from']}-{o['anchor_to']} and "
-          f"{r['anchor_from']}-{r['anchor_to']} | {span:,} bp |")
+        a, b = pair
+        span = (max(int(a["end"]), int(b["end"]))
+                - min(int(a["start"]), int(b["start"])) + 1)
+        w(f"| {r['target']} | `{a['taro_gene']}` + `{b['taro_gene']}` "
+          f"| {a['seq']} | {a['anchor_from']}-{a['anchor_to']} and "
+          f"{b['anchor_from']}-{b['anchor_to']} | {span:,} bp |")
     w("")
 if flag:
     w("One record spanning more than one gene, or a long lineage-specific")
@@ -193,9 +203,19 @@ if README.exists():
               f"({len(block.splitlines())} lines)")
         sys.exit(0)
 
+if "--init" in sys.argv:
+    txt = README.read_text() if README.exists() else "# taro\n"
+    if not txt.endswith("\n"):
+        txt += "\n"
+    README.write_text(txt + "\n" + BEGIN + "\n" + block + "\n" + END + "\n")
+    print(f"appended the markers and the block to {README}.")
+    print("Move the section where you want it, keeping both marker lines, and")
+    print("re-run without --init to update it in place from now on.")
+    sys.exit(0)
+
 print(f"{BEGIN} ... {END} not found in {README}.")
-print("Paste the block below into README.md between those two markers, then")
-print("re-run this script to keep it in step with the table.\n")
+print("Run again with --init to append them, or paste the block below between")
+print("those two marker lines yourself.\n")
 print(BEGIN)
 print(block)
 print(END)

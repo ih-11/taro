@@ -216,3 +216,103 @@ Accession records are mirrored in a companion repository, `seqfetch`, under its
 datasets, and the reasoning behind the species choice.
 `docs/open_questions.md` holds the points to raise with the collaborator.
 `LOGBOOK.md` is the running record.
+
+<!-- BEGIN part1-findings -->
+## Part 1 findings
+
+Generated from `results/tables/part1_inventory.tsv` by
+`scripts/06_readme_block.py`. Do not edit by hand.
+
+28 targets: 4 copy-number, 21 detection, 3 presence. 51 target-and-gene rows.
+
+A copy number is reported only where a family assignment clearing SH-aLRT ≥ 80
+and UFBoot ≥ 95 meets an independent locus on one of the fourteen anchored
+sequences. A detection count is a lower bound, not a copy number.
+
+### Copy-number targets
+
+| target | copies verified | genes | basis |
+|---|---|---|---|
+| GGPPS family | **0** | — | see note below |
+| PSY family | **1** | Ces24605 | tree A/B agree, UFBoot 100.0, 1 anchored sequence(s) |
+| CCD4 family | **3** | Ces03723 Ces13250 Ces13251 | tree A/B agree, UFBoot 99.0, 2 anchored sequence(s) |
+| NCED family | **0** | — | see note below |
+
+Genes in a copy-number family that do not contribute a verified copy:
+
+| target | gene | sequence | evidence |
+|---|---|---|---|
+| GGPPS family | Ces14428 | Superscaffold8 | family assigned; gene model length anomalous, copy number not called |
+| PSY family | Ces12496 | Superscaffold7 | no tree; locus evidence only |
+| PSY family | Ces12497 | Superscaffold7 | no tree; locus evidence only |
+| CCD4 family | Ces05879 | Superscaffold3 | no tree; locus evidence only |
+| NCED family | Ces09230 | Superscaffold5 | locus verified, family support below threshold |
+| NCED family | Ces10063 | Superscaffold6 | locus verified, family support below threshold |
+| NCED family | Ces11733 | Superscaffold6 | locus verified, family support below threshold |
+| NCED family | Ces16312 | Superscaffold9 | locus verified, family support below threshold |
+| NCED family | Ces27429 | unanchor111 | family assigned; unanchored sequence |
+| NCED family | Ces28200 | unanchor125 | family assigned; unanchored sequence |
+
+### Family membership, from the root-group split
+
+| job | root group | SH-aLRT | UFBoot | taro tips placed |
+|---|---|---|---|---|
+| CCD | monophyletic | 97.5 | 100.0 | 10 |
+| GGPPS family | monophyletic | 100.0 | 100.0 | 1 |
+| PSY family | monophyletic | 100.0 | 100.0 | 1 |
+
+### Detection targets
+
+Lower bounds on family size. Reciprocal best hit cannot see a paralog
+whose closest Arabidopsis relative lies outside the declared family.
+
+| pathway | target | counted | independent loci | below the floor |
+|---|---|---|---|---|
+| MEP | DXS family | 4 | 4 | 6 |
+| MEP | DXR family | 1 | 1 | — |
+| MEP | MCT family | 1 | 1 | — |
+| MEP | CMK family | 1 | 1 | — |
+| MEP | MDS family | 1 | 1 | — |
+| MEP | HDS family | 1 | 1 | — |
+| MEP | HDR family | 2 | 2 | — |
+| MEP | IDI family | 1 | 1 | — |
+| core | PDS family | 1 | 1 | — |
+| core | Z-ISO family | 1 | 1 | — |
+| core | ZDS family | 1 | 1 | 1 |
+| core | CRTISO family | 1 | 1 | — |
+| cyclase | LCYB family | 1 | 1 | — |
+| cyclase | LCYE family | 1 | 1 | — |
+| xanth | CYP97A family | 1 | 1 | — |
+| xanth | CYP97C family | 1 | 1 | — |
+| xanth | BCH family | 1 | 1 | 1 |
+| xanth | ZEP family | 1 | 1 | 1 |
+| xanth | VDE family | 1 | 1 | — |
+| xanth | NSX family | 1 | 1 | — |
+| degrade | CCD1 family | 1 | 1 | — |
+
+### Presence targets
+
+- **ORANGE**: present — `Ces06664` on Superscaffold4
+- **ORANGE-like**: present — `Ces26954` on Superscaffold14
+- **fibrillin**: present — `Ces17304` on Superscaffold9
+
+### Annotation anomalies
+
+One gene across two records. Called only on non-overlapping collinear
+anchor coverage plus same strand and no annotated gene between; genomic
+distance is not used, because mean gene spacing here is 82 kb.
+
+| target | genes | sequence | anchor residues | combined span |
+|---|---|---|---|---|
+| DXS family | `Ces02306` + `Ces02307` | Superscaffold2 | 482-577 and 585-686 | 11,451 bp |
+| DXS family | `Ces02308` + `Ces02309` | Superscaffold2 | 64-206 and 482-716 | 6,680 bp |
+| PSY family | `Ces12496` + `Ces12497` | Superscaffold7 | 126-238 and 281-427 | 3,883 bp |
+
+One record spanning more than one gene, or a long lineage-specific
+extension. Copy number withheld either way.
+
+| target | gene | protein | span | exons | sequence |
+|---|---|---|---|---|---|
+| GGPPS family | `Ces14428` | 2232 aa | 13,255 bp | 11 | Superscaffold8 |
+
+<!-- END part1-findings -->
