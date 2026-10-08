@@ -1,0 +1,52 @@
+pathway	target	claim_kind	anchor_locus	family_group	taro_gene	protein_aa	identity	qcov_pct	aln_aa	anchor_from	anchor_to	counted	rbh_anchor	rbh_family	assignment	member_alrt	member_boot	tree_alrt	tree_boot	treeB_clade	seq	start	end	strand	span_bp	exons	anchored	independent_locus	locus_note	length_flag	notes	evidence
+xanth	BCH family	detection	AT4G25700		Ces06730	261	60.0	44	135	81	215	0	1	1							Superscaffold4	10729107	10730954	-	1848	2	1	1	independent	0		sub-threshold hit, recorded not counted
+xanth	BCH family	detection	AT4G25700		Ces06731	344	67.9	86	277	43	309	1	1	1							Superscaffold4	10739340	10742685	+	3346	6	1	1	independent	0		candidate (RBH)
+degrade	CCD1 family	detection	AT3G63520	CCD	Ces00245	549	77.1	98	528	11	535	1	1	1	CCD1 family	97.5	100.0	98.7	63.0	1	Superscaffold1	6530580	6540717	-	10138	14	1	1	independent	0		candidate (RBH)
+degrade	CCD4 family	copy-number	AT4G19170	CCD	Ces03723	892	52.8	84	511	72	570	1	1	1	CCD4 family	97.5	100.0	91.7	99.0	1	Superscaffold2	192445091	192451381	-	6291	2	1	1	independent	0		copy-number verified
+degrade	CCD4 family	copy-number	AT4G19170	CCD	Ces05879	201	53.8	22	143	77	209	0	1	1							Superscaffold3	170351845	170352450	+	606	1	1	1	independent	0		no tree; locus evidence only
+degrade	CCD4 family	copy-number	AT4G19170	CCD	Ces13250	456	61.6	69	417	181	592	1	1	1	CCD4 family	97.5	100.0	91.7	99.0	1	Superscaffold7	99656322	99660230	+	3909	2	1	1	independent	0		copy-number verified
+degrade	CCD4 family	copy-number	AT4G19170	CCD	Ces13251	630	61.9	88	536	70	592	1	1	1	CCD4 family	97.5	100.0	91.7	99.0	1	Superscaffold7	99735303	99737395	+	2093	1	1	1	independent	0		copy-number verified
+MEP	CMK family	detection	AT2G26930		Ces18096	405	69.4	96	369	14	382	1	1	1							Superscaffold10	103404030	103411601	-	7572	11	1	1	independent	0		candidate (RBH)
+core	CRTISO family	detection	AT1G06820	CRT_desaturase	Ces10412	598	81.5	89	530	68	595	1	1	1							Superscaffold6	12558993	12564525	-	5533	14	1	1	independent	0		candidate (RBH)
+xanth	CYP97A family	detection	AT1G31800	CYP97	Ces10068	641	76.8	89	534	48	578	1	1	1							Superscaffold6	3333294	3343606	-	10313	16	1	1	independent	0		candidate (RBH)
+xanth	CYP97C family	detection	AT3G53130	CYP97	Ces10516	609	80.0	90	485	55	539	1	1	1							Superscaffold6	16111860	16119497	-	7638	10	1	1	independent	0		candidate (RBH)
+MEP	DXR family	detection	AT5G62790		Ces17928	471	78.4	98	486	10	495	1	1	1							Superscaffold10	68870695	68885608	+	14914	12	1	1	independent	0		candidate (RBH)
+MEP	DXS family	detection	AT4G15560		Ces00252	128	51.3	11	78	93	170	0	1	1							Superscaffold1	6845484	6847372	+	1889	3	1	1	independent	0		sub-threshold hit, recorded not counted
+MEP	DXS family	detection	AT4G15560		Ces01299	136	72.0	18	132	585	716	0	1	1							Superscaffold1	173069348	173069855	-	508	2	1	1	independent	0		sub-threshold hit, recorded not counted
+MEP	DXS family	detection	AT4G15560		Ces01301	443	51.4	87	627	90	716	1	1	1							Superscaffold1	173105785	173108805	-	3021	6	1	1	independent	0		candidate (RBH)
+MEP	DXS family	detection	AT4G15560		Ces01303	581	74.0	73	524	66	589	1	1	1							Superscaffold1	173192662	173196743	-	4082	10	1	1	independent	0		candidate (RBH)
+MEP	DXS family	detection	AT4G15560		Ces01305	709	73.5	91	653	64	716	1	1	1							Superscaffold1	173235632	173239619	-	3988	10	1	1	independent	0		candidate (RBH)
+MEP	DXS family	detection	AT4G15560		Ces02306	260	84.4	13	96	482	577	0	1	1							Superscaffold2	5468671	5471728	+	3058	4	1	1	independent	0	same locus as Ces02307, split model	sub-threshold hit, recorded not counted
+MEP	DXS family	detection	AT4G15560		Ces02307	120	63.7	14	102	585	686	0	1	1							Superscaffold2	5471782	5480121	+	8340	3	1	0	shared with Ces02306	0	same locus as Ces02306, split model	sub-threshold hit, recorded not counted
+MEP	DXS family	detection	AT4G15560		Ces02308	188	65.7	20	143	64	206	0	1	1							Superscaffold2	5480165	5484396	+	4232	4	1	1	independent	0	same locus as Ces02309, split model	sub-threshold hit, recorded not counted
+MEP	DXS family	detection	AT4G15560		Ces02309	239	76.2	33	235	482	716	0	1	1							Superscaffold2	5485937	5486844	+	908	3	1	0	shared with Ces02308	0	same locus as Ces02308, split model	sub-threshold hit, recorded not counted
+MEP	DXS family	detection	AT4G15560		Ces23591	724	87.8	93	664	53	716	1	1	1							Superscaffold13	12978436	12983139	+	4704	10	1	1	independent	0		candidate (RBH)
+backbone	GGPPS family	copy-number	AT4G36810		Ces14428	2232	71.5	80	298	74	371	1	1	1	GGPPS family	100.0	100.0	100.0	100.0		Superscaffold8	10713903	10727157	-	13255	11	1	1	independent	1		family assigned; gene model length anomalous, copy number not called
+MEP	HDR family	detection	AT4G34350		Ces00461	455	78.2	95	445	24	466	1	1	1							Superscaffold1	13984934	13991028	+	6095	10	1	1	independent	0		candidate (RBH)
+MEP	HDR family	detection	AT4G34350		Ces01140	477	78.0	95	441	26	466	1	1	1							Superscaffold1	152196719	152214958	-	18240	10	1	1	independent	0		candidate (RBH)
+MEP	HDS family	detection	AT5G60600		Ces25286	754	84.5	94	698	44	740	1	1	1							Superscaffold13	113006502	113016083	-	9582	21	1	1	independent	0		candidate (RBH)
+MEP	IDI family	detection	AT5G16440		Ces00791	317	83.2	80	232	60	291	1	1	1							Superscaffold1	64239579	64313465	-	73887	6	1	1	independent	0		candidate (RBH)
+cyclase	LCYB family	detection	AT3G10230	LCY	Ces15328	508	74.2	100	511	1	501	1	1	1							Superscaffold8	100050482	100052625	+	2144	2	1	1	independent	0		candidate (RBH)
+cyclase	LCYE family	detection	AT5G57030	LCY	Ces02774	537	66.7	100	541	1	524	1	1	1							Superscaffold2	32124387	32133608	-	9222	11	1	1	independent	0		candidate (RBH)
+MEP	MCT family	detection	AT2G02500		Ces20920	370	72.5	78	236	66	299	1	1	1							Superscaffold11	122993524	123006531	-	13008	17	1	1	independent	0		candidate (RBH)
+MEP	MDS family	detection	AT1G63970		Ces06836	239	86.1	72	166	66	231	1	1	1							Superscaffold4	14781916	14784951	-	3036	3	1	1	independent	0		candidate (RBH)
+degrade	NCED family	copy-number	AT3G14440	CCD	Ces09230	635	72.0	85	518	87	597	1	1	1	NCED family	97.5	100.0	94.4	59.0	1	Superscaffold5	129657798	129660454	+	2657	1	1	1	independent	0		locus verified, family support below threshold
+degrade	NCED family	copy-number	AT3G14440	CCD	Ces10063	608	61.6	86	524	86	597	1	1	1	NCED family	97.5	100.0	94.4	59.0	1	Superscaffold6	3142554	3144591	-	2038	1	1	1	independent	0		locus verified, family support below threshold
+degrade	NCED family	copy-number	AT3G14440	CCD	Ces11733	633	70.6	85	521	87	597	1	1	1	NCED family	97.5	100.0	94.4	59.0	1	Superscaffold6	176151403	176153776	-	2374	1	1	1	independent	0		locus verified, family support below threshold
+degrade	NCED family	copy-number	AT3G14440	CCD	Ces16312	631	67.4	87	534	75	597	1	1	1	NCED family	97.5	100.0	94.4	59.0	1	Superscaffold9	27125404	27127299	-	1896	1	1	1	independent	0		locus verified, family support below threshold
+degrade	NCED family	copy-number	AT3G14440	CCD	Ces27429	632	70.4	85	521	87	597	1	1	1	NCED family	97.5	100.0	94.4	59.0	1	unanchor111	844768	847542	-	2775	1	0	0	unanchored sequence	0		family assigned; unanchored sequence
+degrade	NCED family	copy-number	AT3G14440	CCD	Ces28200	631	67.2	87	534	75	597	1	1	1	NCED family	97.5	100.0	94.4	59.0	1	unanchor125	2047786	2049681	-	1896	1	0	0	unanchored sequence	0		family assigned; unanchored sequence
+xanth	NSX family	detection	AT1G67080		Ces00503	282	66.3	79	175	40	212	1	1	1							Superscaffold1	15476579	15481596	-	5018	6	1	1	independent	0		candidate (RBH)
+sink	ORANGE	presence	AT5G61670		Ces06664	325	70.3	99	330	5	307	1	1	1							Superscaffold4	9087998	9105284	-	17287	8	1	1	independent	0		present
+sink	ORANGE-like	presence	AT5G06130		Ces26954	327	73.3	84	266	50	315	1	1	1							Superscaffold14	123485655	123488950	+	3296	8	1	1	independent	0		present
+core	PDS family	detection	AT4G14210	CRT_desaturase	Ces19826	580	84.2	93	525	26	550	1	1	1							Superscaffold11	17328076	17340309	+	12234	15	1	1	independent	0		candidate (RBH)
+core	PSY family	copy-number	AT5G17230		Ces12496	112	57.4	26	115	126	238	0	1	1							Superscaffold7	79028474	79030838	+	2365	2	1	1	independent	0	same locus as Ces12497, split model	no tree; locus evidence only
+core	PSY family	copy-number	AT5G17230		Ces12497	155	81.0	34	147	281	427	0	1	1							Superscaffold7	79031097	79032356	+	1260	3	1	0	shared with Ces12496	0	same locus as Ces12496, split model	no tree; locus evidence only
+core	PSY family	copy-number	AT5G17230		Ces24605	428	78.0	83	363	69	431	1	1	1	PSY family	100.0	100.0	100.0	100.0		Superscaffold13	96419008	96426240	-	7233	7	1	1	independent	0		copy-number verified
+xanth	VDE family	detection	AT1G08550		Ces22533	489	75.8	79	364	99	462	1	1	1							Superscaffold12	85181531	85188751	+	7221	6	1	1	independent	0		candidate (RBH)
+core	Z-ISO family	detection	AT1G10830		Ces00431	377	77.9	79	289	79	367	1	1	1							Superscaffold1	12132990	12139896	+	6907	4	1	1	independent	0		candidate (RBH)
+core	ZDS family	detection	AT3G04870	CRT_desaturase	Ces16580	193	75.8	6	33	80	112	0	1	1							Superscaffold9	95288014	95302011	+	13998	6	1	1	independent	0		sub-threshold hit, recorded not counted
+core	ZDS family	detection	AT3G04870	CRT_desaturase	Ces25986	583	83.1	94	527	25	551	1	1	1							Superscaffold14	86540149	86550549	-	10401	14	1	1	independent	0		candidate (RBH)
+xanth	ZEP family	detection	AT5G67030		Ces08050	165	75.9	8	54	90	143	0	1	1							Superscaffold4	193605258	193607828	+	2571	2	1	1	independent	0		sub-threshold hit, recorded not counted
+xanth	ZEP family	detection	AT5G67030		Ces08057	701	70.2	84	590	89	650	1	1	1							Superscaffold4	193818156	193832635	+	14480	16	1	1	independent	0		candidate (RBH)
+sink	fibrillin	presence	AT4G04020		Ces17304	334	57.7	100	336	1	317	1	1	1							Superscaffold9	147660421	147663907	-	3487	3	1	1	independent	0		present

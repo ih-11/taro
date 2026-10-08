@@ -1,0 +1,140 @@
+==========================================================================================================
+ALIGNMENT INPUTS, AND TARO MODELS OF ANOMALOUS LENGTH
+==========================================================================================================
+
+CCD
+----------------------------------------------------------------------------------------------------------
+  tree A  n=180  min   338  median   599  max   892
+  tree B  n=136  min   430  median   601  max   892
+
+GGPPS family
+----------------------------------------------------------------------------------------------------------
+  tree A  n=114  min   284  median   356  max  2232
+          colesc_Ces14428 = 2232 aa, 6.3x the median   [TARO CANDIDATE]
+  tree B  n=73   min   284  median   360  max  2232
+          colesc_Ces14428 = 2232 aa, 6.2x the median   [TARO CANDIDATE]
+
+PSY family
+----------------------------------------------------------------------------------------------------------
+  tree A  n=69   min   289  median   411  max   491
+  tree B  n=41   min   300  median   420  max   491
+
+  A record far longer than its family is the mirror image of the split
+  models 03_ found: one record spanning more than one gene rather than
+  one gene spanning two records. It also explains the column counts, a
+  sequence several times the median forcing gap columns on every other
+  sequence. 05_ checks the GFF3: exon count, genomic span, and whether
+  the neighbouring genes a merge would have swallowed are absent.
+
+==========================================================================================================
+TEST 1  —  MEMBERSHIP, by split in tree A. Rooting-independent.
+==========================================================================================================
+
+CCD
+----------------------------------------------------------------------------------------------------------
+  root group (44 tips from ['AT2G44990', 'AT4G32810']): monophyletic, terminals are exactly the set
+  split support: SH-aLRT 97.5  UFBoot 100.0  clears
+  taro tips on the family side: 10 of 10
+  -> every taro candidate is a family member at SH-aLRT 97.5 / UFBoot 100.0
+  tree A rooted on the 44-tip root group; rooted operations below are valid
+
+GGPPS family
+----------------------------------------------------------------------------------------------------------
+  root group (41 tips from ['AT5G47770', 'AT4G17190']): monophyletic, terminals are exactly the set
+  split support: SH-aLRT 100.0  UFBoot 100.0  clears
+  taro tips on the family side: 1 of 1
+  -> every taro candidate is a family member at SH-aLRT 100.0 / UFBoot 100.0
+  tree A rooted on the 41-tip root group; rooted operations below are valid
+
+PSY family
+----------------------------------------------------------------------------------------------------------
+  root group (28 tips from ['AT4G34640', 'AT4G34650']): monophyletic, terminals are exactly the complement
+  split support: SH-aLRT 100.0  UFBoot 100.0  clears
+  taro tips on the family side: 1 of 1
+  -> every taro candidate is a family member at SH-aLRT 100.0 / UFBoot 100.0
+  tree A rooted on the 28-tip root group; rooted operations below are valid
+
+==========================================================================================================
+TEST 2  —  ASSIGNMENT in tree A, rooted on the root group
+==========================================================================================================
+
+CCD
+----------------------------------------------------------------------------------------------------------
+  reference coherence in the rooted tree:
+    CCD1 family      1 reference; coherence needs two or more
+    CCD4 family      1 reference; coherence needs two or more
+    NCED family      5 refs, MRCA  59 tips, EXCLUSIVE, aLRT 94.4 UFBoot 59.0
+
+    taro tip                assignment          anc    aLRT  UFBoot  support
+    colesc_Ces00245         CCD1 family          20    98.7    63.0  below
+    colesc_Ces03723         CCD4 family          21    91.7    99.0  ok
+    colesc_Ces09230         NCED family          59    94.4    59.0  below
+    colesc_Ces10063         NCED family          59    94.4    59.0  below
+    colesc_Ces11733         NCED family          59    94.4    59.0  below
+    colesc_Ces13250         CCD4 family          21    91.7    99.0  ok
+    colesc_Ces13251         CCD4 family          21    91.7    99.0  ok
+    colesc_Ces16312         NCED family          59    94.4    59.0  below
+    colesc_Ces27429         NCED family          59    94.4    59.0  below
+    colesc_Ces28200         NCED family          59    94.4    59.0  below
+
+GGPPS family
+----------------------------------------------------------------------------------------------------------
+  one target, so there is no sub-assignment. Membership from test 1 is the whole result for GGPPS family.
+
+PSY family
+----------------------------------------------------------------------------------------------------------
+  one target, so there is no sub-assignment. Membership from test 1 is the whole result for PSY family.
+
+==========================================================================================================
+TEST 3  —  CONFIRMATION in tree B: the smallest excluding split
+==========================================================================================================
+
+CCD
+----------------------------------------------------------------------------------------------------------
+    CCD1 family       2 tips -> smallest excluding clade  20 tips across 16 species (+18 orthologs), aLRT 77.0 UFBoot 60.0  below
+    CCD4 family       4 tips -> smallest excluding clade  21 tips across 14 species (+17 orthologs), aLRT 88.5 UFBoot 99.0  clears
+    NCED family      11 tips -> smallest excluding clade  59 tips across 16 species (+48 orthologs), aLRT 30.5 UFBoot 43.0  below
+
+    The set is that target's Arabidopsis references plus the taro tips
+    tree A assigned to it. The clade reported is the smallest group
+    containing them and no other target's reference, so the extra tips
+    are the other species' orthologs, which is what an orthogroup is.
+    Recovering it in tree B means a second inference, built from a
+    different alignment, puts the same genes together.
+
+GGPPS family
+----------------------------------------------------------------------------------------------------------
+  one target; tree B has no internal grouping to confirm
+
+PSY family
+----------------------------------------------------------------------------------------------------------
+  one target; tree B has no internal grouping to confirm
+
+==========================================================================================================
+FINAL
+==========================================================================================================
+  colesc_Ces00245          CCD1 family        family member by the root split (97.5/100.0); tree A MRCA 20 tips, support below; tree B recovers the clade, 20 tips (77.0/60.0), support below
+  colesc_Ces03723          CCD4 family        family member by the root split (97.5/100.0); tree A MRCA 21 tips, support clears; tree B recovers the clade, 21 tips (88.5/99.0)
+  colesc_Ces09230          NCED family        family member by the root split (97.5/100.0); tree A MRCA 59 tips, support below; tree B recovers the clade, 59 tips (30.5/43.0), support below
+  colesc_Ces10063          NCED family        family member by the root split (97.5/100.0); tree A MRCA 59 tips, support below; tree B recovers the clade, 59 tips (30.5/43.0), support below
+  colesc_Ces11733          NCED family        family member by the root split (97.5/100.0); tree A MRCA 59 tips, support below; tree B recovers the clade, 59 tips (30.5/43.0), support below
+  colesc_Ces13250          CCD4 family        family member by the root split (97.5/100.0); tree A MRCA 21 tips, support clears; tree B recovers the clade, 21 tips (88.5/99.0)
+  colesc_Ces13251          CCD4 family        family member by the root split (97.5/100.0); tree A MRCA 21 tips, support clears; tree B recovers the clade, 21 tips (88.5/99.0)
+  colesc_Ces16312          NCED family        family member by the root split (97.5/100.0); tree A MRCA 59 tips, support below; tree B recovers the clade, 59 tips (30.5/43.0), support below
+  colesc_Ces27429          NCED family        family member by the root split (97.5/100.0); tree A MRCA 59 tips, support below; tree B recovers the clade, 59 tips (30.5/43.0), support below
+  colesc_Ces28200          NCED family        family member by the root split (97.5/100.0); tree A MRCA 59 tips, support below; tree B recovers the clade, 59 tips (30.5/43.0), support below
+  colesc_Ces14428          GGPPS family       family member by the root split (100.0/100.0); single-target job, no sub-assignment needed
+  colesc_Ces24605          PSY family         family member by the root split (100.0/100.0); single-target job, no sub-assignment needed
+
+written: /home/ha-ibnu/Code/taro/results/tables/tree_assignments.tsv
+written: /home/ha-ibnu/Code/taro/results/tables/family_assignment.tsv
+
+  Family assignment is half of a copy number. The other half is an independent
+  genomic locus, read from the taro GFF3 in 05_.
+
+  Resting on coordinates alone, having never entered a tree:
+  Ces12496 and Ces12497, the split PSY model, and Ces05879.
+  Needing a GFF3 answer before its copy number means anything: colesc_Ces14428 (2232 aa vs median 360)
+
+next:    python scripts/05_report.py
+

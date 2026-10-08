@@ -1,0 +1,95 @@
+====================================================================================================
+SEARCH DATABASE
+====================================================================================================
+  species in orthofinder_input: 17
+  ambtri anacom aratha aspoff bradis colesc elagui manesc musacu nelnuc orysat phodac setita soltub sorbic zeamay zosmar
+
+  database reused; species set and timestamps agree
+  sequences: 454114
+
+====================================================================================================
+TREE JOBS
+====================================================================================================
+
+  CCD
+    CCD1 family      detection    anchor AT3G63520
+    CCD4 family      copy-number  anchor AT4G19170
+    NCED family      copy-number  anchor AT3G14440  + AT1G30100 AT1G78390 AT3G24220 AT4G18350
+    rooted on: CCD7:AT2G44990 CCD8:AT4G32810
+    one tree; 2 copy-number targets share this family
+
+  GGPPS family
+    GGPPS family     copy-number  anchor AT4G36810  + AT1G49530 AT2G18640 AT2G23800 AT3G14550
+    rooted on: FPS1:AT5G47770 FPS2:AT4G17190
+
+  PSY family
+    PSY family       copy-number  anchor AT5G17230
+    rooted on: SQS1:AT4G34640 SQS2:AT4G34650
+
+====================================================================================================
+TARO SEQUENCES ENTERING THE TREES
+====================================================================================================
+
+  taro candidates : alignment >= 100 aa AND qcov >= 50%   (the permissive cell of the 03_ grid)
+  reference tips  : qcov >= 70% AND scov >= 70%   (near-complete, so they carry columns)
+
+  CCD              in: 10   Ces00245 Ces03723 Ces09230 Ces10063 Ces11733 Ces13250 Ces13251 Ces16312 Ces27429 Ces28200
+                   below the floor, handed to 05_ instead of a tree:
+                     Ces05879     qcov  22%  aln  143 aa  (recovered by CCD4 family)
+  GGPPS family     in:  1   Ces14428
+  PSY family       in:  1   Ces24605
+                   below the floor, handed to 05_ instead of a tree:
+                     Ces12496     qcov  26%  aln  115 aa  (recovered by PSY family)
+                     Ces12497     qcov  34%  aln  147 aa  (recovered by PSY family)
+
+====================================================================================================
+TREES
+====================================================================================================
+
+  trimming: trimal -gt 0.80, a fixed threshold so retention is
+  comparable between alignments. The -automated1 column count is shown
+  beside it for comparison with the earlier runs, and is not used.
+
+
+CCD
+----------------------------------------------------------------------------------------------------
+  family set   136 sequences across 17 species (10 taro candidates forced in)
+  root set      44 sequences across 17 species
+  tree A   180 tips   1895 cols ->  489 at -gt 0.80 ( 26%)   [-automated1 would give 339]
+          retention below 40%: the root group is
+          divergent enough to cost the columns close relatives need.
+          Read tree B for resolution and tree A only for the boundary.
+  tree B   136 tips   1515 cols ->  504 at -gt 0.80 ( 33%)   [-automated1 would give 478]
+
+GGPPS family
+----------------------------------------------------------------------------------------------------
+  family set    73 sequences across 17 species (1 taro candidates forced in)
+  root set      41 sequences across 17 species
+  tree A   114 tips   2483 cols ->  291 at -gt 0.80 ( 12%)   [-automated1 would give 190]
+          retention below 40%: the root group is
+          divergent enough to cost the columns close relatives need.
+          Read tree B for resolution and tree A only for the boundary.
+  tree B    73 tips   2455 cols ->  319 at -gt 0.80 ( 13%)   [-automated1 would give 250]
+
+PSY family
+----------------------------------------------------------------------------------------------------
+  family set    41 sequences across 17 species (1 taro candidates forced in)
+  root set      28 sequences across 17 species
+  tree A    69 tips    753 cols ->  321 at -gt 0.80 ( 43%)   [-automated1 would give 266]
+  tree B    41 tips    694 cols ->  386 at -gt 0.80 ( 56%)   [-automated1 would give 431]
+
+====================================================================================================
+
+written: /mnt/f/RA/Downstream/Project5_TARO/work/04_families/jobs.json
+         per job: the anchors, the root group's tip labels, the taro tips whose
+         placement is the question, and the support thresholds
+
+next:    python scripts/04b_read_trees.py
+
+  The trees exist; nothing has been read off them. 04b_ does the reading:
+  whether the root group is monophyletic in tree A, which anchor-defined clade
+  each taro tip falls in, and whether the supporting node clears SH-aLRT >= 80
+  and UFBoot >= 95. Keeping the reading in a separate script means a tree that
+  took minutes to infer is not rebuilt whenever the reading changes, and the
+  reading cannot reach back and alter how the tree was made.
+

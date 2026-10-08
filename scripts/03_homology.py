@@ -31,6 +31,8 @@ with it, and all four were visible in its own output.
 
 3. SUB-THRESHOLD HITS WERE DISCARDED IN MEMORY.
 
+   (Fixed, and then half-undone by the printing. See 5.)
+
    Hits failing the default thresholds were dropped before anything was
    written. The two PSY fragments Ces12496 and Ces12497, which are a recorded
    finding in LOGBOOK.md, are short enough to fall under them, and they do not
@@ -46,6 +48,30 @@ with it, and all four were visible in its own output.
    but before writing homology_sensitivity.tsv. Patching a script by replacing
    strings in it is how that happens. This version reads the schema in one
    place and passes a target object around instead.
+
+5. A RECIPROCAL BEST HIT COULD STILL BE HIDDEN FROM THE PRINTED TABLE.
+
+   homology_hits_all.tsv did keep the two PSY fragments, exactly as intended:
+
+     Ces12497  81.0% identity  qcov 34%  aln 147 aa  e 2.04e-81  RBH to PSY
+     Ces12496  57.4% identity  qcov 26%  aln 115 aa  e 4.11e-35  RBH to PSY
+
+   But the print filter suppressed both, because each fails BOTH defaults, and
+   so the terminal output showed PSY recovering one gene. Writing a finding to
+   a file and then hiding it from the only view anyone reads is not much better
+   than discarding it. The filter now never suppresses a reciprocal best hit,
+   whatever its coverage, and prints the call beside it.
+
+6. QUERY COORDINATES WERE NOT RECORDED, SO SPLIT MODELS WERE NOT TESTABLE.
+
+   Two partial hits to the same anchor are either one gene split across two
+   annotation records or two genuinely separate partial genes, and coverage
+   alone cannot tell them apart: 26% and 34% sum to 60% whether the two pieces
+   cover different parts of the query or the same part twice. The forward
+   search now records qstart, qend, sstart and send, and a section at the end
+   lists pairs of reciprocal hits whose query ranges barely overlap. That is
+   the sequence-side evidence for a split model. The genome-side evidence,
+   adjacency and strand, comes from the GFF3 in 05_.
 
 METHOD, and what it does not establish.
 
@@ -124,7 +150,7 @@ def dmnd(qfile, db, out, maxt):
     subprocess.run(
         ["diamond", "blastp", "-q", str(qfile), "-d", str(db), "-o", str(out),
          "--outfmt", "6", "qseqid", "sseqid", "pident", "length", "qcovhsp",
-         "scovhsp", "evalue", "bitscore",
+         "scovhsp", "evalue", "bitscore", "qstart", "qend", "sstart", "send",
          "--max-target-seqs", str(maxt), "--evalue", "1e-5",
          "--threads", os.environ.get("TARO_THREADS", "4"), "--quiet"],
         check=True, cwd=W)
@@ -135,7 +161,9 @@ def dmnd(qfile, db, out, maxt):
             f = ln.rstrip("\n").split("\t")
             rows.append(dict(q=f[0], s=f[1], pid=float(f[2]), aln=int(f[3]),
                              qcov=float(f[4]), scov=float(f[5]),
-                             ev=f[6], bits=float(f[7])))
+                             ev=f[6], bits=float(f[7]),
+                             qs=int(f[8]), qe=int(f[9]),
+                             ss=int(f[10]), se=int(f[11])))
     return rows
 
 
@@ -161,11 +189,24 @@ if unresolved:
         print(f"  {t['target']:<16} {t['anchor_locus']}")
     print()
 
+# Rebuild a DIAMOND database when it is missing OR older than the FASTA it was
+# built from. Testing only for existence is the bug that sits in
+# 04_families.sh, where a database built from the nine-species set would be
+# silently reused against the current seventeen. Same shape as the KEGG query
+# returning zero and the single-tip rooting returning all zeros: no error, wrong
+# answer. A timestamp comparison is not a checksum, but it catches the case that
+# actually occurs, which is a regenerated proteome and a stale database.
 for db, src in (("colesc", "colesc.fa"), ("aratha", "aratha.fa")):
-    if not (W / f"{db}.dmnd").exists():
-        subprocess.run(["diamond", "makedb", "--in",
-                        str(D / "orthofinder_input" / src),
+    fa = D / "orthofinder_input" / src
+    dmnd_path = W / f"{db}.dmnd"
+    stale = dmnd_path.exists() and dmnd_path.stat().st_mtime < fa.stat().st_mtime
+    if not dmnd_path.exists() or stale:
+        if stale:
+            print(f"  {db}.dmnd is older than {src}; rebuilding")
+        subprocess.run(["diamond", "makedb", "--in", str(fa),
                         "-d", db, "--quiet"], check=True, cwd=W)
+    else:
+        print(f"  {db}.dmnd reused, newer than {src}")
 
 print(f"forward search: {len(resolved)} anchors into the taro proteome")
 fwd = dmnd("anchors.faa", "colesc", "fwd.tsv", MAX_TARGETS)
@@ -219,6 +260,7 @@ print("-" * 118)
 
 all_rows, pass_rows = [], []
 raw = defaultdict(list)
+rbh_hits = defaultdict(list)   # target -> reciprocal hits, for split detection
 
 for t in resolved:
     hits = sorted(by_anchor.get(t["_acc"], []), key=lambda h: -h["bits"])
@@ -242,12 +284,19 @@ for t in resolved:
                    identity=f"{h['pid']:.1f}", qcov_pct=f"{h['qcov']:.0f}",
                    scov_pct=f"{h['scov']:.0f}", aln_aa=h["aln"],
                    aln_over_qlen_pct=f"{100.0 * h['aln'] / t['_qlen']:.0f}",
+                   q_start=h["qs"], q_end=h["qe"],
+                   s_start=h["ss"], s_end=h["se"],
                    evalue=h["ev"], rev_best_locus=rl, rev_best_symbol=rs,
                    rbh_anchor=int(rbh_anc), rbh_family=int(rbh_fam), call=c)
         all_rows.append(rec)
         raw[t["target"]].append((h["aln"], h["qcov"], rbh_fam))
+        if rbh_fam:
+            rbh_hits[t["target"]].append(rec)
 
-        if h["aln"] < DEFAULT_ALN and h["qcov"] < DEFAULT_COV:
+        # A reciprocal best hit is always printed. Suppressing one is how the
+        # two PSY fragments came to look absent when they were in the file all
+        # along.
+        if not rbh_fam and h["aln"] < DEFAULT_ALN and h["qcov"] < DEFAULT_COV:
             continue
         rb = f"{rs or rl or '-'}"[:21]
         print(f"{(t['pathway'] if first else ''):<10}"
@@ -321,10 +370,80 @@ for g, ts in sorted(groups.items()):
         print(f"    -> 04_ builds ONE tree for this group. The partition above "
               f"is an RBH result, not a premise.")
 
+# ------------------------------------------- split gene model candidates
+print()
+print("=" * 118)
+print("SPLIT GENE MODEL CANDIDATES  —  sequence-side evidence only")
+print("=" * 118)
+print("""
+Two reciprocal hits to the same anchor are either one gene broken across two
+annotation records or two separate partial genes. Coverage cannot tell them
+apart, because 26% and 34% sum to 60% whether the pieces cover different parts
+of the query or the same part twice. What distinguishes them is WHERE on the
+query each piece aligns.
+
+Listed below: pairs of reciprocal hits to the same target that between them
+cover much more of the anchor than either does alone, and whose aligned query
+ranges barely overlap. That is consistent with a split model and not proof of
+one. The genome-side evidence, whether the two models sit adjacent on the same
+strand with nothing annotated between them, comes from the GFF3 in 05_.
+""")
+
+SPLIT_MAX_OVERLAP = 0.25      # of the shorter aligned range
+SPLIT_MIN_GAIN = 15.0         # combined coverage must exceed the better single
+                              # hit by this many percentage points
+
+found_any = False
+for t in resolved:
+    hits = rbh_hits.get(t["target"], [])
+    if len(hits) < 2:
+        continue
+    for i in range(len(hits)):
+        for j in range(i + 1, len(hits)):
+            a, b = hits[i], hits[j]
+            a_s, a_e = int(a["q_start"]), int(a["q_end"])
+            b_s, b_e = int(b["q_start"]), int(b["q_end"])
+            la, lb = a_e - a_s + 1, b_e - b_s + 1
+            ov = max(0, min(a_e, b_e) - max(a_s, b_s) + 1)
+            ov_frac = ov / min(la, lb) if min(la, lb) else 1.0
+            ca, cb = float(a["qcov_pct"]), float(b["qcov_pct"])
+            union = la + lb - ov
+            comb = 100.0 * union / t["_qlen"]
+            if ov_frac > SPLIT_MAX_OVERLAP:
+                continue
+            if comb - max(ca, cb) < SPLIT_MIN_GAIN:
+                continue
+            found_any = True
+            # numerically adjacent gene identifiers are suggestive, not evidence
+            def num(g):
+                d = "".join(ch for ch in g if ch.isdigit())
+                return int(d) if d else -1
+            adj = abs(num(a["taro_gene"]) - num(b["taro_gene"])) == 1
+            print(f"  {t['target']}   anchor {t['anchor_locus']}  "
+                  f"({t['_qlen']} aa)")
+            for h, l in ((a, la), (b, lb)):
+                print(f"    {h['taro_gene']:<12} query {int(h['q_start']):>4}-"
+                      f"{int(h['q_end']):<4} ({l:>3} aa)  "
+                      f"id {h['identity']:>5}%  qcov {h['qcov_pct']:>3}%  "
+                      f"e {h['evalue']}")
+            print(f"    overlap of the shorter range : {ov} aa ({ov_frac*100:.0f}%)")
+            print(f"    coverage apart               : {ca:.0f}% and {cb:.0f}%")
+            print(f"    coverage together            : {comb:.0f}%")
+            print(f"    gene identifiers adjacent    : "
+                  f"{'yes' if adj else 'no'}")
+            print(f"    -> 05_ must check: same scaffold, same strand, nothing")
+            print(f"       annotated between. Until then this is one candidate")
+            print(f"       locus reported as two models, not two copies.")
+            print()
+
+if not found_any:
+    print("  No pair of reciprocal hits splits the anchor between them.")
+
 # ------------------------------------------------------------------ outputs
 F_ALL = ["pathway", "target", "anchor_locus", "claim_kind", "family_group",
          "taro_gene", "identity", "qcov_pct", "scov_pct", "aln_aa",
-         "aln_over_qlen_pct", "evalue", "rev_best_locus", "rev_best_symbol",
+         "aln_over_qlen_pct", "q_start", "q_end", "s_start", "s_end",
+         "evalue", "rev_best_locus", "rev_best_symbol",
          "rbh_anchor", "rbh_family", "call"]
 
 for path, data, label in (

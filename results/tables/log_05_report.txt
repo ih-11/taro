@@ -1,5 +1,296 @@
-Traceback (most recent call last):
-  File "/home/ha-ibnu/Code/taro/scripts/05_report.py", line 46, in <module>
-    cands = list(csv.DictReader(open(TAB / "homology_candidates.tsv"), delimiter="\t"))
-                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/home/ha-ibnu/Code/taro/results/tables/homology_candidates.tsv'
+============================================================================================================
+GFF3
+============================================================================================================
+  /mnt/f/RA/Downstream/Project5_TARO/refs/proteomes/Colocasia_esculenta.Genome.V1.gff3
+  features: exon=187715, CDS=177640, mRNA=34340, gene=28253, three_prime_UTR=24488, five_prime_UTR=23620
+  genes 28253   sequences 79   mRNA->gene 34340   genes with exon counts 28253
+  assembly carrying genes: 2,318 Mb, mean spacing 82 kb per gene
+
+============================================================================================================
+ANCHORED SEQUENCES  —  taken from the assembly's own naming
+============================================================================================================
+
+  14 sequences not named 'unanchor', 65 named 'unanchor'
+  taro is 2n = 28, so 14 chromosomes expected: the counts agree
+
+    anchored  Superscaffold2           211.2 Mb   2259 genes
+    anchored  Superscaffold1           206.5 Mb   2146 genes
+    anchored  Superscaffold4           195.0 Mb   1810 genes
+    anchored  Superscaffold3           186.5 Mb   1879 genes
+    anchored  Superscaffold8           186.0 Mb   2129 genes
+    anchored  Superscaffold6           181.7 Mb   1864 genes
+    anchored  Superscaffold5           179.7 Mb   1871 genes
+    anchored  Superscaffold10          161.2 Mb   1989 genes
+    anchored  Superscaffold9           148.1 Mb   1212 genes
+    anchored  Superscaffold11          143.2 Mb   2097 genes
+    anchored  Superscaffold14          124.7 Mb   1702 genes
+    anchored  Superscaffold7           117.9 Mb   2147 genes
+    anchored  Superscaffold13          113.4 Mb   1918 genes
+    anchored  Superscaffold12          105.4 Mb   1963 genes
+    unanchored: 65 sequences, 57 Mb, 1,267 genes
+
+  A gene on an unanchored sequence is reported but does not contribute a
+  copy, because in a 1.83% heterozygous assembly a haplotig of a gene
+  already counted cannot be told from a paralog by coordinates alone.
+
+============================================================================================================
+LOCATING THE CANDIDATES
+============================================================================================================
+
+  to locate 51, located 51
+
+============================================================================================================
+ONE LOCUS OR TWO
+============================================================================================================
+
+  A split model needs sequence evidence AND genome evidence. Genomic
+  distance is not a criterion: mean gene spacing here is 82 kb, so two
+  genes tens of kb apart with nothing between is unremarkable.
+
+
+  BCH family:  Ces06730 and Ces06731 on Superscaffold4
+    Ces06730:  10,729,107-10,730,954  -   2 exons   anchor residues 81-215 (qcov 44%)
+    Ces06731:  10,739,340-10,742,685  +   6 exons   anchor residues 43-309 (qcov 86%)
+    query overlap 135 aa (100% of the shorter)   genomic overlap 0 bp   0 genes between   opposite strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  CCD4 family:  Ces13250 and Ces13251 on Superscaffold7
+    Ces13250:  99,656,322-99,660,230  +   2 exons   anchor residues 181-592 (qcov 69%)
+    Ces13251:  99,735,303-99,737,395  +   1 exons   anchor residues 70-592 (qcov 88%)
+    query overlap 412 aa (100% of the shorter)   genomic overlap 0 bp   0 genes between   same strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  DXS family:  Ces00252 and Ces01299 on Superscaffold1
+    Ces00252:   6,845,484-6,847,372   +   3 exons   anchor residues 93-170 (qcov 11%)
+    Ces01299: 173,069,348-173,069,855 -   2 exons   anchor residues 585-716 (qcov 18%)
+    query overlap 0 aa (0% of the shorter)   genomic overlap 0 bp   1046 genes between   opposite strand
+    -> opposite strands: two independent loci
+
+  DXS family:  Ces00252 and Ces01301 on Superscaffold1
+    Ces00252:   6,845,484-6,847,372   +   3 exons   anchor residues 93-170 (qcov 11%)
+    Ces01301: 173,105,785-173,108,805 -   6 exons   anchor residues 90-716 (qcov 87%)
+    query overlap 78 aa (100% of the shorter)   genomic overlap 0 bp   1048 genes between   opposite strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  DXS family:  Ces00252 and Ces01303 on Superscaffold1
+    Ces00252:   6,845,484-6,847,372   +   3 exons   anchor residues 93-170 (qcov 11%)
+    Ces01303: 173,192,662-173,196,743 -  10 exons   anchor residues 66-589 (qcov 73%)
+    query overlap 78 aa (100% of the shorter)   genomic overlap 0 bp   1050 genes between   opposite strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  DXS family:  Ces00252 and Ces01305 on Superscaffold1
+    Ces00252:   6,845,484-6,847,372   +   3 exons   anchor residues 93-170 (qcov 11%)
+    Ces01305: 173,235,632-173,239,619 -  10 exons   anchor residues 64-716 (qcov 91%)
+    query overlap 78 aa (100% of the shorter)   genomic overlap 0 bp   1052 genes between   opposite strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  DXS family:  Ces01299 and Ces01301 on Superscaffold1
+    Ces01299: 173,069,348-173,069,855 -   2 exons   anchor residues 585-716 (qcov 18%)
+    Ces01301: 173,105,785-173,108,805 -   6 exons   anchor residues 90-716 (qcov 87%)
+    query overlap 132 aa (100% of the shorter)   genomic overlap 0 bp   1 genes between   same strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  DXS family:  Ces01299 and Ces01303 on Superscaffold1
+    Ces01299: 173,069,348-173,069,855 -   2 exons   anchor residues 585-716 (qcov 18%)
+    Ces01303: 173,192,662-173,196,743 -  10 exons   anchor residues 66-589 (qcov 73%)
+    query overlap 5 aa (4% of the shorter)   genomic overlap 0 bp   3 genes between   same strand
+    -> 3 annotated gene(s) between: two independent loci
+
+  DXS family:  Ces01299 and Ces01305 on Superscaffold1
+    Ces01299: 173,069,348-173,069,855 -   2 exons   anchor residues 585-716 (qcov 18%)
+    Ces01305: 173,235,632-173,239,619 -  10 exons   anchor residues 64-716 (qcov 91%)
+    query overlap 132 aa (100% of the shorter)   genomic overlap 0 bp   5 genes between   same strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  DXS family:  Ces01301 and Ces01303 on Superscaffold1
+    Ces01301: 173,105,785-173,108,805 -   6 exons   anchor residues 90-716 (qcov 87%)
+    Ces01303: 173,192,662-173,196,743 -  10 exons   anchor residues 66-589 (qcov 73%)
+    query overlap 500 aa (95% of the shorter)   genomic overlap 0 bp   1 genes between   same strand
+    -> the two cover the SAME part of the anchor (95% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  DXS family:  Ces01301 and Ces01305 on Superscaffold1
+    Ces01301: 173,105,785-173,108,805 -   6 exons   anchor residues 90-716 (qcov 87%)
+    Ces01305: 173,235,632-173,239,619 -  10 exons   anchor residues 64-716 (qcov 91%)
+    query overlap 627 aa (100% of the shorter)   genomic overlap 0 bp   3 genes between   same strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  DXS family:  Ces01303 and Ces01305 on Superscaffold1
+    Ces01303: 173,192,662-173,196,743 -  10 exons   anchor residues 66-589 (qcov 73%)
+    Ces01305: 173,235,632-173,239,619 -  10 exons   anchor residues 64-716 (qcov 91%)
+    query overlap 524 aa (100% of the shorter)   genomic overlap 0 bp   1 genes between   same strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  DXS family:  Ces02306 and Ces02307 on Superscaffold2
+    Ces02306:   5,468,671-5,471,728   +   4 exons   anchor residues 482-577 (qcov 13%)
+    Ces02307:   5,471,782-5,480,121   +   3 exons   anchor residues 585-686 (qcov 14%)
+    query overlap 0 aa (0% of the shorter)   genomic overlap 0 bp   0 genes between   same strand
+    combined span 11,451 bp, against 4,704 bp for the largest complete member of this family
+    -> non-overlapping collinear anchor coverage, same strand,
+       nothing annotated between: ONE LOCUS, two models
+
+  DXS family:  Ces02306 and Ces02308 on Superscaffold2
+    Ces02306:   5,468,671-5,471,728   +   4 exons   anchor residues 482-577 (qcov 13%)
+    Ces02308:   5,480,165-5,484,396   +   4 exons   anchor residues 64-206 (qcov 20%)
+    query overlap 0 aa (0% of the shorter)   genomic overlap 0 bp   1 genes between   same strand
+    -> 1 annotated gene(s) between: two independent loci
+
+  DXS family:  Ces02306 and Ces02309 on Superscaffold2
+    Ces02306:   5,468,671-5,471,728   +   4 exons   anchor residues 482-577 (qcov 13%)
+    Ces02309:   5,485,937-5,486,844   +   3 exons   anchor residues 482-716 (qcov 33%)
+    query overlap 96 aa (100% of the shorter)   genomic overlap 0 bp   2 genes between   same strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  DXS family:  Ces02307 and Ces02308 on Superscaffold2
+    Ces02307:   5,471,782-5,480,121   +   3 exons   anchor residues 585-686 (qcov 14%)
+    Ces02308:   5,480,165-5,484,396   +   4 exons   anchor residues 64-206 (qcov 20%)
+    query overlap 0 aa (0% of the shorter)   genomic overlap 0 bp   0 genes between   same strand
+    -> query order does not match genomic order on this
+       strand, so they are not collinear pieces of one gene
+
+  DXS family:  Ces02307 and Ces02309 on Superscaffold2
+    Ces02307:   5,471,782-5,480,121   +   3 exons   anchor residues 585-686 (qcov 14%)
+    Ces02309:   5,485,937-5,486,844   +   3 exons   anchor residues 482-716 (qcov 33%)
+    query overlap 102 aa (100% of the shorter)   genomic overlap 0 bp   1 genes between   same strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  DXS family:  Ces02308 and Ces02309 on Superscaffold2
+    Ces02308:   5,480,165-5,484,396   +   4 exons   anchor residues 64-206 (qcov 20%)
+    Ces02309:   5,485,937-5,486,844   +   3 exons   anchor residues 482-716 (qcov 33%)
+    query overlap 0 aa (0% of the shorter)   genomic overlap 0 bp   0 genes between   same strand
+    combined span 6,680 bp, against 4,704 bp for the largest complete member of this family
+    -> non-overlapping collinear anchor coverage, same strand,
+       nothing annotated between: ONE LOCUS, two models
+
+  HDR family:  Ces00461 and Ces01140 on Superscaffold1
+    Ces00461:  13,984,934-13,991,028  +  10 exons   anchor residues 24-466 (qcov 95%)
+    Ces01140: 152,196,719-152,214,958 -  10 exons   anchor residues 26-466 (qcov 95%)
+    query overlap 441 aa (100% of the shorter)   genomic overlap 0 bp   678 genes between   opposite strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  NCED family:  Ces10063 and Ces11733 on Superscaffold6
+    Ces10063:   3,142,554-3,144,591   -   1 exons   anchor residues 86-597 (qcov 86%)
+    Ces11733: 176,151,403-176,153,776 -   1 exons   anchor residues 87-597 (qcov 85%)
+    query overlap 511 aa (100% of the shorter)   genomic overlap 0 bp   1669 genes between   same strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+  PSY family:  Ces12496 and Ces12497 on Superscaffold7
+    Ces12496:  79,028,474-79,030,838  +   2 exons   anchor residues 126-238 (qcov 26%)
+    Ces12497:  79,031,097-79,032,356  +   3 exons   anchor residues 281-427 (qcov 34%)
+    query overlap 0 aa (0% of the shorter)   genomic overlap 0 bp   0 genes between   same strand
+    combined span 3,883 bp, against 7,233 bp for the largest complete member of this family
+    -> non-overlapping collinear anchor coverage, same strand,
+       nothing annotated between: ONE LOCUS, two models
+
+  ZEP family:  Ces08050 and Ces08057 on Superscaffold4
+    Ces08050: 193,605,258-193,607,828 +   2 exons   anchor residues 90-143 (qcov 8%)
+    Ces08057: 193,818,156-193,832,635 +  16 exons   anchor residues 89-650 (qcov 84%)
+    query overlap 54 aa (100% of the shorter)   genomic overlap 0 bp   6 genes between   same strand
+    -> the two cover the SAME part of the anchor (100% overlap), so they cannot be two
+       pieces of one gene. Two independent loci.
+
+============================================================================================================
+GENE MODEL LENGTH
+============================================================================================================
+
+  GGPPS family: Ces14428 protein 2232 aa against a family reference median of 360 aa (6.2x)
+    Superscaffold8 10,713,903-10,727,157 -, span 13,255 bp, 11 exons
+    neighbours: Ces14425 Ces14426 Ces14427 Ces14428* Ces14429 Ces14430 Ces14431
+
+  DOMAIN DIAGNOSTIC  —  one domain, or several genes in one record?
+  --------------------------------------------------------------------------------------------------------
+  The first version of this test counted DISTINCT Arabidopsis genes
+  among the HSPs and called more than one a merge. That is wrong: for
+  Ces14428 all fourteen matches landed on residues 1907-2232, the same
+  stretch of protein, because fourteen members of one superfamily all
+  match one prenyltransferase domain. Fourteen genes hitting ONE region
+  is a domain. Different genes hitting DIFFERENT regions is a merge.
+  So HSPs are merged into query regions first, and what matters is how
+  much of the protein matches nothing at all.
+
+    Ces14428 (2232 aa): 1 matched region(s), 326 aa matched, 1906 aa (85%) matching nothing
+       1907-2232  ( 326 aa)  14 Arabidopsis genes, best: GGPS1, AT2G18620, GGPS3, AT3G29430
+    -> ONE matched region. The 14 Arabidopsis genes matching it are one
+       superfamily matching one domain, not several genes merged.
+       What needs explaining is the 1906 aa (85%) that matches nothing:
+       either a lineage-specific extension or an annotation that
+       ran one gene into adjacent sequence. Either way this model
+       is not one clean copy of anything, and the copy number is
+       withheld rather than guessed.
+
+============================================================================================================
+THE CALLS
+============================================================================================================
+
+  COPY-NUMBER TARGETS
+  --------------------------------------------------------------------------------------------------------
+
+  GGPPS family
+    copy number, verified         : 0
+    Ces14428     family assigned; gene model length anomalous, copy number not called
+
+  PSY family
+    copy number, verified         : 1   Ces24605
+    Ces12496     no tree; locus evidence only
+    Ces12497     no tree; locus evidence only
+
+  CCD4 family
+    copy number, verified         : 3   Ces03723 Ces13250 Ces13251
+    Ces05879     no tree; locus evidence only
+
+  NCED family
+    copy number, verified         : 0
+    locus verified, support below : 4   Ces09230 Ces10063 Ces11733 Ces16312
+    Ces27429     family assigned; unanchored sequence
+    Ces28200     family assigned; unanchored sequence
+
+  DETECTION TARGETS, lower bounds
+  --------------------------------------------------------------------------------------------------------
+    DXS family        4 counted,  4 independent loci, 6 below the floor
+    DXR family        1 counted,  1 independent loci
+    MCT family        1 counted,  1 independent loci
+    CMK family        1 counted,  1 independent loci
+    MDS family        1 counted,  1 independent loci
+    HDS family        1 counted,  1 independent loci
+    HDR family        2 counted,  2 independent loci
+    IDI family        1 counted,  1 independent loci
+    PDS family        1 counted,  1 independent loci
+    Z-ISO family      1 counted,  1 independent loci
+    ZDS family        1 counted,  1 independent loci, 1 below the floor
+    CRTISO family     1 counted,  1 independent loci
+    LCYB family       1 counted,  1 independent loci
+    LCYE family       1 counted,  1 independent loci
+    CYP97A family     1 counted,  1 independent loci
+    CYP97C family     1 counted,  1 independent loci
+    BCH family        1 counted,  1 independent loci, 1 below the floor
+    ZEP family        1 counted,  1 independent loci, 1 below the floor
+    VDE family        1 counted,  1 independent loci
+    NSX family        1 counted,  1 independent loci
+    CCD1 family       1 counted,  1 independent loci
+
+  PRESENCE TARGETS
+  --------------------------------------------------------------------------------------------------------
+    ORANGE           present   Ces06664
+    ORANGE-like      present   Ces26954
+    fibrillin        present   Ces17304
+
+============================================================================================================
+
+written: /home/ha-ibnu/Code/taro/results/tables/part1_inventory.tsv   (51 rows)
+
+next:  update README.md and docs/, then rebuild
+       notebooks/part1_landscape.ipynb against this table
+

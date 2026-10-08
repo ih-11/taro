@@ -1,1 +1,29 @@
-gene	aln100_cov50	aln100_cov70	aln100_cov80	aln150_cov50	aln150_cov70	aln150_cov80	aln200_cov50	aln200_cov70	aln200_cov80	stable
+target	claim_kind	aln100_cov50	aln100_cov70	aln100_cov80	aln150_cov50	aln150_cov70	aln150_cov80	aln200_cov50	aln200_cov70	aln200_cov80	stable
+DXS family	detection	4	4	3	4	4	3	4	4	3	False
+DXR family	detection	1	1	1	1	1	1	1	1	1	True
+MCT family	detection	1	1	0	1	1	0	1	1	0	False
+CMK family	detection	1	1	1	1	1	1	1	1	1	True
+MDS family	detection	1	1	0	1	1	0	0	0	0	False
+HDS family	detection	1	1	1	1	1	1	1	1	1	True
+HDR family	detection	2	2	2	2	2	2	2	2	2	True
+IDI family	detection	1	1	0	1	1	0	1	1	0	False
+GGPPS family	copy-number	1	1	1	1	1	1	1	1	1	True
+PSY family	copy-number	1	1	1	1	1	1	1	1	1	True
+PDS family	detection	1	1	1	1	1	1	1	1	1	True
+Z-ISO family	detection	1	1	0	1	1	0	1	1	0	False
+ZDS family	detection	1	1	1	1	1	1	1	1	1	True
+CRTISO family	detection	1	1	1	1	1	1	1	1	1	True
+LCYB family	detection	1	1	1	1	1	1	1	1	1	True
+LCYE family	detection	1	1	1	1	1	1	1	1	1	True
+CYP97A family	detection	1	1	1	1	1	1	1	1	1	True
+CYP97C family	detection	1	1	1	1	1	1	1	1	1	True
+BCH family	detection	1	1	1	1	1	1	1	1	1	True
+ZEP family	detection	1	1	1	1	1	1	1	1	1	True
+VDE family	detection	1	1	0	1	1	0	1	1	0	False
+NSX family	detection	1	1	0	1	1	0	0	0	0	False
+CCD1 family	detection	1	1	1	1	1	1	1	1	1	True
+CCD4 family	copy-number	3	2	2	3	2	2	3	2	2	False
+NCED family	copy-number	6	6	6	6	6	6	6	6	6	True
+ORANGE	presence	1	1	1	1	1	1	1	1	1	True
+ORANGE-like	presence	1	1	1	1	1	1	1	1	1	True
+fibrillin	presence	1	1	1	1	1	1	1	1	1	True

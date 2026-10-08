@@ -1,0 +1,13 @@
+job	taro_tip	assigned_to	anc_tips	alrt	boot	support_ok	exclusive	basis
+CCD	colesc_Ces00245	CCD1 family	20	98.7	63.0	0	1	smallest exclusive MRCA in rooted tree A
+CCD	colesc_Ces03723	CCD4 family	21	91.7	99.0	1	1	smallest exclusive MRCA in rooted tree A
+CCD	colesc_Ces09230	NCED family	59	94.4	59.0	0	1	smallest exclusive MRCA in rooted tree A
+CCD	colesc_Ces10063	NCED family	59	94.4	59.0	0	1	smallest exclusive MRCA in rooted tree A
+CCD	colesc_Ces11733	NCED family	59	94.4	59.0	0	1	smallest exclusive MRCA in rooted tree A
+CCD	colesc_Ces13250	CCD4 family	21	91.7	99.0	1	1	smallest exclusive MRCA in rooted tree A
+CCD	colesc_Ces13251	CCD4 family	21	91.7	99.0	1	1	smallest exclusive MRCA in rooted tree A
+CCD	colesc_Ces16312	NCED family	59	94.4	59.0	0	1	smallest exclusive MRCA in rooted tree A
+CCD	colesc_Ces27429	NCED family	59	94.4	59.0	0	1	smallest exclusive MRCA in rooted tree A
+CCD	colesc_Ces28200	NCED family	59	94.4	59.0	0	1	smallest exclusive MRCA in rooted tree A
+GGPPS family	colesc_Ces14428	GGPPS family		100.0	100.0	1		membership from the root split
+PSY family	colesc_Ces24605	PSY family		100.0	100.0	1		membership from the root split

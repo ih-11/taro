@@ -1,0 +1,13 @@
+job	taro_tip	taro_gene	assignment	basis	member_alrt	member_boot	treeA_alrt	treeA_boot	treeA_support_ok	treeB_split	boundary_placed
+CCD	colesc_Ces00245	Ces00245	CCD1 family	family member by the root split (97.5/100.0); tree A MRCA 20 tips, support below; tree B recovers the clade, 20 tips (77.0/60.0), support below	97.5	100.0	98.7	63.0	0	1	1
+CCD	colesc_Ces03723	Ces03723	CCD4 family	family member by the root split (97.5/100.0); tree A MRCA 21 tips, support clears; tree B recovers the clade, 21 tips (88.5/99.0)	97.5	100.0	91.7	99.0	1	1	1
+CCD	colesc_Ces09230	Ces09230	NCED family	family member by the root split (97.5/100.0); tree A MRCA 59 tips, support below; tree B recovers the clade, 59 tips (30.5/43.0), support below	97.5	100.0	94.4	59.0	0	1	1
+CCD	colesc_Ces10063	Ces10063	NCED family	family member by the root split (97.5/100.0); tree A MRCA 59 tips, support below; tree B recovers the clade, 59 tips (30.5/43.0), support below	97.5	100.0	94.4	59.0	0	1	1
+CCD	colesc_Ces11733	Ces11733	NCED family	family member by the root split (97.5/100.0); tree A MRCA 59 tips, support below; tree B recovers the clade, 59 tips (30.5/43.0), support below	97.5	100.0	94.4	59.0	0	1	1
+CCD	colesc_Ces13250	Ces13250	CCD4 family	family member by the root split (97.5/100.0); tree A MRCA 21 tips, support clears; tree B recovers the clade, 21 tips (88.5/99.0)	97.5	100.0	91.7	99.0	1	1	1
+CCD	colesc_Ces13251	Ces13251	CCD4 family	family member by the root split (97.5/100.0); tree A MRCA 21 tips, support clears; tree B recovers the clade, 21 tips (88.5/99.0)	97.5	100.0	91.7	99.0	1	1	1
+CCD	colesc_Ces16312	Ces16312	NCED family	family member by the root split (97.5/100.0); tree A MRCA 59 tips, support below; tree B recovers the clade, 59 tips (30.5/43.0), support below	97.5	100.0	94.4	59.0	0	1	1
+CCD	colesc_Ces27429	Ces27429	NCED family	family member by the root split (97.5/100.0); tree A MRCA 59 tips, support below; tree B recovers the clade, 59 tips (30.5/43.0), support below	97.5	100.0	94.4	59.0	0	1	1
+CCD	colesc_Ces28200	Ces28200	NCED family	family member by the root split (97.5/100.0); tree A MRCA 59 tips, support below; tree B recovers the clade, 59 tips (30.5/43.0), support below	97.5	100.0	94.4	59.0	0	1	1
+GGPPS family	colesc_Ces14428	Ces14428	GGPPS family	family member by the root split (100.0/100.0); single-target job, no sub-assignment needed	100.0	100.0	100.0	100.0	1		1
+PSY family	colesc_Ces24605	Ces24605	PSY family	family member by the root split (100.0/100.0); single-target job, no sub-assignment needed	100.0	100.0	100.0	100.0	1		1
