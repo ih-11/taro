@@ -98,14 +98,27 @@ adjudicated**: 800,000 reads with none from PSY resolves nothing, and 150,000
 resolves a locus that happens to be well expressed. Total read count is QC, not
 biology.
 
-### Stage 0, before downloading anything
+### Stage 0, before downloading anything — prior information, never exclusion
 
 The corm expansion paper's supplementary tables carry per-gene abundance across
-the three stages. Look up every locus in section 1 there. This costs nothing
-and is the most informative check available, because **a gene not transcribed
-in corm cannot have its model resolved by corm RNA at any depth**, and the
-targets are carotenoid pathway genes in a starch storage organ. Record the
-result before fetching a read.
+the three stages. Look up every locus in section 1 there, and **record the
+result without acting on it**.
+
+An earlier draft treated this as a feasibility check on the grounds that a gene
+not transcribed in corm cannot have its model resolved by corm RNA. The premise
+is true and the use was wrong. **Absence from a published abundance table is
+not proof of no transcription.** It can mean below detection, or counted under
+a different model, or mismapped because of the very annotation problem under
+study. A locus split across two records is exactly the kind of gene whose
+reported abundance is unreliable.
+
+Using it as an exclusion would also invert the experiment: **the existing
+annotation would decide which of its own questionable models are allowed to be
+tested.**
+
+So no locus is dropped on this basis. A locus with no reported expression is
+recorded as *not detected in the published abundance table; retained because
+the nomination was frozen in Part 1*, and the ONT reads decide evaluability.
 
 ### Stage 1, dataset-level technical feasibility — permissive
 
@@ -122,9 +135,10 @@ classification rate are reported as **QC**, never as a biological pass or fail.
 
 ### Stage 2, locus-level eligibility — the one that matters
 
-**A locus is evaluable at a given depth only when at least five independent
-informative reads cover the region required to distinguish the competing
-models.** Three states, and the third is not optional:
+**A locus is evaluable at a given depth only when at least five non-identical
+informative read alignments, after the predefined duplicate-filtering
+procedure, cover the region required to distinguish the competing models.**
+Three states, and the third is not optional:
 
 | state | meaning |
 |---|---|
@@ -137,11 +151,16 @@ absence, which is the specific error section 5 exists to prevent.
 
 **Five is a judgement, not a biological law**, and is stated as one. Unlike a
 total read count it is tied to the inferential unit, and it stops a gene-model
-claim resting on one lucky molecule.
+claim resting on one alignment.
 
-**"Independent" is operational, not rhetorical.** Reads count as independent
-when their alignment termini differ, after duplicate collapse. The library is
-PCR-amplified, so five copies of one molecule are one observation.
+**These are distinct read observations, not proven independent RNA molecules.**
+An earlier draft called them independent on the grounds that their alignment
+termini differ. That overclaims. SQK-PCS109 carries sample barcodes and **no
+UMI**, and PCR products from one original molecule can acquire different
+apparent ends through truncation, adapter trimming and alignment behaviour.
+Without a molecule identifier, molecular independence is not establishable
+here, and the plan says so rather than implying otherwise. The threshold stays
+a conservative operational one.
 
 ---
 
@@ -163,8 +182,8 @@ of a bridging read is not positive evidence for two genes.
 | **separate transcriptional units** | independent transcript populations repeatedly terminate and initiate around the respective models, **with adequate local coverage**, and no bridging molecules |
 | **insufficient evidence** | coverage exists and does not distinguish them |
 
-**A bridging call additionally requires at least two independent bridging reads
-with distinct termini.** SQK-PCS109 is a PCR library and PCR chimeras produce
+**A bridging call additionally requires at least two bridging read alignments
+with distinct alignment termini after duplicate filtering.** SQK-PCS109 is a PCR library and PCR chimeras produce
 precisely the artifact that would falsely bridge two adjacent models. A single
 bridging read is the one observation this library can manufacture, so it is not
 sufficient on its own.
@@ -187,6 +206,12 @@ answer needs a molecule longer than the library contains.
 read length alone and independently of depth. Recording that now, before
 downloading, is worth more than discovering it afterwards.
 
+"Most likely" is the correct strength and is not upgraded. **N50 is a median,
+not a maximum**, and a PromethION run of this size will have reads in the 7 to
+10 kb tail. If several convincing spanning reads turn up, they are used. A
+pre-registration exists to stop a decision moving after the answer is known,
+not to force real evidence to be ignored.
+
 ---
 
 ## 7. Design
@@ -207,12 +232,42 @@ and at every greater sampled depth.** The reported quantity is that depth. It
 answers the primary question directly, where a significance test between two
 depths does not.
 
-**A control locus set** carries the curve, because if the carotenoid genes are
-quiet in corm a curve fitted on four loci estimates nothing. Twenty loci drawn
-from the corm transcriptome before any Part 2 analysis, stratified across the
-expression range so the low end is represented, each with a multi-exon model of
-comparable structure. The curve is described on the controls; the Part 1 loci
-are what it is applied to.
+Requiring it to hold at every greater depth is the stricter of two options; the
+looser one takes the first depth reaching 3/3 and ignores what happens above.
+Monotonic is chosen because with five depths and three replicates, a call that
+appears and then disappears is evidence the call is fragile, and a saturation
+claim should report the depth from which the answer holds rather than the first
+depth at which it happened to appear.
+
+### The control locus set, and its selection algorithm, frozen here
+
+A curve described on four hand-picked anomalies estimates nothing, so twenty
+controls carry it. But "which twenty" is itself a degree of freedom: chosen
+after seeing the ONT alignments, they could be easy or hard. **The selection
+algorithm is therefore fixed now, and runs before any ONT alignment is
+inspected.**
+
+```
+eligible population   Colocasia_esculenta.Genome.V1 genes with
+                      - at least 2 exon records   (a junction must exist
+                        for reads to be informative about)
+                      - genomic span 1,000-15,000 bp, which brackets every
+                        Part 1 locus (908 bp to 13,255 bp)
+                      - on one of the 14 anchored Superscaffolds
+                      - at least 100 kb from any Part 1 locus
+                      - carrying a value in the corm abundance table
+
+stratification        tertiles of reported corm abundance: low / mid / high
+
+draw                  7 low + 7 mid + 6 high = 20
+                      numpy default_rng(20261008), seed recorded here
+
+written to            results/tables/part2_control_loci.tsv, committed
+                      before any read is downloaded
+```
+
+The curve is described on the controls; the Part 1 loci are what it is applied
+to.
 
 **Reads are not molecules.** Subsampling a PCR library subsamples duplicates
 with originals, so a naive curve looks better than the same number of
