@@ -1,0 +1,24 @@
+TAG      ACCESSION             EXPECTED     FOUND  STATUS
+------------------------------------------------------------------------
+colesc   figshare                 28253     28253  ok
+manesc   GCF_001659605.2          29735     29735  ok
+aratha   GCF_000001735.4          27562     27562  ok
+orysat   GCF_001433935.1          28740     28740  ok
+sorbic   GCF_000003195.3          28236     28236  ok
+zeamay   GCF_000005005.2          33461     33461  ok
+setita   GCF_000263155.2          27505     27505  ok
+bradis   GCF_000005505.3          25535     25535  ok
+anacom   GCF_001540865.1          22251     22251  ok
+musacu   GCF_000313855.2          30737     30737  ok
+aspoff   GCF_001876935.1          26460     26460  ok
+phodac   GCF_009389715.1          29239     29239  ok
+elagui   GCF_000442705.1          26381     26381  ok
+zosmar   GCA_001185155.1          20436     20436  ok
+soltub   GCF_000226075.1          28404     28404  ok
+nelnuc   GCF_000365185.1          24073     24073  ok
+ambtri   GCF_000471905.2          17106     17106  ok
+
+17 species, 454114 genes, all counts match NCBI
+Arabidopsis map present: 48265 proteins
+
+next: python scripts/02_pathway_set.py

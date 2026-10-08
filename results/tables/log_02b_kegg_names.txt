@@ -1,0 +1,119 @@
+naming 70 KEGG-only loci
+
+==============================================================================
+KEGG LOCI ABSENT FROM THE HAND LIST, grouped by KEGG's own description
+==============================================================================
+
+mevalonate / cytosolic  (8)
+  suggested: exclude — cytosolic MVA, not the plastidial MEP pathway
+    AT2G36305    FACE2; farnesylated protein-converting enzyme 2
+    AT2G38700    MVD1; mevalonate diphosphate decarboxylase 1
+    AT3G59380    FTA; farnesyltransferase A
+    AT4G11820    HMGS; hydroxymethylglutaryl-CoA synthase / HMG-CoA synthase / 3-hydroxy-3-meth
+    AT4G17190    FPS2; farnesyl diphosphate synthase 2
+    AT5G27450    MK; mevalonate kinase
+    AT5G47770    FPS1; farnesyl diphosphate synthase 1
+    AT5G63910    FCLY; farnesylcysteine lyase
+
+abscisic acid, downstream of NCED  (1)
+  suggested: exclude — downstream of the inventory's scope
+    AT2G27150    AAO3; abscisic aldehyde oxidase 3
+
+carotenoid cleavage / apocarotenoid  (6)
+  suggested: REVIEW — same family as CCD4 and NCED
+    AT1G30100    NCED5; nine-cis-epoxycarotenoid dioxygenase 5
+    AT1G78390    NCED9; nine-cis-epoxycarotenoid dioxygenase 9
+    AT2G44990    CCD7; carotenoid cleavage dioxygenase 7
+    AT3G24220    NCED6; nine-cis-epoxycarotenoid dioxygenase 6
+    AT4G18350    NCED2; nine-cis-epoxycarotenoid dioxygenase 2
+    AT4G32810    CCD8; carotenoid cleavage dioxygenase 8
+
+prenyl / polyprenyl diphosphate  (25)
+  suggested: REVIEW — only those feeding GGPP belong
+    AT1G11755    LEW1; Undecaprenyl pyrophosphate synthetase family protein
+    AT1G17050    SPS2; solanesyl diphosphate synthase 2
+    AT1G49530    GGPS6; geranylgeranyl pyrophosphate synthase 6
+    AT1G78510    SPS1; solanesyl diphosphate synthase 1
+    AT2G17570    cPT1; Undecaprenyl pyrophosphate synthetase family protein
+    AT2G18640    GGPS4; geranylgeranyl pyrophosphate synthase 4
+    AT2G23400    Undecaprenyl pyrophosphate synthetase family protein
+    AT2G23410    CPT; cis-prenyltransferase
+    AT2G23800    GGPS2; geranylgeranyl pyrophosphate synthase 2
+    AT2G34630    GPS1; geranyl diphosphate synthase 1
+    AT3G02780    IPP2; isopentenyl pyrophosphate:dimethylallyl pyrophosphate isomerase 2
+    AT3G14510    Polyprenyl synthetase family protein
+    AT3G14550    GGPS3; geranylgeranyl pyrophosphate synthase 3
+    AT4G38460    GGR; geranylgeranyl reductase
+    AT5G08335    ATSTE14B; Isoprenylcysteine carboxyl methyltransferase (ICMT) family
+    AT5G15860    PCME; prenylcysteine methylesterase
+    AT5G16440    IPP1; isopentenyl diphosphate isomerase 1
+    AT5G23320    STE14A; S-isoprenylcysteine O-methyltransferase
+    AT5G40280    ERA1; Prenyltransferase family protein
+    AT5G58770    cPT4; Undecaprenyl pyrophosphate synthetase family protein
+    AT5G58780    cPT5; Undecaprenyl pyrophosphate synthetase family protein
+    AT5G58782    cPT6; Undecaprenyl pyrophosphate synthetase family protein
+    AT5G58784    Undecaprenyl pyrophosphate synthetase family protein
+    AT5G60500    cPT8; Undecaprenyl pyrophosphate synthetase family protein
+    AT5G60510    cPT9; Undecaprenyl pyrophosphate synthetase family protein
+
+carotenoid biosynthesis proper  (1)
+  suggested: REVIEW — likely belongs
+    AT1G03055    D27; beta-carotene isomerase D27-like protein
+
+unclassified  (29)
+  suggested: REVIEW — read the description
+    AT1G26120    ICME-LIKE1; alpha/beta-Hydrolases superfamily protein
+    AT1G26640    Amino acid kinase family protein
+    AT1G31910    GHMP kinase family protein
+    AT1G52340    ABA2; NAD(P)-binding Rossmann-fold superfamily protein
+    AT1G52400    BGLU18; beta glucosidase 18
+    AT1G74470    Pyridine nucleotide-disulfide oxidoreductase family protein
+    AT1G76490    HMG1; hydroxy methylglutaryl CoA reductase 1
+    AT2G17370    HMG2; 3-hydroxy-3-methylglutaryl-CoA reductase 2
+    AT2G18620    Terpenoid synthases superfamily protein
+    AT2G26170    CYP711A1; cytochrome P450, family 711, subfamily A, polypeptide 1
+    AT2G29090    CYP707A2; cytochrome P450, family 707, subfamily A, polypeptide 2
+    AT3G02410    ICME-LIKE2; alpha/beta-Hydrolases superfamily protein
+    AT3G14530    Terpenoid synthases superfamily protein
+    AT3G19270    CYP707A4; cytochrome P450, family 707, subfamily A, polypeptide 4
+    AT3G20160    Terpenoid synthases superfamily protein
+    AT3G21420    LBO1; 2-oxoglutarate (2OG) and Fe(II)-dependent oxygenase superfamily protein
+    AT3G21500    DXPS1; 1-deoxy-D-xylulose 5-phosphate synthase 1
+    AT3G29430    Terpenoid synthases superfamily protein
+    AT3G32040    Terpenoid synthases superfamily protein
+    AT3G54250    GHMP kinase family protein
+    AT4G01320    ATSTE24; Peptidase family M48 family protein
+    AT4G19230    CYP707A1; cytochrome P450, family 707, subfamily A, polypeptide 1
+    AT4G33360    FLDH; NAD(P)-binding Rossmann-fold superfamily protein
+    AT4G36470    S-adenosyl-L-methionine-dependent methyltransferases superfamily protein
+    AT5G11380    DXPS3; 1-deoxy-D-xylulose 5-phosphate synthase 3
+    AT5G45340    CYP707A3; cytochrome P450, family 707, subfamily A, polypeptide 3
+    AT5G47720    AACT1; Thiolase family protein
+    AT5G48230    ACAT2; acetoacetyl-CoA thiolase 2
+    AT5G58560    FOLK; Phosphatidate cytidylyltransferase family protein
+
+==============================================================================
+OUR ANCHORS THAT KEGG DID NOT RETURN
+==============================================================================
+
+If KEGG knows the locus but places it outside these two pathways, the
+anchor is fine. If KEGG does not know the locus at all, the hand list
+has a wrong identifier, which is an error rather than a difference.
+
+  CCD1      AT3G63520   KEGG knows it: CCD1; carotenoid cleavage dioxygenase 1
+                          -> outside ath00906/ath00900, anchor stands
+  FBN1a     AT4G04020   KEGG knows it: FIB; fibrillin
+                          -> outside ath00906/ath00900, anchor stands
+  NSX       AT1G67080   KEGG knows it: ABA4; abscisic acid (aba)-deficient 4
+                          -> outside ath00906/ath00900, anchor stands
+  OR        AT5G61670   KEGG knows it: orange protein
+                          -> outside ath00906/ath00900, anchor stands
+  OR-like   AT5G06130   KEGG knows it: chaperone protein dnaJ-like protein
+                          -> outside ath00906/ath00900, anchor stands
+
+written: /home/ha-ibnu/Code/taro/results/tables/kegg_only_loci.tsv
+
+  Fill in `decision` (add / exclude) and `reason` for anything in a REVIEW
+  bucket. Loci marked exclude need no further work; loci added get a claim kind
+  assigned in 02_ before 03_ re-runs, the same as every other anchor.
+

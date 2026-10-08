@@ -1,0 +1,29 @@
+step	gene	at_locus	claim_kind	in_kegg	outparalogs
+MEP	DXS	AT4G15560	copy-number	yes	
+MEP	DXR	AT5G62790	detection	yes	
+MEP	MCT	AT2G02500	detection	yes	
+MEP	CMK	AT2G26930	detection	yes	
+MEP	MDS	AT1G63970	detection	yes	
+MEP	HDS	AT5G60600	detection	yes	
+MEP	HDR	AT4G34350	copy-number	yes	
+backbone	GGPPS11	AT4G36810	detection	yes	
+core	PSY	AT5G17230	copy-number	yes	SQS1:AT4G34640;SQS2:AT4G34650
+core	PDS3	AT4G14210	detection	yes	
+core	Z-ISO	AT1G10830	detection	yes	
+core	ZDS	AT3G04870	detection	yes	
+core	CRTISO	AT1G06820	detection	yes	
+cyclase	LCYB	AT3G10230	detection	yes	
+cyclase	LCYE	AT5G57030	detection	yes	
+xanth	CYP97A3	AT1G31800	detection	yes	
+xanth	CYP97C1	AT3G53130	detection	yes	
+xanth	BCH1	AT4G25700	detection	yes	
+xanth	BCH2	AT5G52570	detection	yes	
+xanth	ZEP	AT5G67030	detection	yes	
+xanth	VDE	AT1G08550	detection	yes	
+xanth	NSX	AT1G67080	detection	no	
+degrade	CCD1	AT3G63520	detection	no	
+degrade	CCD4	AT4G19170	copy-number	yes	CCD7:AT2G44990;CCD8:AT4G32810
+degrade	NCED3	AT3G14440	copy-number	yes	CCD7:AT2G44990;CCD8:AT4G32810
+sink	OR	AT5G61670	presence	no	
+sink	OR-like	AT5G06130	presence	no	
+sink	FBN1a	AT4G04020	presence	no	
