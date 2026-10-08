@@ -1,193 +1,280 @@
 # Part 2, pre-registered
 
-Written before any Part 2 data is downloaded. The point of writing it now is
-that the decisions below cannot then be made by whoever is holding the result.
+Written before any Part 2 data is downloaded. Not to predict what the data will
+contain, but to stop the inferential decisions moving once it is known which
+answer they produce.
 
-Supersedes the version drafted before Part 1 finished, which could not name the
-loci Part 2 has to resolve because they had not been found yet.
+The decisions being frozen are: which loci were nominated, what counts as
+informative evidence, what counts as sufficient coverage, what counts as
+resolution, what happens when evidence is insufficient, and that ONT is primary
+with PacBio as replication and no platform claim.
+
+Supersedes three drafts. The second froze a read-count gate; the third replaced
+it after the dataset was looked up. Section 4 keeps both, because a
+pre-registration that edits out its own mistakes is not one.
 
 ---
 
-## 1. What Part 1 handed over
+## 1. What Part 1 handed over, frozen before any read is seen
 
-Part 1 did not only count genes. It found that this annotation is wrong in two
-opposite ways at specific, named loci, and **long reads are the instrument that
-settles both**. That is the link between a taro carotenoid question and a
-long-read methods question, and it is what makes Part 2 worth doing rather than
-a generic assembler comparison.
+Part 1 identified these loci from protein and genome evidence alone, and the
+inventory was committed before the transcriptome was downloaded. **That
+ordering is the design.** Transcript evidence is now an independent test of
+predictions already on record, rather than a search through the transcriptome
+for examples that look like validation afterwards.
 
-### One gene across two annotation records
+### Candidate split models: one gene across two annotation records
 
-| locus | models | evidence |
-|---|---|---|
-| PSY-like, Superscaffold7 | `Ces12496` + `Ces12497` | cover anchor residues 126-238 and 281-427, zero overlap, collinear, 259 bp apart on one strand with nothing annotated between |
-| DXS-like, Superscaffold2 | `Ces02306` + `Ces02307` | 482-577 and 585-686, 54 bp apart |
-| DXS-like, Superscaffold2 | `Ces02308` + `Ces02309` | 64-206 and 482-716, 1,541 bp apart |
+| locus | models | anchor coverage | genomic span |
+|---|---|---|---|
+| PSY-like, Superscaffold7 | `Ces12496` + `Ces12497` | 126-238 and 281-427, zero overlap, collinear | 3,883 bp |
+| DXS-like, Superscaffold2 | `Ces02306` + `Ces02307` | 482-577 and 585-686 | 11,451 bp |
+| DXS-like, Superscaffold2 | `Ces02308` + `Ces02309` | 64-206 and 482-716 | 6,680 bp |
 
-**A transcript spanning both models proves one gene. A transcript ending inside
-the gap proves two.** No amount of further genomic analysis decides this.
-
-### One record spanning more than one gene
+### Candidate over-merged model: one record spanning more than one gene
 
 `Ces14428`, the sole taro GGPPS candidate: 2,232 residues against a family
-reference median of 360, 13,255 bp and 11 exon records on Superscaffold8. Its
-prenyltransferase domain is a GGPS family member at SH-aLRT 100 / UFBoot 100,
-and **1,906 residues, 85% of the protein, match nothing in Arabidopsis**. Every
-one of the fourteen Arabidopsis prenyltransferases that does match lands on
-residues 1907-2232, so the matched part is one domain recognised by one
-superfamily, not several genes merged.
+reference median of 360, 13,255 bp and 11 exon records on Superscaffold8. The
+prenyltransferase domain is a GGPS family member at SH-aLRT 100 / UFBoot 100;
+1,906 residues, 85% of the protein, match nothing in Arabidopsis.
 
-Whether the 5′ 1,906 residues are transcribed in the same molecule as the
-domain is a question only transcript evidence answers.
+### Carried as observations
 
-### Carried as observations, not claims
-
-Six NCED genes assigned by both trees with neither clearing support (UFBoot 59
-and 43 against 95). Two near-identical HDR genes 138 Mb apart. Four
-near-complete DXS genes, three of them in a 170 kb tandem array. Read depth at
-each locus bears on all three.
+Six NCED genes assigned by both trees with neither clearing support. Two
+near-identical HDR genes 138 Mb apart. Four near-complete DXS genes, three in a
+170 kb tandem array.
 
 ---
 
 ## 2. The question
 
-**How much long-read transcriptome data is needed to adjudicate a gene model,
-and does the answer depend on the platform?**
+**Primary.** How does long-read sequencing depth affect the ability to
+adjudicate uncertain taro gene models?
 
-Operationally: assemble the taro transcriptome from long reads, ask what each
-of the loci above looks like in the assembly, and measure how that answer
-changes with depth.
+**Secondary.** Are those conclusions reproduced in an independent PacBio
+dataset from another cultivar?
 
-This is a benchmarking question with a biological deliverable, which is the
-shape the lab works in and the shape that serves the collaboration.
+An earlier draft asked whether the answer "depends on the platform" while also
+stating that no platform ranking is possible, because ONT is Lipu Taro No. 1
+and PacBio is Bun Long. Those two statements contradict each other. Any
+ONT-to-PacBio difference is platform plus genotype plus library preparation
+plus sampling, and the question has been rewritten so it does not ask for
+something the design cannot deliver.
 
 ---
 
-## 3. Data, and the confound declared up front
+## 3. The data, as it actually is
 
-| accession | platform | cultivar | role |
-|---|---|---|---|
-| PRJNA1073178 | ONT | Lipu Taro No.1 | **primary** |
-| SRR34972528 | PacBio | Bun Long | secondary, replication |
+Checked against the publication and the BioProject record rather than assumed.
 
-**The PacBio reads are from Bun Long, the same cultivar the `asm2026` assembly
-was built from.** Cultivar and assembly quality are therefore confounded in any
-PacBio-to-reference comparison, and nothing in the design removes that. The ONT
-data is the primary experiment for that reason, and the PacBio comparison is a
-replication with the confound stated rather than controlled.
+| | PRJNA1073178 | SRR34972528 |
+|---|---|---|
+| platform | **Oxford Nanopore PromethION, R9.4** | PacBio |
+| library | full-length cDNA, SQK-PCS109, **PCR-barcoded** | — |
+| cultivar | **Lipu Taro No. 1** | Bun Long |
+| tissue | **corm only**, 30 / 60 / 90 days | — |
+| samples | 9 (3 stages × 3 replicates) | — |
+| volume | 66 Gbases in the BioProject record; the paper reports 2.75 GB clean, read N50 **1,191–1,395 bp** | — |
 
-Pooling the two platforms is not done. A pooled assembly would make platform,
+Whether "2.75 GB clean" is per sample or in total is not in the main text; the
+supplementary tables settle it. Both readings are workable.
+
+**The PacBio reads are from the same cultivar the `asm2026` assembly was built
+from.** Cultivar and assembly quality are confounded in any PacBio-to-reference
+comparison. Platforms are never pooled: a pooled assembly makes platform,
 cultivar and depth inseparable.
 
 ---
 
-## 4. The feasibility gate — OPEN, NEEDS A NUMBER
+## 4. Feasibility, in two stages
 
-> **This is the one decision still outstanding, and it has to be made before
-> PRJNA1073178 is downloaded.**
+### The gate that was wrong, kept on the record
 
-My proposal, which is judgement and not a standard:
+An earlier draft proposed proceeding at ≥500,000 full-length reads and pivoting
+below 100,000. Two faults. It never said per sample or pooled, so its verdict
+on this dataset depends on an ambiguity in its own units. And it gated on total
+reads when **the experimental unit is usable coverage at the loci being
+adjudicated**: 800,000 reads with none from PSY resolves nothing, and 150,000
+resolves a locus that happens to be well expressed. Total read count is QC, not
+biology.
 
-| full-length ONT reads | action |
+### Stage 0, before downloading anything
+
+The corm expansion paper's supplementary tables carry per-gene abundance across
+the three stages. Look up every locus in section 1 there. This costs nothing
+and is the most informative check available, because **a gene not transcribed
+in corm cannot have its model resolved by corm RNA at any depth**, and the
+targets are carotenoid pathway genes in a starch storage organ. Record the
+result before fetching a read.
+
+### Stage 1, dataset-level technical feasibility — permissive
+
+**≥100,000 classified full-length reads: proceed with the depth-series
+experiment. Below that: do not interpret transcriptome-wide depth saturation;
+restrict to simulation and descriptive locus evidence.**
+
+No higher threshold is set. The depth series is itself the experiment that
+determines how much is enough, so deciding beforehand that some number makes
+reconstruction valid pre-empts the thing being measured.
+
+Read count, N50 and read-length distribution, mapping rate and full-length
+classification rate are reported as **QC**, never as a biological pass or fail.
+
+### Stage 2, locus-level eligibility — the one that matters
+
+**A locus is evaluable at a given depth only when at least five independent
+informative reads cover the region required to distinguish the competing
+models.** Three states, and the third is not optional:
+
+| state | meaning |
 |---|---|
-| ≥ 500,000 | proceed with the design below |
-| 100,000 – 500,000 | proceed, with the depth series truncated and said so |
-| < 100,000 | pivot: the study becomes "what depth would have been required", using simulation alone |
+| **resolved** | informative reads discriminate between the competing models |
+| **unresolved despite coverage** | enough informative reads, and they do not discriminate |
+| **not evaluable** | fewer than five informative reads |
 
-Set the number now, for the same reason the claim kinds were fixed before the
-Part 1 search ran. A gate chosen after seeing the read count is not a gate.
+Collapsing the last two would report absence of evidence as evidence of
+absence, which is the specific error section 5 exists to prevent.
 
----
+**Five is a judgement, not a biological law**, and is stated as one. Unlike a
+total read count it is tied to the inferential unit, and it stops a gene-model
+claim resting on one lucky molecule.
 
-## 5. Metrics
-
-### Not SQANTI3 structural categories across assemblies
-
-FSM, ISM, NIC and NNC are defined **relative to a reference annotation**.
-Comparing them across assemblies with different annotations measures annotation
-quality, not transcript stability. Part 1 is itself the demonstration: the two
-taro annotations differ about twofold in gene count, so the same transcript
-would land in different categories against each.
-
-SQANTI3 is still run, against one fixed annotation, to describe a single
-assembly. It is not used to compare two.
-
-### Annotation-free, following LRGASP Challenge 3
-
-For the no-ground-truth case: transcripts per locus, model length distribution,
-coding potential. These are properties of the assembly, not of an annotation it
-is scored against.
-
-### Simulation as the null
-
-Trans-NanoSim for ONT, IsoSeqSim for PacBio. A bootstrap resample of reads
-gives a variance estimate and no ground truth; a simulation gives actual ground
-truth, and therefore **sensitivity (TP / known)** and **precision (TP / mapped)**
-rather than a spread.
-
-Simulation parameters are set from the real data's own error and length
-profiles, and are recorded before the real assembly is scored.
-
-### Cross-assembly annotation comparison
-
-LiftoffTools, all three modules: `variants`, `synteny`, `clusters`.
+**"Independent" is operational, not rhetorical.** Reads count as independent
+when their alignment termini differ, after duplicate collapse. The library is
+PCR-amplified, so five copies of one molecule are one observation.
 
 ---
 
-## 6. Design
+## 5. What counts as evidence for a split model
 
-```
-depth series: subsample the ONT reads to 10, 25, 50, 75, 100% of full-length
-              reads, three replicate draws per level, fixed seeds recorded
+An earlier draft said: *"A transcript spanning both models proves one gene. A
+transcript ending inside the gap proves two."* **The second half is wrong** and
+is corrected here.
 
-per subsample: assemble, map to the reference, measure
-               - the annotation-free metrics above
-               - the state of each named locus from section 1
-               - sensitivity and precision against the simulated null
+A read can terminate for reasons that have nothing to do with gene structure:
+RNA degradation, incomplete reverse transcription, sequencing truncation,
+transcript processing, or simply a molecule shorter than the span. In a library
+whose N50 is about 1.3 kb that is the common case, not the exception. Absence
+of a bridging read is not positive evidence for two genes.
 
-per locus:     a transcript spanning both models of a split pair, or not
-               a transcript covering Ces14428's 5' region and its domain, or not
-```
+| conclusion | what it requires |
+|---|---|
+| **one transcriptional unit** | multiple independent reads bridge the two records with coherent splice structure |
+| **separate transcriptional units** | independent transcript populations repeatedly terminate and initiate around the respective models, **with adequate local coverage**, and no bridging molecules |
+| **insufficient evidence** | coverage exists and does not distinguish them |
 
-The reported curve is **locus resolution against depth**, which is the
-deliverable: a statement of how much data is needed before a gene model
-question can be answered, grounded in gene models that genuinely needed
-answering.
+**A bridging call additionally requires at least two independent bridging reads
+with distinct termini.** SQK-PCS109 is a PCR library and PCR chimeras produce
+precisely the artifact that would falsely bridge two adjacent models. A single
+bridging read is the one observation this library can manufacture, so it is not
+sufficient on its own.
 
 ---
 
-## 7. Statistics
+## 6. What read length allows, before any coverage question
 
-| comparison | test | why |
+The library N50 is 1,191–1,395 bp. Coverage cannot rescue a question whose
+answer needs a molecule longer than the library contains.
+
+| question | span a read must cover | against N50 ≈ 1.3 kb |
 |---|---|---|
-| a locus resolved or not, same reads, two depths | **McNemar** | paired binary, and the pairs are the same locus |
-| a proportion near 1 | **Wilson interval** | the normal approximation fails at the boundary, and several of these will be near 1 |
-| coverage against a parity line | **Wilcoxon signed-rank** | paired, no distributional assumption |
-| copy number between species | **none** | tips on a tree are not independent samples. Any such test is phylogenetic pseudoreplication |
+| `Ces12496` + `Ces12497` one transcript? | ~0.8 kb CDS plus UTRs | within reach |
+| `Ces02306` + `Ces02307` one transcript? | ~0.6 kb CDS | within reach |
+| `Ces02308` + `Ces02309` one transcript? | ~1.1 kb CDS | at the edge |
+| `Ces14428` 5′ region and GGPS domain one molecule? | **~6.7 kb CDS** | **far out in the tail** |
+
+**The Ces14428 question is most likely not answerable with this dataset**, on
+read length alone and independently of depth. Recording that now, before
+downloading, is worth more than discovering it afterwards.
+
+---
+
+## 7. Design
+
+```
+depth series:  10, 25, 50, 75, 100% of classified full-length reads
+               three fixed-seed subsamples per level, seeds recorded
+
+per locus:     informative reads, then one of
+               resolved / unresolved despite coverage / not evaluable
+
+reported:      a resolution curve per locus, descriptive
+```
+
+**Stable resolution is declared now: a locus is depth-resolved at the lowest
+depth where the same interpretation is obtained in 3/3 subsampling replicates
+and at every greater sampled depth.** The reported quantity is that depth. It
+answers the primary question directly, where a significance test between two
+depths does not.
+
+**A control locus set** carries the curve, because if the carotenoid genes are
+quiet in corm a curve fitted on four loci estimates nothing. Twenty loci drawn
+from the corm transcriptome before any Part 2 analysis, stratified across the
+expression range so the low end is represented, each with a multi-exon model of
+comparable structure. The curve is described on the controls; the Part 1 loci
+are what it is applied to.
+
+**Reads are not molecules.** Subsampling a PCR library subsamples duplicates
+with originals, so a naive curve looks better than the same number of
+independent molecules would. Duplicates are collapsed where the barcode
+structure permits; where it does not, the curve is labelled as being in reads,
+and no absolute molecule requirement is read off it.
+
+---
+
+## 8. Statistics
+
+**No significance test between depths.** An earlier draft proposed McNemar for
+a locus resolved or not at two depths. Two reasons it is dropped, and the
+second applies at any sample size:
+
+- four hand-selected annotation anomalies are nowhere near the regime where it
+  adds inference;
+- **nested subsamples are not paired observations.** The larger subsample
+  contains the smaller one's reads. The dependence is directional and
+  structural, and no amount of extra loci repairs it.
+
+| quantity | treatment |
+|---|---|
+| locus resolution across depths | descriptive curve, plus replicate consistency |
+| a proportion near 1 | **Wilson interval**, since the normal approximation fails at the boundary |
+| coverage against a parity line, paired by locus | **Wilcoxon signed-rank** |
+| copy number between species | **none**. Tips on a tree are not independent samples |
 
 Replicate subsamples at one depth are technical replicates of one library.
-They bound sampling variation and are not independent biological observations,
-and no test treats them as such.
 
 ---
 
-## 8. What Part 2 will not establish
+## 9. What Part 2 will not establish
 
-- **Expression level.** This is assembly and model resolution. Quantification
-  across tissues or cultivars is a different experiment.
-- **A platform ranking.** The cultivar confound means a PacBio-to-ONT
-  difference cannot be attributed to platform.
-- **A corrected annotation.** Part 2 can say a model is wrong and show the
-  transcript evidence. Producing a re-annotation is downstream of that.
-- **Anything about carotenoid content.** No metabolite data is involved, and
-  the pathway genes here are a target set, not a phenotype.
+- **Anything about a gene not transcribed in corm.** Stage 0 measures this
+  before any read is downloaded.
+- **The Ces14428 question, most likely**, for the read-length reason in
+  section 6.
+- **A platform ranking.** ONT is Lipu Taro No. 1 and PacBio is Bun Long.
+- **Separate genes from absent bridging reads alone**, per section 5.
+- **An absolute molecule requirement**, per section 7.
+- **A corrected annotation.** Part 2 can show a model is wrong and show the
+  evidence; re-annotation is downstream.
+- **Expression level**, or anything about carotenoid content.
 
 ---
 
-## 9. Stopping rules, carried forward from Part 1
+## 10. Stopping rules, carried forward from Part 1
 
 - Two analyses of the same question reaching opposite conclusions with neither
-  clearing threshold: recorded as **not determinable**. No third attempt.
+  clearing threshold: **not determinable**. No third attempt.
 - A threshold declared before the data is not moved after it.
 - A step that returns nothing exits non-zero rather than printing an empty
   result as a finding.
+- A quantity that cannot be checked before the data arrives is not used as a
+  gate on whether the data arrives.
+
+---
+
+## Sources
+
+- Biology 14(2):173 — corm expansion study; platform, cultivar, stages, N50
+- NCBI BioProject PRJNA1073178 — 66 Gbases, 9 experiments
+- Pardo-Palacios et al., Nat Methods 2024 — LRGASP, annotation-free metrics
+- Long-read depth benchmarking in iNeurons, bioRxiv 2026

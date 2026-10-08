@@ -37,6 +37,11 @@ install_file () {   # source-basename, destination path
         rm -f "$dst"
         cp "$src" "$dst"
         sed -i 's/\r$//' "$dst"
+        # NTFS through WSL hands every file 755. A document is not executable.
+        case "$dst" in
+            *.sh) chmod 755 "$dst" ;;
+            *)    chmod 644 "$dst" ;;
+        esac
     fi
 }
 
