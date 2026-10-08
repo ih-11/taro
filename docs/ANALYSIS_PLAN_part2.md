@@ -1,323 +1,193 @@
-# Part 2 — pre-registered analysis plan
+# Part 2, pre-registered
 
-**Status:** draft for agreement. Once committed, changes go in the Deviations
-log at the end with a date and a reason, and are never made silently.
+Written before any Part 2 data is downloaded. The point of writing it now is
+that the decisions below cannot then be made by whoever is holding the result.
 
-**Written before any read is downloaded or any alignment is run.** That is the
-point. Part 1 chose its methods after seeing each result, which is why five
-methods were tried for one question and why two of them were wrong. This
-document exists so that cannot happen again.
+Supersedes the version drafted before Part 1 finished, which could not name the
+loci Part 2 has to resolve because they had not been found yet.
 
 ---
 
-## 1. Question
+## 1. What Part 1 handed over
 
-Taro has three published genome assemblies of very different quality. Does the
-same long-read transcript data produce the same transcript models against each?
+Part 1 did not only count genes. It found that this annotation is wrong in two
+opposite ways at specific, named loci, and **long reads are the instrument that
+settles both**. That is the link between a taro carotenoid question and a
+long-read methods question, and it is what makes Part 2 worth doing rather than
+a generic assembler comparison.
 
-This is a methodological question. The carotenoid pathway is the motivating
-case, not the subject.
+### One gene across two annotation records
 
-## 2. Hypotheses, and what each predicts
+| locus | models | evidence |
+|---|---|---|
+| PSY-like, Superscaffold7 | `Ces12496` + `Ces12497` | cover anchor residues 126-238 and 281-427, zero overlap, collinear, 259 bp apart on one strand with nothing annotated between |
+| DXS-like, Superscaffold2 | `Ces02306` + `Ces02307` | 482-577 and 585-686, 54 bp apart |
+| DXS-like, Superscaffold2 | `Ces02308` + `Ces02309` | 64-206 and 482-716, 1,541 bp apart |
 
-**H1.** Transcript structures reconstructed from identical reads differ
-systematically with the reference assembly, and the differences track assembly
-contiguity rather than being random.
+**A transcript spanning both models proves one gene. A transcript ending inside
+the gap proves two.** No amount of further genomic analysis decides this.
 
-*Predicts:* cross-assembly concordance of intron chains is materially below the
-ceiling set by simulation and by the aligner control; and pairwise concordance
-is highest between the two best assemblies.
+### One record spanning more than one gene
 
-**H0.** Differences between assemblies are no larger than those produced by
-read sampling and aligner choice alone.
+`Ces14428`, the sole taro GGPPS candidate: 2,232 residues against a family
+reference median of 360, 13,255 bp and 11 exon records on Superscaffold8. Its
+prenyltransferase domain is a GGPS family member at SH-aLRT 100 / UFBoot 100,
+and **1,906 residues, 85% of the protein, match nothing in Arabidopsis**. Every
+one of the fourteen Arabidopsis prenyltransferases that does match lands on
+residues 1907-2232, so the matched part is one domain recognised by one
+superfamily, not several genes merged.
 
-*Predicts:* cross-assembly concordance falls inside the band set by the
-controls, with no ordering by assembly quality.
+Whether the 5′ 1,906 residues are transcribed in the same molecule as the
+domain is a question only transcript evidence answers.
 
-**Both outcomes are reportable and both will be reported.** H1 says
-"re-annotate before you design"; H0 says "existing taro annotations are more
-robust than their provenance suggests, and can be reused." The second is less
-exciting and more useful to the field. Committing to publish either is what
-makes this a test rather than a demonstration.
+### Carried as observations, not claims
 
-### Prior expectation
-
-Zhang et al. (RNA 2019) mapped one rice RNA-seq dataset to three rice genomes.
-Gene-level calls were fairly robust: 76% of syntenic orthologs gave the same
-differential-expression call across all three. Splicing was not: only 24% of
-differentially-used loci were found by both of two genomes, and one reference
-yielded 3.4-fold more such loci than another.
-
-Transcript-level analysis is therefore expected to be far more
-reference-sensitive than gene-level. If taro behaves like rice, the effect
-should be large rather than marginal. Stating this in advance means a small
-effect is a real result rather than a disappointment to be explained away.
+Six NCED genes assigned by both trees with neither clearing support (UFBoot 59
+and 43 against 95). Two near-identical HDR genes 138 Mb apart. Four
+near-complete DXS genes, three of them in a 170 kb tandem array. Read depth at
+each locus bears on all three.
 
 ---
 
-## 3. Data, fixed now
+## 2. The question
 
-### Assemblies
+**How much long-read transcriptome data is needed to adjudicate a gene model,
+and does the answer depend on the platform?**
 
-| Tag | Accession | Platform | Contig N50 | BUSCO | Cultivar |
-|---|---|---|---|---|---|
-| `asm2019` | GCA_009445465.1 | — | — | — | — |
-| `asm2021` | CNP0001082 (CNGBdb) | PacBio + ONT + Illumina + Hi-C | 400 kb | 85.7% | Longxiangyu |
-| `asm2026` | JBQGWC000000000 | PacBio Revio HiFi + Hi-C | 18.02 Mb | 96.9% | Bun Long |
+Operationally: assemble the taro transcriptome from long reads, ask what each
+of the loci above looks like in the assembly, and measure how that answer
+changes with depth.
 
-### Reads
-
-| Tag | Accession | Platform | Cultivar | Note |
-|---|---|---|---|---|
-| `ont` | PRJNA1073178 | ONT PromethION cDNA | Lipu Taro No.1 | 9 libraries, ~2.75 GB clean total |
-| `pb` | SRR34972528 | PacBio Revio | Bun Long | **same cultivar as asm2026** |
-
-### A confound that must be declared, not discovered later
-
-The PacBio reads come from Bun Long, which is the cultivar `asm2026` was built
-from. Those reads will map better to `asm2026` partly because it is the same
-plant, not because the assembly is better. Cultivar and assembly quality are
-confounded in that comparison, and no analysis can separate them.
-
-The ONT reads are from Lipu Taro No.1, which is none of the three assemblies.
-They are therefore equally foreign to all three.
-
-**Decision: `ont` is the primary experiment. `pb` is a secondary replication
-with the confound stated wherever it appears.** Results from `pb` that agree
-with `ont` strengthen the conclusion; results that disagree are attributed to
-the confound unless shown otherwise, and that asymmetry is declared here rather
-than chosen afterwards.
-
-Taro is clonally propagated and highly heterozygous (1.83% in Bun Long, 0.45%
-in Longxiangyu). Cross-cultivar mapping is therefore a real divergence effect,
-analogous to the SNP-density effect Zhang et al. measured between rice
-subspecies, and it will be quantified the same way rather than assumed away.
+This is a benchmarking question with a biological deliverable, which is the
+shape the lab works in and the shape that serves the collaboration.
 
 ---
 
-## 4. Feasibility gate, evaluated before anything else
+## 3. Data, and the confound declared up front
 
-~2.75 GB of clean ONT data across nine libraries is thin for isoform work.
-
-**Gate:** count full-length reads after pychopper across all `ont` libraries.
-
-- **≥ 500,000 full-length reads** — proceed with the plan as written.
-- **100,000 to 500,000** — proceed, but the primary outcome is restricted to
-  loci above a per-locus read threshold fixed at the same time, and the
-  restriction is reported.
-- **< 100,000** — the plan is abandoned and replaced by the depth-requirement
-  study: simulate at a range of depths, report the depth at which transcript
-  structures become stably recoverable. That is a complete and useful result,
-  not a failure, and committing to it now prevents the data being tortured.
-
-This gate is evaluated once, before any mapping, and the outcome recorded.
-
----
-
-## 5. Methods, fixed now
-
-### Alignment
-
-```
-ONT     minimap2 -ax splice -uf -k14
-PacBio  minimap2 -ax splice:hq -uf
-```
-
-**Aligner control.** Zhang et al. ran three aligners to show genome choice
-dominated aligner choice. Without that control we cannot attribute an effect to
-the reference rather than to minimap2 behaving differently on assemblies of
-different contiguity.
-
-A second long-read spliced aligner (uLTRA or deSALT; chosen at setup, recorded
-here before use) is run on the same reads against the same three assemblies.
-The aligner is a nuisance variable, not a treatment.
-
-### Transcript models
-
-IsoQuant, reference-guided, **with the assembly's own annotation withheld**.
-Models are built from the reads and the genome sequence only.
-
-This is deliberate. SQANTI3's structural categories — FSM, ISM, NIC, NNC — are
-defined relative to a reference annotation. Classifying the same transcript
-under three different annotations of three different qualities would measure
-annotation quality while appearing to measure transcript stability. Withholding
-the annotations removes that confound at the cost of losing the category
-vocabulary, which is reintroduced only in Section 6 under a single common
-annotation.
-
-StringTie2 `-L` is run as a secondary method, treated as a nuisance variable in
-the same way as the aligner.
-
-### Common frame
-
-Coordinates are not comparable across assemblies. Zhang et al. solved this by
-restricting analysis to syntenic orthologs present in all three genomes.
-
-`asm2026`'s annotation is lifted to `asm2021` and `asm2019` with Liftoff, and
-the three are compared with LiftoffTools (variants, synteny, clusters). The
-analysis set is the loci successfully lifted to all three with ≥90% coverage.
-
-LiftoffTools' clusters module additionally reports copy-number change per gene
-between assemblies, which answers directly whether the CCD4 and PSY loci from
-Part 1 are annotated consistently across the three taro assemblies. That is the
-Part 1 question asked across references, and it is how the two parts connect.
-
----
-
-## 6. Outcomes
-
-### Primary
-
-**Intron-chain concordance.** For each locus in the common frame, the set of
-transcript models produced under each assembly, compared as ordered intron
-chains.
-
-*Match definition, fixed now:* two transcripts match if every internal splice
-junction is identical to the base pair. Terminal exon boundaries are **not**
-required to match, because long-read 5′ and 3′ ends are unreliable — ONT and
-Iso-Seq both suffer 5′ degradation. Loosening this later would be a deviation.
-
-Reported as the proportion of loci whose model set is identical across all
-three assemblies, with a **Wilson** confidence interval. Wilson rather than
-normal approximation because the proportion may sit near 1, where the normal
-approximation misbehaves.
-
-### Secondary, annotation-free
-
-Following LRGASP Challenge 3, which faced the same absence of trustworthy
-ground truth:
-
-- transcripts per locus
-- transcript model length distribution
-- ORF completeness and coding potential
-
-These compare cleanly across assemblies because none of them references an
-annotation.
-
-### Tertiary, within the common annotation only
-
-SQANTI3 structural categories, computed against the lifted `asm2026`
-annotation for all three — one annotation, three assemblies. This is the only
-form in which the categories are interpretable here, and the alluvial diagram
-of category change is drawn only in this form.
-
-### Statistical treatment
-
-- The comparison is **paired** — the same locus under two assemblies — so
-  category change is tested with **McNemar**, not chi-square.
-- Where an effect size is reported for a paired proportion, it is reported with
-  a confidence interval and not only a p-value.
-- No test is run on anything with fewer than 20 informative loci; the number is
-  reported instead.
-
----
-
-## 7. The null, and why it is simulation rather than resampling
-
-An earlier draft proposed bootstrap-resampling the reads against one assembly
-to get a baseline churn rate. That gives a variance estimate but no ground
-truth.
-
-LRGASP uses simulation instead, with Trans-NanoSim for ONT and IsoSeqSim for
-PacBio, because simulated reads come from a known transcript set. That yields
-sensitivity and precision directly — LRGASP defines sensitivity as true
-positives over known transcripts, precision as true positives over mapped
-transcripts — rather than only a statement that something changed.
-
-**Design.** Simulate ONT reads from the lifted `asm2026` transcript set at the
-observed depth and error profile. Map and reconstruct against all three
-assemblies with the identical pipeline. Because the source transcripts are
-known, this gives:
-
-1. a **ceiling** — the concordance achievable when the transcripts really are
-   identical, which is below 100% because of mapping and reconstruction error
-2. per-assembly **sensitivity and precision** against known truth
-3. the attribution: how much of the real-data discordance is pipeline noise and
-   how much is the reference
-
-Without this, "N% of models changed" has no denominator and a referee asks
-"compared to what?" with no answer available.
-
-Simulation is run **before** the real comparison is interpreted, so the ceiling
-is not chosen after seeing the result it is used to judge.
-
----
-
-## 8. Decision rules
-
-Fixed now, applied as written.
-
-**H1 is supported** if, in the `ont` primary analysis, cross-assembly
-intron-chain concordance is below the simulated ceiling by more than the
-aligner-control band, **and** pairwise concordance is ordered by assembly
-contiguity.
-
-**H0 is supported** if cross-assembly concordance falls within the
-aligner-control band, with no ordering by assembly quality.
-
-**Inconclusive** if the simulated ceiling is itself so low that the comparison
-cannot discriminate. In that case the reported result is the ceiling, framed as
-a statement about what current tools can resolve on a 2.3 Gb, 85%-repeat
-genome.
-
-**Partial** outcomes — effect present but unordered, or ordered but inside the
-control band — are reported as such and not rounded toward either hypothesis.
-
----
-
-## 9. Confirmatory versus exploratory
-
-**Confirmatory**, covered by this plan: everything in Sections 6 to 8.
-
-**Exploratory**, labelled as such wherever it appears and never presented as
-hypothesis-tested: the carotenoid pathway loci specifically, the PSY
-`Ces12496`/`Ces12497` locus as a case study, and any per-gene observation.
-
-The PSY locus is the figure most likely to persuade a reader, and it is a
-single locus chosen because Part 1 made it interesting. It is an illustration
-of the general result, never evidence for it.
-
----
-
-## 10. What would invalidate this analysis
-
-Stated now so they are not rationalised later.
-
-- `asm2021` unobtainable from CNGBdb. The study drops to two assemblies, which
-  weakens the contiguity ordering to a single contrast. Recorded, not hidden.
-- Liftoff transfers too few loci to all three to leave a usable common frame.
-- The simulated ceiling is indistinguishable from the real concordance.
-- The two read sets disagree in direction, which given the cultivar confound
-  would mean neither can be interpreted alone.
-
----
-
-## 11. What this plan does not cover
-
-Part 3, the promoter analysis, is out of scope and will need its own plan. One
-correction carried forward: Part 3 was previously described as needing only the
-genome. It does not. Empirical transcription start sites require transcript
-evidence, and long reads give observed 5′ ends that bound the start region
-rather than pinpointing it. Part 3 is comparative cis-regulatory analysis using
-long-read-supported 5′ ends, and will be described that way.
-
----
-
-## 12. Deviations log
-
-Every departure from the above, with date and reason. An empty log is a claim
-that nothing changed, so it is left empty only if that is true.
-
-| Date | Section | Change | Reason |
+| accession | platform | cultivar | role |
 |---|---|---|---|
-| | | | |
+| PRJNA1073178 | ONT | Lipu Taro No.1 | **primary** |
+| SRR34972528 | PacBio | Bun Long | secondary, replication |
+
+**The PacBio reads are from Bun Long, the same cultivar the `asm2026` assembly
+was built from.** Cultivar and assembly quality are therefore confounded in any
+PacBio-to-reference comparison, and nothing in the design removes that. The ONT
+data is the primary experiment for that reason, and the PacBio comparison is a
+replication with the confound stated rather than controlled.
+
+Pooling the two platforms is not done. A pooled assembly would make platform,
+cultivar and depth inseparable.
 
 ---
 
-## References
+## 4. The feasibility gate — OPEN, NEEDS A NUMBER
 
-- Zhang et al. 2019, *RNA* 25:669 — choice of reference genome affects
-  differential expression and alternative splicing
-- Pardo-Palacios et al. 2024, *Nat Methods* — LRGASP consortium
-- Pardo-Palacios et al. 2023 — SQANTI3
-- Shumate & Salzberg — Liftoff and LiftoffTools
+> **This is the one decision still outstanding, and it has to be made before
+> PRJNA1073178 is downloaded.**
+
+My proposal, which is judgement and not a standard:
+
+| full-length ONT reads | action |
+|---|---|
+| ≥ 500,000 | proceed with the design below |
+| 100,000 – 500,000 | proceed, with the depth series truncated and said so |
+| < 100,000 | pivot: the study becomes "what depth would have been required", using simulation alone |
+
+Set the number now, for the same reason the claim kinds were fixed before the
+Part 1 search ran. A gate chosen after seeing the read count is not a gate.
+
+---
+
+## 5. Metrics
+
+### Not SQANTI3 structural categories across assemblies
+
+FSM, ISM, NIC and NNC are defined **relative to a reference annotation**.
+Comparing them across assemblies with different annotations measures annotation
+quality, not transcript stability. Part 1 is itself the demonstration: the two
+taro annotations differ about twofold in gene count, so the same transcript
+would land in different categories against each.
+
+SQANTI3 is still run, against one fixed annotation, to describe a single
+assembly. It is not used to compare two.
+
+### Annotation-free, following LRGASP Challenge 3
+
+For the no-ground-truth case: transcripts per locus, model length distribution,
+coding potential. These are properties of the assembly, not of an annotation it
+is scored against.
+
+### Simulation as the null
+
+Trans-NanoSim for ONT, IsoSeqSim for PacBio. A bootstrap resample of reads
+gives a variance estimate and no ground truth; a simulation gives actual ground
+truth, and therefore **sensitivity (TP / known)** and **precision (TP / mapped)**
+rather than a spread.
+
+Simulation parameters are set from the real data's own error and length
+profiles, and are recorded before the real assembly is scored.
+
+### Cross-assembly annotation comparison
+
+LiftoffTools, all three modules: `variants`, `synteny`, `clusters`.
+
+---
+
+## 6. Design
+
+```
+depth series: subsample the ONT reads to 10, 25, 50, 75, 100% of full-length
+              reads, three replicate draws per level, fixed seeds recorded
+
+per subsample: assemble, map to the reference, measure
+               - the annotation-free metrics above
+               - the state of each named locus from section 1
+               - sensitivity and precision against the simulated null
+
+per locus:     a transcript spanning both models of a split pair, or not
+               a transcript covering Ces14428's 5' region and its domain, or not
+```
+
+The reported curve is **locus resolution against depth**, which is the
+deliverable: a statement of how much data is needed before a gene model
+question can be answered, grounded in gene models that genuinely needed
+answering.
+
+---
+
+## 7. Statistics
+
+| comparison | test | why |
+|---|---|---|
+| a locus resolved or not, same reads, two depths | **McNemar** | paired binary, and the pairs are the same locus |
+| a proportion near 1 | **Wilson interval** | the normal approximation fails at the boundary, and several of these will be near 1 |
+| coverage against a parity line | **Wilcoxon signed-rank** | paired, no distributional assumption |
+| copy number between species | **none** | tips on a tree are not independent samples. Any such test is phylogenetic pseudoreplication |
+
+Replicate subsamples at one depth are technical replicates of one library.
+They bound sampling variation and are not independent biological observations,
+and no test treats them as such.
+
+---
+
+## 8. What Part 2 will not establish
+
+- **Expression level.** This is assembly and model resolution. Quantification
+  across tissues or cultivars is a different experiment.
+- **A platform ranking.** The cultivar confound means a PacBio-to-ONT
+  difference cannot be attributed to platform.
+- **A corrected annotation.** Part 2 can say a model is wrong and show the
+  transcript evidence. Producing a re-annotation is downstream of that.
+- **Anything about carotenoid content.** No metabolite data is involved, and
+  the pathway genes here are a target set, not a phenotype.
+
+---
+
+## 9. Stopping rules, carried forward from Part 1
+
+- Two analyses of the same question reaching opposite conclusions with neither
+  clearing threshold: recorded as **not determinable**. No third attempt.
+- A threshold declared before the data is not moved after it.
+- A step that returns nothing exits non-zero rather than printing an empty
+  result as a finding.
