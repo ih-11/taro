@@ -1,0 +1,199 @@
+==========================================================================
+STORE CLEANUP
+==========================================================================
+  store : /mnt/f/RA/Downstream/Project5_TARO
+  mode  : plan only, nothing is deleted
+
+  counting files, this walks the whole store and takes a minute
+  before: 114104 files, 3.9G
+
+RESCUE LIST  —  copied into provenance/ and verified before any delete
+----------------------------------------------------------------------------
+  from the OrthoFinder run, into provenance/orthofinder_20261007/:
+    Citation.txt                                4.0K      1 file(s)
+    Log.txt                                     4.0K      1 file(s)
+    Comparative_Genomics_Statistics             250K      9 file(s)
+    Orthogroups                                  11M      5 file(s)
+    Gene_Duplication_Events                      16M      2 file(s)
+    Species_Tree                                 16K      3 file(s)
+    Phylogenetic_Hierarchical_Orthogroups        18M      7 file(s)
+
+    Orthogroups_UnassignedGenes.tsv is the one that matters. It is the
+    evidence that MCL left all three taro PSY candidates unclustered.
+    A README recording the nine-species set is written beside it.
+
+  early search tables, into provenance/early_searches/:
+    psy_check/psy_hits.tsv                         0
+    psy_check/recip.tsv                            0
+    pathway_homology/fwd.tsv                    4.0K
+    pathway_homology/rev.tsv                    4.0K
+
+    LOGBOOK.md quotes identity and e-values out of these. The rewritten
+    03_homology.py changes the coverage metric, so it will not reproduce
+    the same numbers and these are the only source for them.
+
+  GFF3 provenance, into provenance/gff_checksums/:
+    aratha/md5sum.txt                              0
+
+    aratha_gff holds nothing but md5sum.txt, and that checksum is the
+    only record of which Arabidopsis release produced
+    aratha_protein2gene.tsv, which cannot be rebuilt without the GFF3.
+
+1. the OrthoFinder run
+----------------------------------------------------------------------------
+
+2. superseded search directories, minus the tables rescued above
+----------------------------------------------------------------------------
+
+3. stale caches a later step would silently reuse
+----------------------------------------------------------------------------
+  04_families.sh decides whether to rebuild with 'if [ ! -f all.dmnd ]'.
+  A database built from the old nine-species set would be reused against
+  the current seventeen, and the printed species count comes from the
+  variable rather than the database, so nothing would say so. Same shape
+  as the KEGG query returning zero and the single-tip rooting returning
+  all zeros. Removing the cache forces a rebuild; 04_ also needs a check
+  that compares the cache against the species list.
+
+
+4. outgroup GFF3 files
+----------------------------------------------------------------------------
+  The current pipeline reads only the taro GFF3. These were fetched to
+  map rice and sorghum PSY genes to chromosomes for the subgroup
+  question, which is recorded as not determinable. Re-downloadable with
+  'datasets download genome accession <ACC> --include gff3', though a
+  later NCBI release may differ, which is why the checksums are rescued.
+
+
+5. duplicate proteome copies, checked by sequence content
+----------------------------------------------------------------------------
+  Each proteome may exist as *.primary.faa and again as
+  orthofinder_input/*.fa with different headers. Comparing a checksum of
+  the sorted sequences, so a file that is not actually a duplicate is
+  kept. This reads every pair and takes a moment.
+
+  MATCH   ambtri.primary.faa          17106 seqs, identical sequence set
+  MATCH   anacom.primary.faa          22251 seqs, identical sequence set
+  MATCH   aratha.primary.faa          27562 seqs, identical sequence set
+  MATCH   aspoff.primary.faa          26460 seqs, identical sequence set
+  MATCH   bradis.primary.faa          25535 seqs, identical sequence set
+  MATCH   colesc.primary.faa          28253 seqs, identical sequence set
+  MATCH   elagui.primary.faa          26381 seqs, identical sequence set
+  MATCH   manesc.primary.faa          29735 seqs, identical sequence set
+  MATCH   musacu.primary.faa          30737 seqs, identical sequence set
+  MATCH   nelnuc.primary.faa          24073 seqs, identical sequence set
+  MATCH   orysat.primary.faa          28740 seqs, identical sequence set
+  MATCH   phodac.primary.faa          29239 seqs, identical sequence set
+  MATCH   setita.primary.faa          27505 seqs, identical sequence set
+  MATCH   soltub.primary.faa          28404 seqs, identical sequence set
+  MATCH   sorbic.primary.faa          28236 seqs, identical sequence set
+  MATCH   zeamay.primary.faa          33461 seqs, identical sequence set
+  MATCH   zosmar.primary.faa          20436 seqs, identical sequence set
+  MATCH   colesc.tagged.faa           28253 seqs, identical sequence set
+
+6. download leftovers
+----------------------------------------------------------------------------
+
+WHAT WOULD BE REMOVED
+----------------------------------------------------------------------------
+  size          files  path
+----------------------------------------------------------------------------
+  1.5G         113954  work/05_orthology/run_20261007_2049
+                           OrthoFinder is not part of the method. Nine-species run, not reproducible from current inputs. Summaries rescued
+  12M               1  work/05_orthology/pathway_homology/aratha.dmnd
+                           regenerable; superseded by work/03_homology
+  13M               1  work/05_orthology/pathway_homology/colesc.dmnd
+                           regenerable; superseded by work/03_homology
+  4.0K              1  work/05_orthology/pathway_homology/q.faa
+                           regenerable; superseded by work/03_homology
+  4.0K              1  work/05_orthology/pathway_homology/t.faa
+                           regenerable; superseded by work/03_homology
+  12M               1  work/05_orthology/psy_check/aratha.dmnd
+                           regenerable; the search tables are rescued
+  13M               1  work/05_orthology/psy_check/colesc.dmnd
+                           regenerable; the search tables are rescued
+  0                 1  work/05_orthology/psy_check/query_psy.faa
+                           regenerable; the search tables are rescued
+  0                 1  work/05_orthology/psy_check/top_taro.faa
+                           regenerable; the search tables are rescued
+  201M              1  work/05_orthology/trees/all.faa
+                           orphaned combined database; 04_families.sh builds its own
+  205M              1  work/05_orthology/trees/all.dmnd
+                           orphaned combined database; 04_families.sh builds its own
+  0                 1  work/04_families/all.dmnd
+                           stale database; 04_ reuses it on existence alone
+  201M              1  work/04_families/all.faa
+                           stale concatenation from the nine-species set
+  4.0K              1  work/03_homology/q.faa
+                           intermediate of the replaced 03_homology.py
+  4.0K              1  work/03_homology/t.faa
+                           intermediate of the replaced 03_homology.py
+  165M              1  work/05_orthology/anacom_gff
+                           outgroup GFF3, not read by the current pipeline; checksum rescued
+  0                 1  work/05_orthology/aratha_gff
+                           outgroup GFF3, not read by the current pipeline; checksum rescued
+  171M              1  work/05_orthology/aspoff_gff
+                           outgroup GFF3, not read by the current pipeline; checksum rescued
+  159M              1  work/05_orthology/bradis_gff
+                           outgroup GFF3, not read by the current pipeline; checksum rescued
+  221M              1  work/05_orthology/elagui_gff
+                           outgroup GFF3, not read by the current pipeline; checksum rescued
+  175M              1  work/05_orthology/orysat_gff
+                           outgroup GFF3, not read by the current pipeline; checksum rescued
+  228M              1  work/05_orthology/phodac_gff
+                           outgroup GFF3, not read by the current pipeline; checksum rescued
+  142M              1  work/05_orthology/setita_gff
+                           outgroup GFF3, not read by the current pipeline; checksum rescued
+  157M              1  work/05_orthology/sorbic_gff
+                           outgroup GFF3, not read by the current pipeline; checksum rescued
+  8.0M              1  refs/proteomes/ambtri.primary.faa
+                           sequence-identical duplicate of orthofinder_input/ambtri.fa (md5 34a6fa91, 17106 seqs)
+  11M               1  refs/proteomes/anacom.primary.faa
+                           sequence-identical duplicate of orthofinder_input/anacom.fa (md5 c5b68b63, 22251 seqs)
+  12M               1  refs/proteomes/aratha.primary.faa
+                           sequence-identical duplicate of orthofinder_input/aratha.fa (md5 d5464a95, 27562 seqs)
+  12M               1  refs/proteomes/aspoff.primary.faa
+                           sequence-identical duplicate of orthofinder_input/aspoff.fa (md5 066ec226, 26460 seqs)
+  12M               1  refs/proteomes/bradis.primary.faa
+                           sequence-identical duplicate of orthofinder_input/bradis.fa (md5 878f6657, 25535 seqs)
+  12M               1  refs/proteomes/colesc.primary.faa
+                           sequence-identical duplicate of orthofinder_input/colesc.fa (md5 835d48e8, 28253 seqs)
+  13M               1  refs/proteomes/elagui.primary.faa
+                           sequence-identical duplicate of orthofinder_input/elagui.fa (md5 8debae4e, 26381 seqs)
+  14M               1  refs/proteomes/manesc.primary.faa
+                           sequence-identical duplicate of orthofinder_input/manesc.fa (md5 cd7f75b6, 29735 seqs)
+  14M               1  refs/proteomes/musacu.primary.faa
+                           sequence-identical duplicate of orthofinder_input/musacu.fa (md5 d974fe9b, 30737 seqs)
+  12M               1  refs/proteomes/nelnuc.primary.faa
+                           sequence-identical duplicate of orthofinder_input/nelnuc.fa (md5 783f4174, 24073 seqs)
+  14M               1  refs/proteomes/orysat.primary.faa
+                           sequence-identical duplicate of orthofinder_input/orysat.fa (md5 da548372, 28740 seqs)
+  14M               1  refs/proteomes/phodac.primary.faa
+                           sequence-identical duplicate of orthofinder_input/phodac.fa (md5 07a51a2f, 29239 seqs)
+  13M               1  refs/proteomes/setita.primary.faa
+                           sequence-identical duplicate of orthofinder_input/setita.fa (md5 45d96fc8, 27505 seqs)
+  13M               1  refs/proteomes/soltub.primary.faa
+                           sequence-identical duplicate of orthofinder_input/soltub.fa (md5 a8ce746d, 28404 seqs)
+  13M               1  refs/proteomes/sorbic.primary.faa
+                           sequence-identical duplicate of orthofinder_input/sorbic.fa (md5 a552e236, 28236 seqs)
+  15M               1  refs/proteomes/zeamay.primary.faa
+                           sequence-identical duplicate of orthofinder_input/zeamay.fa (md5 1cf94f05, 33461 seqs)
+  8.1M              1  refs/proteomes/zosmar.primary.faa
+                           sequence-identical duplicate of orthofinder_input/zosmar.fa (md5 85d95c66, 20436 seqs)
+  12M               1  refs/proteomes/colesc.tagged.faa
+                           sequence-identical duplicate of orthofinder_input/colesc.fa (md5 835d48e8, 28253 seqs)
+  4.0K              1  refs/proteomes/.figshare_files.json
+                           download leftover, already extracted
+----------------------------------------------------------------------------
+  reclaimable : 3.6G
+  entries     : 43
+  rescued     : 12 items into provenance/
+
+==========================================================================
+  Nothing was deleted and nothing was copied.
+
+  Read both lists. Anything on the removal list that you want kept has
+  to be said now, because --apply is not reversible.
+
+    bash scripts/cleanup_store.sh --apply
+==========================================================================

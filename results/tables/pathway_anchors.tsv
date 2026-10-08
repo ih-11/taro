@@ -1,30 +1,29 @@
-pathway	target	anchor_gene	anchor_locus	target_level	claim_kind	outparalog	in_kegg	scope_reason
-MEP	DXS family	DXS	AT4G15560	family	detection		yes	3 Arabidopsis members (DXS, DXPS1, DXPS3); no outparalog established, so no copy-number claim
-MEP	DXR family	DXR	AT5G62790	family	detection		yes	
-MEP	MCT family	MCT	AT2G02500	family	detection		yes	
-MEP	CMK family	CMK	AT2G26930	family	detection		yes	
-MEP	MDS family	MDS	AT1G63970	family	detection		yes	
-MEP	HDS family	HDS	AT5G60600	family	detection		yes	
-MEP	HDR family	HDR	AT4G34350	family	detection		yes	no outparalog established, so no copy-number claim
-MEP	IDI family	IPP1	AT5G16440	family	detection		yes	added after the KEGG check; HDR makes IPP and DMAPP, IDI interconverts them, GGPS condenses them, so the chain had a gap
-backbone	GGPPS family	GGPPS11	AT4G36810	family	copy-number	FPS1:AT5G47770;FPS2:AT4G17190	yes	promoted from detection during pre-analysis scope review: GGPP is the immediate precursor of phytoene and the family has 5 Arabidopsis members. Outparalog proposed, not established; tree A tests whether FPS is monophyletic and outside GGPS
-core	PSY family	PSY	AT5G17230	family	copy-number	SQS1:AT4G34640;SQS2:AT4G34650	yes	
-core	PDS family	PDS3	AT4G14210	family	detection		yes	
-core	Z-ISO family	Z-ISO	AT1G10830	family	detection		yes	
-core	ZDS family	ZDS	AT3G04870	family	detection		yes	
-core	CRTISO family	CRTISO	AT1G06820	family	detection		yes	
-cyclase	LCYB family	LCYB	AT3G10230	family	detection		yes	
-cyclase	LCYE family	LCYE	AT5G57030	family	detection		yes	
-xanth	CYP97A family	CYP97A3	AT1G31800	family	detection		yes	
-xanth	CYP97C family	CYP97C1	AT3G53130	family	detection		yes	
-xanth	BCH family	BCH1	AT4G25700	family	detection		yes	
-xanth	BCH family 2	BCH2	AT5G52570	family	detection		yes	
-xanth	ZEP family	ZEP	AT5G67030	family	detection		yes	
-xanth	VDE family	VDE	AT1G08550	family	detection		yes	
-xanth	NSX family	NSX	AT1G67080	family	detection		no	KEGG names this locus ABA4; it is neoxanthin synthase and the anchor is correct
-degrade	CCD1 family	CCD1	AT3G63520	family	detection		no	
-degrade	CCD4 family	CCD4	AT4G19170	family	copy-number	CCD7:AT2G44990;CCD8:AT4G32810	yes	outparalogs are the strigolactone branch: excluded from scope, included as phylogenetic reference
-degrade	NCED family	NCED3	AT3G14440	family	copy-number	CCD7:AT2G44990;CCD8:AT4G32810	yes	5 Arabidopsis members (NCED2/3/5/6/9); the measurement is family size, not NCED3 orthologs
-sink	ORANGE	OR	AT5G61670	gene	presence		no	acts on PSY protein stability, not a pathway enzyme
-sink	ORANGE-like	OR-like	AT5G06130	gene	presence		no	
-sink	fibrillin	FBN1a	AT4G04020	gene	presence		no	
+pathway	target	anchor_gene	anchor_locus	target_level	claim_kind	outparalog	in_kegg	scope_reason	family_group	family_members
+MEP	DXS family	DXS	AT4G15560	family	detection		yes	3 Arabidopsis members (DXS, DXPS1, DXPS3); no outparalog established, so no copy-number claim		AT3G21500;AT5G11380
+MEP	DXR family	DXR	AT5G62790	family	detection		yes			
+MEP	MCT family	MCT	AT2G02500	family	detection		yes			
+MEP	CMK family	CMK	AT2G26930	family	detection		yes			
+MEP	MDS family	MDS	AT1G63970	family	detection		yes			
+MEP	HDS family	HDS	AT5G60600	family	detection		yes			
+MEP	HDR family	HDR	AT4G34350	family	detection		yes	no outparalog established, so no copy-number claim		
+MEP	IDI family	IPP1	AT5G16440	family	detection		yes	added after the KEGG check; HDR makes IPP and DMAPP, IDI interconverts them, GGPS condenses them, so the chain had a gap		AT3G02780
+backbone	GGPPS family	GGPPS11	AT4G36810	family	copy-number	FPS1:AT5G47770;FPS2:AT4G17190	yes	promoted from detection during pre-analysis scope review: GGPP is the immediate precursor of phytoene and the family has 5 Arabidopsis members. Outparalog proposed, not established; tree A tests whether FPS is monophyletic and outside GGPS		AT1G49530;AT2G18640;AT2G23800;AT3G14550
+core	PSY family	PSY	AT5G17230	family	copy-number	SQS1:AT4G34640;SQS2:AT4G34650	yes			
+core	PDS family	PDS3	AT4G14210	family	detection		yes		CRT_desaturase	
+core	Z-ISO family	Z-ISO	AT1G10830	family	detection		yes			
+core	ZDS family	ZDS	AT3G04870	family	detection		yes		CRT_desaturase	
+core	CRTISO family	CRTISO	AT1G06820	family	detection		yes		CRT_desaturase	
+cyclase	LCYB family	LCYB	AT3G10230	family	detection		yes		LCY	
+cyclase	LCYE family	LCYE	AT5G57030	family	detection		yes		LCY	
+xanth	CYP97A family	CYP97A3	AT1G31800	family	detection		yes		CYP97	
+xanth	CYP97C family	CYP97C1	AT3G53130	family	detection		yes		CYP97	
+xanth	BCH family	BCH1	AT4G25700	family	detection		yes			AT5G52570
+xanth	ZEP family	ZEP	AT5G67030	family	detection		yes			
+xanth	VDE family	VDE	AT1G08550	family	detection		yes			
+xanth	NSX family	NSX	AT1G67080	family	detection		no	KEGG names this locus ABA4; it is neoxanthin synthase and the anchor is correct		
+degrade	CCD1 family	CCD1	AT3G63520	family	detection		no		CCD	
+degrade	CCD4 family	CCD4	AT4G19170	family	copy-number	CCD7:AT2G44990;CCD8:AT4G32810	yes	outparalogs are the strigolactone branch: excluded from scope, included as phylogenetic reference	CCD	
+degrade	NCED family	NCED3	AT3G14440	family	copy-number	CCD7:AT2G44990;CCD8:AT4G32810	yes	5 Arabidopsis members (NCED2/3/5/6/9); the measurement is family size, not NCED3 orthologs	CCD	AT1G30100;AT1G78390;AT3G24220;AT4G18350
+sink	ORANGE	OR	AT5G61670	gene	presence		no	acts on PSY protein stability, not a pathway enzyme		
+sink	ORANGE-like	OR-like	AT5G06130	gene	presence		no			
+sink	fibrillin	FBN1a	AT4G04020	gene	presence		no			

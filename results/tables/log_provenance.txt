@@ -1,0 +1,162 @@
+==============================================================================
+PROVENANCE RECOVERY
+==============================================================================
+
+1. assembly accessions from the NCBI GFF3 headers
+--------------------------------------------------------------------------------------------
+  anacom   Ananas comosus             GCF_001540865.1      ASM154086v1
+                                        annotation: NCBI Ananas comosus Annotation Release 100
+  aratha   Arabidopsis thaliana       no readable GFF3 in this directory
+  aspoff   Asparagus officinalis      GCF_001876935.1      Aspof.V1
+                                        annotation: NCBI Asparagus officinalis Annotation Release 100
+  bradis   Brachypodium distachyon    GCF_000005505.3      Brachypodium_distachyon_v3.0
+                                        annotation: NCBI Brachypodium distachyon Annotation Release 103
+  elagui   Elaeis guineensis          GCF_000442705.1      EG5
+                                        annotation: NCBI Elaeis guineensis Annotation Release 102
+  orysat   Oryza sativa               GCF_001433935.1      IRGSP-1.0
+                                        annotation: NCBI Oryza sativa Japonica Group Annotation Release 102
+  phodac   Phoenix dactylifera        GCF_009389715.1      palm_55x_up_171113_PBpolish2nd_filt_p
+                                        annotation: NCBI Phoenix dactylifera Annotation Release 103
+  setita   Setaria italica            GCF_000263155.2      Setaria_italica_v2.0
+                                        annotation: NCBI Setaria italica Annotation Release 103
+  sorbic   Sorghum bicolor            GCF_000003195.3      Sorghum_bicolor_NCBIv3
+                                        annotation: NCBI Sorghum bicolor Annotation Release 101
+
+  headers saved for 8 species into provenance/sources/*_gff_header.txt
+
+2. accessions written into the archived download scripts
+--------------------------------------------------------------------------------------------
+  found 17 distinct accessions:
+    GCA_001185155.1
+    GCA_008360905.1
+    GCF_000001735.4
+    GCF_000003195.3
+    GCF_000005005.2
+    GCF_000005505.3
+    GCF_000226075.1
+    GCF_000263155.2
+    GCF_000313855.2
+    GCF_000365185.1
+    GCF_000442705.1
+    GCF_000471905.2
+    GCF_001433935.1
+    GCF_001540865.1
+    GCF_001659605.2
+    GCF_001876935.1
+    GCF_009389715.1
+
+  lines that mention a download, for context:
+    /home/ha-ibnu/Code/taro/scripts/archive/00_fetch_proteomes.sh:42:inf "Sun et al. 2026, Sci Data 13:802 — Figshare 10.6084/m9.figshare.29917034"
+    /home/ha-ibnu/Code/taro/scripts/archive/00_fetch_proteomes.sh:45:FIG_API="https://api.figshare.com/v2/articles/${FIG_ID}/files"
+    /home/ha-ibnu/Code/taro/scripts/archive/00_fetch_proteomes.sh:46:FIG_JSON="$PROT/.figshare_files.json"
+    /home/ha-ibnu/Code/taro/scripts/archive/00_fetch_proteomes.sh:87:        note_manifest asm2026_pep "Colocasia esculenta" figshare "$FIG_ID" "Coloc
+    /home/ha-ibnu/Code/taro/scripts/archive/00_fetch_proteomes.sh:91:    inf "fallback: open https://doi.org/10.6084/m9.figshare.29917034 and download
+    /home/ha-ibnu/Code/taro/scripts/archive/00_fetch_proteomes.sh:92:    note_manifest asm2026_pep "Colocasia esculenta" figshare "$FIG_ID" "Colocasia
+    /home/ha-ibnu/Code/taro/scripts/archive/00_fetch_proteomes.sh:133:                ( cd "$PROT" && datasets download genome accession "$acc" \
+    /home/ha-ibnu/Code/taro/scripts/archive/01_fetch_taro.sh:3:# Sun et al. 2026, Sci Data 13:802 — doi 10.6084/m9.figshare.29917034
+    /home/ha-ibnu/Code/taro/scripts/archive/01_fetch_taro.sh:13:    url=$(curl -sS "https://api.figshare.com/v2/articles/$ART/files" \
+    /home/ha-ibnu/Code/taro/scripts/archive/03_probe_outgroups.sh:42:  PROTEINS  -> datasets download genome accession <acc> --include protein
+    /home/ha-ibnu/Code/taro/scripts/archive/04_probe_yin_set.sh:14:"GCA_008360905.1|spipol|Spirodela polyrhiza|closest relative, ~73 MYA"
+    /home/ha-ibnu/Code/taro/scripts/archive/04_probe_yin_set.sh:15:"GCA_001185155.1|zosmar|Zostera marina|monocot, seagrass"
+    /home/ha-ibnu/Code/taro/scripts/archive/04_probe_yin_set.sh:16:"GCF_001433935.1|orysat|Oryza sativa|monocot reference"
+    /home/ha-ibnu/Code/taro/scripts/archive/04_probe_yin_set.sh:17:"GCF_000005005.2|zeamay|Zea mays|monocot reference"
+    /home/ha-ibnu/Code/taro/scripts/archive/04_probe_yin_set.sh:18:"GCF_000313855.2|musacu|Musa acuminata|monocot, starchy"
+    /home/ha-ibnu/Code/taro/scripts/archive/04_probe_yin_set.sh:19:"GCF_000226075.1|soltub|Solanum tuberosum|eudicot, tuber — carotenoid literature"
+    /home/ha-ibnu/Code/taro/scripts/archive/04_probe_yin_set.sh:20:"GCF_000365185.1|nelnuc|Nelumbo nucifera|basal eudicot"
+    /home/ha-ibnu/Code/taro/scripts/archive/04_probe_yin_set.sh:21:"GCF_000471905.2|ambtri|Amborella trichopoda|basal angiosperm outgroup"
+    /home/ha-ibnu/Code/taro/scripts/archive/04_probe_yin_set.sh:22:"GCF_000001735.4|aratha|Arabidopsis thaliana|PSY/OR functional reference"
+    /home/ha-ibnu/Code/taro/scripts/archive/05_fetch_outgroups.sh:16:"GCF_000001735.4|aratha|Arabidopsis thaliana"
+    /home/ha-ibnu/Code/taro/scripts/archive/05_fetch_outgroups.sh:17:"GCF_001433935.1|orysat|Oryza sativa"
+    /home/ha-ibnu/Code/taro/scripts/archive/05_fetch_outgroups.sh:18:"GCF_000005005.2|zeamay|Zea mays"
+    /home/ha-ibnu/Code/taro/scripts/archive/05_fetch_outgroups.sh:19:"GCF_000313855.2|musacu|Musa acuminata"
+    /home/ha-ibnu/Code/taro/scripts/archive/05_fetch_outgroups.sh:20:"GCF_000226075.1|soltub|Solanum tuberosum"
+    /home/ha-ibnu/Code/taro/scripts/archive/05_fetch_outgroups.sh:21:"GCF_000365185.1|nelnuc|Nelumbo nucifera"
+    /home/ha-ibnu/Code/taro/scripts/archive/05_fetch_outgroups.sh:22:"GCF_000471905.2|ambtri|Amborella trichopoda"
+    /home/ha-ibnu/Code/taro/scripts/archive/05_fetch_outgroups.sh:23:"GCA_001185155.1|zosmar|Zostera marina"
+    /home/ha-ibnu/Code/taro/scripts/archive/05_fetch_outgroups.sh:30:  datasets download genome accession "$acc" --include protein \
+    /home/ha-ibnu/Code/taro/scripts/archive/06_rebuild_primary.sh:16:"GCF_000001735.4|aratha|27562"
+    /home/ha-ibnu/Code/taro/scripts/archive/06_rebuild_primary.sh:17:"GCF_001433935.1|orysat|28738"
+    /home/ha-ibnu/Code/taro/scripts/archive/06_rebuild_primary.sh:18:"GCF_000005005.2|zeamay|33461"
+    /home/ha-ibnu/Code/taro/scripts/archive/06_rebuild_primary.sh:19:"GCF_000313855.2|musacu|30737"
+    /home/ha-ibnu/Code/taro/scripts/archive/06_rebuild_primary.sh:20:"GCF_000226075.1|soltub|28404"
+    /home/ha-ibnu/Code/taro/scripts/archive/06_rebuild_primary.sh:21:"GCF_000365185.1|nelnuc|24073"
+    /home/ha-ibnu/Code/taro/scripts/archive/06_rebuild_primary.sh:22:"GCF_000471905.2|ambtri|17106"
+    /home/ha-ibnu/Code/taro/scripts/archive/06_rebuild_primary.sh:23:"GCA_001185155.1|zosmar|20436"
+    /home/ha-ibnu/Code/taro/scripts/archive/06_rebuild_primary.sh:30:  datasets download genome accession "$acc" --include protein,gff3 \
+    /home/ha-ibnu/Code/taro/scripts/archive/09_pathway_by_geneid.sh:24:    datasets download genome accession GCF_000001735.4 --include gff3 \
+    /home/ha-ibnu/Code/taro/scripts/archive/14_add_cassava.sh:15:ACC=GCF_001659605.2; TAG=manesc
+    /home/ha-ibnu/Code/taro/scripts/archive/14_add_cassava.sh:18:    datasets download genome accession "$ACC" --include protein,gff3 \
+
+3. the taro figshare record
+--------------------------------------------------------------------------------------------
+  copied .figshare_files.json -> provenance/sources/taro_figshare_files.json
+    Colocasia_esculenta.Genome.V1.gff3           43025199 bytes  md5 71d91de13b02c48e3ad8d3da125a623a
+    Colocasia_esculenta.Genome.V1.pep            15173727 bytes  md5 e0c016323ab4875fed10e98cf97b26f0
+    Colocasia_esculenta.Genome.V1.cds            44493374 bytes  md5 c0011198cca5ee0265bbadcdcc99c371
+    all_fun_ann.xls                              16802416 bytes  md5 bce5a606773a63b36e66c729c9968b30
+    assembly_final.ncRNA.statistics.xls          527 bytes  md5 f05d340047b7bcbf814b90ee5c1fa636
+    assembly_final.repeat.statistics.xls         991 bytes  md5 55c1e9098540622489d10de2796d60b8
+    assembly_final.ncRNA.statistics.xls          527 bytes  md5 f05d340047b7bcbf814b90ee5c1fa636
+    all.gff                                      937401452 bytes  md5 d5d5dbca2664f21d906be208cabfa78e
+
+4. rebuilt manifest
+--------------------------------------------------------------------------------------------
+  computing a sequence checksum per proteome so content drift is
+  detectable from here on. This reads all 17 files and takes a moment.
+
+  tag      species                    accession          proteins  evidence
+--------------------------------------------------------------------------------------------
+  ambtri   Amborella trichopoda       ?                     17106  unrecorded
+  anacom   Ananas comosus             GCF_001540865.1       22251  NCBI GFF3 header
+  aratha   Arabidopsis thaliana       ?                     27562  unrecorded
+  aspoff   Asparagus officinalis      GCF_001876935.1       26460  NCBI GFF3 header
+  bradis   Brachypodium distachyon    GCF_000005505.3       25535  NCBI GFF3 header
+  colesc   Colocasia esculenta        ?                     28253  figshare, see taro_figshare_files.json
+  elagui   Elaeis guineensis          GCF_000442705.1       26381  NCBI GFF3 header
+  manesc   Manihot esculenta          ?                     29735  unrecorded
+  musacu   Musa acuminata             ?                     30737  unrecorded
+  nelnuc   Nelumbo nucifera           ?                     24073  unrecorded
+  orysat   Oryza sativa               GCF_001433935.1       28740  NCBI GFF3 header
+  phodac   Phoenix dactylifera        GCF_009389715.1       29239  NCBI GFF3 header
+  setita   Setaria italica            GCF_000263155.2       27505  NCBI GFF3 header
+  soltub   Solanum tuberosum          ?                     28404  unrecorded
+  sorbic   Sorghum bicolor            GCF_000003195.3       28236  NCBI GFF3 header
+  zeamay   Zea mays                   ?                     33461  unrecorded
+  zosmar   Zostera marina             ?                     20436  unrecorded
+
+5. the Arabidopsis protein-to-gene mapping
+--------------------------------------------------------------------------------------------
+  proteins in mapping          48265
+  genes in mapping             27562
+  aratha.fa sequences          27562
+  of those, present in mapping 27562  (complete)
+
+  48,265 proteins against 27,562 genes is expected: the mapping covers
+  every Arabidopsis isoform, while aratha.fa holds one protein per gene.
+  The number that matters is the last line, whether every sequence in
+  aratha.fa can be looked up.
+
+  recorded: provenance/sources/aratha_protein2gene.provenance.txt
+
+DONE
+--------------------------------------------------------------------------------------------
+  written to: /mnt/f/RA/Downstream/Project5_TARO/provenance/sources
+    accessions_from_scripts.txt
+    anacom_gff_header.txt
+    aratha_protein2gene.provenance.txt
+    aspoff_gff_header.txt
+    bradis_gff_header.txt
+    download_lines.txt
+    elagui_gff_header.txt
+    manifest_rebuilt.tsv
+    orysat_gff_header.txt
+    phodac_gff_header.txt
+    setita_gff_header.txt
+    sorbic_gff_header.txt
+    taro_figshare_files.json
+
+  Next: copy manifest_rebuilt.tsv into the repo so it is in git, then the
+  GFF3 directories are safe to delete.
+
+    cp "/mnt/f/RA/Downstream/Project5_TARO/provenance/sources/manifest_rebuilt.tsv" "$TARO_CODE/docs/proteome_manifest.tsv"
+    bash scripts/cleanup_store.sh --apply

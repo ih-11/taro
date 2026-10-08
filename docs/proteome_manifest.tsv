@@ -1,0 +1,18 @@
+tag	species	assembly_accession	genome_build	annotation_source	n_proteins	seq_md5	evidence
+ambtri	Amborella trichopoda	NA	NA	NA	17106	34a6fa9154440282bf7d379a5b1c3911	unrecorded
+anacom	Ananas comosus	GCF_001540865.1	ASM154086v1	NCBI Ananas comosus Annotation Release 100	22251	c5b68b63b6cf39192e54a7ed40941a5e	NCBI GFF3 header
+aratha	Arabidopsis thaliana	NA	NA	NA	27562	d5464a9558df7d0277f1f0c1a755a6bb	unrecorded
+aspoff	Asparagus officinalis	GCF_001876935.1	Aspof.V1	NCBI Asparagus officinalis Annotation Release 100	26460	066ec2262b68d43c0cc303f3bf87170a	NCBI GFF3 header
+bradis	Brachypodium distachyon	GCF_000005505.3	Brachypodium_distachyon_v3.0	NCBI Brachypodium distachyon Annotation Release 103	25535	878f6657068ff6736361c80e8d12f48e	NCBI GFF3 header
+colesc	Colocasia esculenta	NA	NA	NA	28253	835d48e8dfc41138e7a91dd645608086	figshare, see taro_figshare_files.json
+elagui	Elaeis guineensis	GCF_000442705.1	EG5	NCBI Elaeis guineensis Annotation Release 102	26381	8debae4e538b7c7b5823650fb02f97b0	NCBI GFF3 header
+manesc	Manihot esculenta	NA	NA	NA	29735	cd7f75b66b734e45b2b74a1286c4c064	unrecorded
+musacu	Musa acuminata	NA	NA	NA	30737	d974fe9bb6366d76d6253dc6d6096523	unrecorded
+nelnuc	Nelumbo nucifera	NA	NA	NA	24073	783f41745f0785b64758b5938d3c42b2	unrecorded
+orysat	Oryza sativa	GCF_001433935.1	IRGSP-1.0	NCBI Oryza sativa Japonica Group Annotation Release 102	28740	da5483726641a1ab368fb3e716cee6ae	NCBI GFF3 header
+phodac	Phoenix dactylifera	GCF_009389715.1	palm_55x_up_171113_PBpolish2nd_filt_p	NCBI Phoenix dactylifera Annotation Release 103	29239	07a51a2f5c46e4532ee4f7e6b25f26f3	NCBI GFF3 header
+setita	Setaria italica	GCF_000263155.2	Setaria_italica_v2.0	NCBI Setaria italica Annotation Release 103	27505	45d96fc86cc0b585d5ccd417b6a42a10	NCBI GFF3 header
+soltub	Solanum tuberosum	NA	NA	NA	28404	a8ce746d12dd7655ab6f305cf32372f2	unrecorded
+sorbic	Sorghum bicolor	GCF_000003195.3	Sorghum_bicolor_NCBIv3	NCBI Sorghum bicolor Annotation Release 101	28236	a552e236c9a0ae646a955b0f9ed2b18e	NCBI GFF3 header
+zeamay	Zea mays	NA	NA	NA	33461	1cf94f0523299de567c250b1b8dadb79	unrecorded
+zosmar	Zostera marina	NA	NA	NA	20436	85d95c66f22058cb0221c03dfe71fd04	unrecorded

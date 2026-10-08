@@ -1,0 +1,63 @@
+==============================================================================
+DE-DUPLICATION
+==============================================================================
+
+  dropped target : BCH family 2
+  its anchor     : BCH2  AT5G52570
+  now recorded as: a family member of BCH family (anchor AT4G25700)
+
+  rows: 29 -> 28
+
+==============================================================================
+FAMILY MEMBER SETS  —  what counts as inside the family for RBH
+==============================================================================
+
+  A taro gene whose reverse best hit is any locus in this set is a
+  reciprocal best hit for the family, not only for the anchor. Without
+  this, a taro NCED whose closest Arabidopsis relative is NCED5 rather
+  than NCED3 is silently dropped.
+
+  DXS family       AT4G15560  + AT3G21500 AT5G11380
+  IDI family       AT5G16440  + AT3G02780
+  GGPPS family     AT4G36810  + AT1G49530 AT2G18640 AT2G23800 AT3G14550
+  BCH family       AT4G25700  + AT5G52570
+  NCED family      AT3G14440  + AT1G30100 AT1G78390 AT3G24220 AT4G18350
+
+  cross-check against kegg_scope_review.tsv: the 11 family-member loci all accounted for, plus BCH2 from the hand list
+
+==============================================================================
+TREE GROUPS
+==============================================================================
+
+  CCD
+    CCD1 family      detection
+    CCD4 family      copy-number
+    NCED family      copy-number
+    -> ONE tree for this group. 2 copy-number targets cannot be rooted apart.
+
+  CRT_desaturase
+    PDS family       detection
+    ZDS family       detection
+    CRTISO family    detection
+    -> no tree. All detection. Grouping recorded because the counts are not independent.
+
+  CYP97
+    CYP97A family    detection
+    CYP97C family    detection
+    -> no tree. All detection. Grouping recorded because the counts are not independent.
+
+  LCY
+    LCYB family      detection
+    LCYE family      detection
+    -> no tree. All detection. Grouping recorded because the counts are not independent.
+
+  ungrouped copy-number targets, tree design unchanged: GGPPS family, PSY family
+
+written: /home/ha-ibnu/Code/taro/results/tables/pathway_anchors.tsv   (28 targets, 2 new columns)
+
+  Nothing about which Arabidopsis loci are in scope changed. One duplicate
+  target was removed and the family structure that was implicit in the 03_
+  output is now written down.
+
+next:  bash scripts/03_homology.sh 2>&1 | tee results/tables/log_03_homology.txt
+
